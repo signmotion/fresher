@@ -1,0 +1,1 @@
+The standardized, easy-to-use and [well-tested](https://github.com/{{owner_id}}/{{project_id}}/tree/master/test) set for generate identifiers: globally unique, readable, time-dependency, transitive, incremental, decremental IDs.

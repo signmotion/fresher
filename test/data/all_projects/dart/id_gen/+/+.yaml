@@ -1,0 +1,3 @@
+variables:
+  project_id: id_gen
+  project_title: IdGen

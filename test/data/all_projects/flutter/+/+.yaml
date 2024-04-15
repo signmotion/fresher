@@ -1,0 +1,5 @@
+variables:
+  workflow_file_name: flutter-ci.yml
+
+  # example for replace value
+  publisher_id: someone.flutter.publisher

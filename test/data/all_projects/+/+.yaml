@@ -1,0 +1,14 @@
+# default: overwrite
+file_conflict_resolutions:
+  - name: CHANGELOG.md
+    resolution: doNotOverwrite
+
+# You can add any names you want and use them in your files.
+variables:
+  current_year: 2024
+
+  owner_full_name: Andrii Syrokomskyi
+  owner_id: signmotion
+  owner_website: https://syrokomskyi.com
+
+  publisher_id: syrokomskyi.com

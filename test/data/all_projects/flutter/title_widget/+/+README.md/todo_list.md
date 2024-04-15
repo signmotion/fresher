@@ -1,0 +1,2 @@
+- How to construct own `Clipper`s and `Effect`s.
+- Add an option for fully customizable gradient.
