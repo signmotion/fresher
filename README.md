@@ -1,30 +1,10 @@
 # Fresher
 
-![Cover - Fresher](https://raw.githubusercontent.com/signmotion/fresher/master/images/cover.webp)
-
-[![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Pub Package](https://img.shields.io/pub/v/fresher.svg?logo=dart&logoColor=00b9fc&color=blue)](https://pub.dartlang.org/packages/fresher)
-[![Code Size](https://img.shields.io/github/languages/code-size/signmotion/fresher?logo=github&logoColor=white)](https://github.com/signmotion/fresher)
-[![Publisher](https://img.shields.io/pub/publisher/fresher)](https://pub.dev/publishers/syrokomskyi.com)
-
-![SDK version](https://badgen.net/pub/sdk-version/fresher)
-![Supported platforms](https://badgen.net/pub/flutter-platform/fresher)
-![Supported SDKs](https://badgen.net/pub/dart-platform/fresher)
-
-[![Build Status](https://img.shields.io/github/actions/workflow/status/signmotion/fresher/dart-ci.yml?logo=github-actions&logoColor=white)](https://github.com/signmotion/fresher/actions)
-[![Pull Requests](https://img.shields.io/github/issues-pr/signmotion/fresher?logo=github&logoColor=white)](https://github.com/signmotion/fresher/pulls)
-[![Issues](https://img.shields.io/github/issues/signmotion/fresher?logo=github&logoColor=white)](https://github.com/signmotion/fresher/issues)
-[![Pub Score](https://img.shields.io/pub/points/fresher?logo=dart&logoColor=00b9fc)](https://pub.dev/packages/fresher/score)
-
 A tool to help keep your projects up to date.
 The easy-to-use and [well-tested](https://github.com/signmotion/fresher/tree/master/test).
 Feel free to use it for your awesome projects.
 
-[![CodeFactor](https://codefactor.io/repository/github/signmotion/fresher/badge)](https://codefactor.io/repository/github/signmotion/fresher)
-
 Share some ❤️ and star repo to support the project.
-
-_If you write an article about **Fresher** or any of [these](https://pub.dev/packages?q=publisher%3Asyrokomskyi.com&sort=updated) packages, let me know and I'll post the URL of the article in the **README** 🤝_
 
 ## 🚀Usage
 
