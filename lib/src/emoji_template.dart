@@ -1,7 +1,8 @@
 part of '../fresher.dart';
 
 /// The [Template] from [mustache_template](https://pub.dev/packages/mustache_template).
-/// Reason this class: no maintainability. See [PR](https://github.com/jonahwilliams/mustache/pull/6/files).
+/// Reason this class: no maintainability. See [PR](https://github.com/jonahwilliams/mustache/pull/6).
+/// TODO(sign): Remove after upgrade package with this [PR](https://github.com/jonahwilliams/mustache/pull/6).
 class EmojiTemplate {
   const EmojiTemplate(
     this.source, {
