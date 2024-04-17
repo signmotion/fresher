@@ -19,6 +19,12 @@ Future<void> run(List<String> args) async {
   print('Argumets: ${args.sjsonInLineWithoutWrappers}');
   final parser = ArgParser();
 
+  parser.addOption(
+    'projects',
+    help: 'Project IDs to update.'
+        ' If empty, all known projects will be updated.',
+  );
+
   late final ArgResults results;
   try {
     results = parser.parse(args);
@@ -30,7 +36,9 @@ Future<void> run(List<String> args) async {
     printUsageAndExit(parser);
   }
 
-  final o = ToolsOptions()..sourceFolder = results.rest.first;
+  final o = ToolsOptions()
+    ..sourceFolder = results.rest.first
+    ..projectIds = (results['projects'] as String?)?.split(',') ?? [];
 
   final tools = Tools(o);
   tools.freshAll();

@@ -1,18 +1,25 @@
 part of 'bloc.dart';
 
 class FreshAll extends Runner {
-  FreshAll({required this.sourceDirectory}) {
+  FreshAll({
+    required this.sourceDirectory,
+    this.filter = const [],
+  }) {
     assert(
       sourceDirectory.existsSync(),
       'A source path `$sourcePath` should be exists.',
     );
   }
 
+  @override
+  String get name => 'Fresh All';
+
   final Directory sourceDirectory;
   String get sourcePath => sourceDirectory.path;
 
-  @override
-  String get name => 'Fresh All';
+  /// Project IDs to update.
+  /// If empty, then will update all projects.
+  final List<String> filter;
 
   /// Reads and constructs files from [sourcePath] and copies its to
   /// the projects folders.
@@ -37,7 +44,11 @@ class FreshAll extends Runner {
     nextStep();
     {
       for (final project in bloc.state.projects) {
-        await _freshProject(project, bloc);
+        if (filter.isEmpty || filter.contains(project.id)) {
+          await _freshProject(project, bloc);
+        } else {
+          printi('\nProject `${project.id}` skipped by filter.');
+        }
       }
     }
 

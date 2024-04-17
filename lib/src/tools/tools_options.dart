@@ -6,4 +6,6 @@ class ToolsOptions {
 
   String get sourcePath => p.join(sourcePathPrefix, sourceFolder);
   Directory get sourceDirectory => Directory(sourcePath);
+
+  List<String> projectIds = [];
 }
