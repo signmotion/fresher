@@ -236,6 +236,7 @@ void main() {
         '.owner_website',
         '.project_id',
         '.project_title',
+        '.project_title_for_readme',
         '.publisher_id',
         '.workflow_file_name',
         'readme.created_with',
@@ -259,6 +260,8 @@ void main() {
       r,
       containsAll([
         // all from the test `variables for sdk`
+        'IDs Generators',
+        'IdGen',
         '2024',
         'Andrii Syrokomskyi',
         'signmotion',

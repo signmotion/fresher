@@ -1,3 +1,4 @@
 variables:
   project_id: id_gen
   project_title: IdGen
+  project_title_for_readme: IDs Generators
