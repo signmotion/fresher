@@ -26,8 +26,24 @@ class FreshFile extends Equatable implements Comparable<FreshFile> {
 
   /// A templated [rawValue].
   /// All `{{...}}` will replace to values from [variables].
-  String value(Iterable<FreshVariable> variables) => EmojiTemplate(rawValue)
-      .renderString(FreshVariable.empty().mapped(variables));
+  String value(Iterable<FreshVariable> variables) {
+    final vars = FreshVariable.empty().mapped(variables);
+    var r = rawValue;
+    var prev = '';
+    for (;;) {
+      r = EmojiTemplate(r).renderString(vars);
+      if (r != prev) {
+        prev = r;
+        continue;
+      }
+      break;
+    }
+
+    return r;
+  }
+
+  Uint8List valueAsBytes(Iterable<FreshVariable> variables) =>
+      Uint8List.fromList(utf8.encode(value(variables)));
 
   /// A path into the project.
   String pathToFileForUpdate(String prefix, String projectId) =>

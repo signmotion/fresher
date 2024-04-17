@@ -334,6 +334,7 @@ void main() {
 
       // raw value
       final raw = file.rawValue;
+      expect(raw, contains('{{project_id}}'));
       expect(raw, contains('{{project_title}}'));
       expect(raw, contains('{{created_with}}'));
 
@@ -341,6 +342,9 @@ void main() {
       final variables = f.projectVariables(sdk, projectId).toList();
       final text = file.value(variables);
       WFile('_output/2.md').writeAsText(text);
+      expect(text, isNot(contains('{{project_id}}')));
+      expect(text, isNot(contains('{{project_title}}')));
+      expect(text, isNot(contains('{{project_with}}')));
 
       // title
       {

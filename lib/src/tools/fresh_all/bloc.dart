@@ -100,9 +100,10 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
       final to = file.pathToFileForUpdate('..', project.id);
       event.output('$from\n  -> $to');
 
-      final prevContent = WFile(to).readAsBytes();
+      final fileTo = WFile(to);
+      final prevContent = fileTo.readAsBytes();
       final content =
-          file.binary ? file.rawValueAsBytes : file.value(variables);
+          file.binary ? file.rawValueAsBytes : file.valueAsBytes(variables);
 
       late final UpdatedStatus status;
       if (prevContent == null) {
@@ -111,6 +112,10 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
         status = UpdatedStatus.unchanged;
       } else {
         status = UpdatedStatus.overwritten;
+      }
+
+      if ([UpdatedStatus.added, UpdatedStatus.overwritten].contains(status)) {
+        fileTo.writeAsBytes(content);
       }
 
       final l = [
