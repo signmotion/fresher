@@ -1,8 +1,8 @@
 part of '../fresher.dart';
 
 /// The project for refresh.
-class Project extends Equatable implements Comparable<Project> {
-  const Project({
+class FreshProject extends Equatable implements Comparable<FreshProject> {
+  const FreshProject({
     required this.sdk,
     required this.id,
   })  : assert(sdk.length > 0),
@@ -18,7 +18,7 @@ class Project extends Equatable implements Comparable<Project> {
   List<Object?> get props => [sdk, id];
 
   @override
-  int compareTo(Project other) => '$this'.compareTo('$other');
+  int compareTo(FreshProject other) => '$this'.compareTo('$other');
 
   @override
   String toString() => '$sdk:$id';

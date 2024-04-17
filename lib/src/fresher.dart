@@ -123,13 +123,13 @@ class Fresher {
         ..sort();
 
   /// A set of all projects from all [sdks].
-  Iterable<Project> get projects => sdks
+  Iterable<FreshProject> get projects => sdks
       .map((sdk) => p.join(source, sdk))
       .map((sourceSdk) => Directory(sourceSdk)
           .listSync()
           .whereType<Directory>()
           .where((e) => !e.isFresherDirectory && !e.isServiceEntity)
-          .map((e) => Project(
+          .map((e) => FreshProject(
                 sdk: p.basename(e.parent.path),
                 id: p.basename(e.path),
               )))
