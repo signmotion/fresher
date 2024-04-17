@@ -1,4 +1,4 @@
-part of '../../tools_fresher.dart';
+part of 'bloc.dart';
 
 class FreshAll extends Runner {
   FreshAll({required this.sourceDirectory}) {
@@ -25,8 +25,9 @@ class FreshAll extends Runner {
     {
       printis('Receiving all maintained projects from `$sourcePath`');
 
-      bloc.add(const GettingFreshProjectsEvent());
-      await bloc.completed;
+      const event = GettingFreshProjectsEvent();
+      bloc.add(event);
+      await bloc.completed('$event');
 
       final all = bloc.state.projects.map((p) => '$p').toList();
       pr('Maintained projects: $all');
@@ -56,17 +57,13 @@ class FreshAll extends Runner {
     FreshProject project,
     FreshAllBloc bloc,
   ) async {
-    printis('Freshing the project `$project`');
+    pr('\nFreshing the project `$project`...');
     increaseCurrentIndent();
 
     bloc.add(FreshingProjectEvent(project: project));
-    await bloc.completed;
-
-    for (final fs in bloc.state.filesWithStatus) {
-      printi('$fs', finalizer: false);
-    }
+    await bloc.completed(project.id);
 
     decreaseCurrentIndent();
-    printi('Freshed the project `$project`');
+    pr('Freshed the project `$project`.');
   }
 }

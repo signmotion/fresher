@@ -16,7 +16,7 @@ abstract class Runner {
       pr('\n$currentIndent$step) $s'
           '${!finalizer || s.endsWith('.') ? '' : '...'}');
 
-  void printi(String s, {bool finalizer = true}) => pr('$currentIndent\t$s'
+  void printi(String s, {bool finalizer = true}) => pr('$currentIndent$s'
       '${!finalizer || s.endsWith('.') ? '' : '.'}');
 
   int step = 0;

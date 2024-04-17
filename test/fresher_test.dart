@@ -331,7 +331,7 @@ void main() {
 
       // raw value
       final raw = file.rawValue;
-      expect(raw, contains('{{title}}'));
+      expect(raw, contains('{{project_title}}'));
       expect(raw, contains('{{created_with}}'));
 
       // templated value

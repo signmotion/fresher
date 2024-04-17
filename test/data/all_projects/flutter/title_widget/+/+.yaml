@@ -1,4 +1,4 @@
 variables:
-  projectId: title_widget
+  project_id: title_widget
   project_title: TitleWidget
   project_titleForReadme: Title Widget

@@ -14,14 +14,24 @@ class FreshFile extends Equatable implements Comparable<FreshFile> {
   /// A file from [Fresher] folder.
   final WFile file;
 
-  /// A raw value.
-  /// See [value].
+  bool get binary => file.binary();
+
+  /// A raw value as [String].
+  /// See [value], [rawValueAsBytes].
   String get rawValue => file.readAsText()!;
+
+  /// A raw value as [String].
+  /// See [rawValue].
+  Uint8List get rawValueAsBytes => file.readAsBytes()!;
 
   /// A templated [rawValue].
   /// All `{{...}}` will replace to values from [variables].
   String value(Iterable<FreshVariable> variables) => EmojiTemplate(rawValue)
       .renderString(FreshVariable.empty().mapped(variables));
+
+  /// A path into the project.
+  String pathToFileForUpdate(String prefix, String projectId) =>
+      p.join(prefix, projectId, key).npath;
 
   @override
   List<Object?> get props => [key];

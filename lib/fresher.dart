@@ -1,6 +1,7 @@
 library;
 
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
 import 'package:emoji_regex/emoji_regex.dart';

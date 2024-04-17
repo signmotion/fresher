@@ -4,13 +4,15 @@ class FreshAllState extends AState {
   const FreshAllState({
     required super.source,
     // services
-    super.completed = false,
+    super.completed = const {},
     // own
     this.files = const [],
     this.projects = const [],
     this.sdks = const [],
     this.variables = const [],
     this.filesWithStatus = const [],
+    this.error,
+    this.stackTrace,
   });
 
   final Iterable<FreshFile> files;
@@ -20,15 +22,20 @@ class FreshAllState extends AState {
 
   final List<FileWithStatus> filesWithStatus;
 
+  final Object? error;
+  final StackTrace? stackTrace;
+
   FreshAllState copyWith({
     Directory? source,
-    bool? completed,
+    Map<String, bool>? completed,
     // own
     Iterable<FreshFile>? files,
     Iterable<FreshProject>? projects,
     Iterable<String>? sdks,
     Iterable<FreshVariable>? variables,
     List<FileWithStatus>? filesWithStatus,
+    Object? error,
+    StackTrace? stackTrace,
   }) =>
       FreshAllState(
         source: source ?? this.source,
@@ -38,6 +45,8 @@ class FreshAllState extends AState {
         sdks: sdks ?? this.sdks,
         variables: variables ?? this.variables,
         filesWithStatus: filesWithStatus ?? this.filesWithStatus,
+        error: error ?? this.error,
+        stackTrace: stackTrace ?? this.stackTrace,
       );
 
   @override
@@ -48,5 +57,7 @@ class FreshAllState extends AState {
         sdks,
         variables,
         filesWithStatus,
+        error,
+        stackTrace,
       ];
 }

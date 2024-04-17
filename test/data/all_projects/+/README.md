@@ -1,6 +1,6 @@
-# {{title}}
+# {{project_title}}
 
-![Cover - {{title}}](https://raw.githubusercontent.com/{{owner_id}}/{{project_id}}/master/images/cover.webp)
+![Cover - {{project_title}}](https://raw.githubusercontent.com/{{owner_id}}/{{project_id}}/master/images/cover.webp)
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Pub Package](https://img.shields.io/pub/v/{{project_id}}.svg?logo=dart&logoColor=00b9fc&color=blue)](https://pub.dartlang.org/packages/{{project_id}})
