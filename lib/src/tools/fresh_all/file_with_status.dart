@@ -11,17 +11,16 @@ class FileWithStatus implements Comparable<FileWithStatus> {
 
   /// ! Group by [status.priority].
   @override
-  int compareTo(FileWithStatus other) => '${status.priority} $file'
-      .compareTo('${other.status.priority} ${other.file}');
+  int compareTo(FileWithStatus other) => '$this'.compareTo('$other');
 
   @override
-  String toString() => '${status.name}\t$file';
+  String toString() => '$status\t$file';
 }
 
 enum UpdatedStatus {
   undspecified(100),
-  added(2),
-  modified(1),
+  added(1),
+  modified(2),
   skipped(3),
   unchanged(4);
 
@@ -39,4 +38,7 @@ enum UpdatedStatus {
       };
 
   String get spacedName => ' $name ';
+
+  @override
+  String toString() => '$priority $name';
 }
