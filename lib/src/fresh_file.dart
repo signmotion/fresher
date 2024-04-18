@@ -29,14 +29,8 @@ class FreshFile extends Equatable implements Comparable<FreshFile> {
   String value(Iterable<FreshVariable> variables) {
     final vars = FreshVariable.empty().mapped(variables);
     var r = rawValue;
-    var prev = '';
-    for (;;) {
-      r = EmojiTemplate(r).renderString(vars);
-      if (r != prev) {
-        prev = r;
-        continue;
-      }
-      break;
+    for (var prev = ''; r != prev; r = EmojiTemplate(r).renderString(vars)) {
+      prev = r;
     }
 
     return r;
