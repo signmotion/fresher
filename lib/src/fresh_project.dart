@@ -14,12 +14,16 @@ class FreshProject extends Equatable implements Comparable<FreshProject> {
   /// An ID (same folder name).
   final String id;
 
+  /// Compounded [sdk] and [id].
+  String get key => '$sdk:$id';
+
   @override
   List<Object?> get props => [sdk, id];
 
+  /// ! Compare by [key].
   @override
-  int compareTo(FreshProject other) => '$this'.compareTo('$other');
+  int compareTo(FreshProject other) => key.compareTo(other.key);
 
   @override
-  String toString() => '$sdk:$id';
+  String toString() => key;
 }
