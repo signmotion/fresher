@@ -24,6 +24,7 @@ dependencies:
   args: ^2.5.0
   bloc: ^8.1.2
   bloc_concurrency: ^0.2.2
+  cli_table: ^1.0.2
   collection: ">=1.18.0 <3.0.0"
   dartx: ^1.2.0
   dcli: ">=3.4.0 <4.0.0"

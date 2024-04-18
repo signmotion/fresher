@@ -41,7 +41,8 @@ Future<void> run(List<String> args) async {
     ..projectIds = (results['projects'] as String?)?.split(',') ?? [];
 
   final tools = Tools(o);
-  tools.freshAll();
+  final r = await tools.freshAll();
+  print('$r');
 }
 
 void printUsageAndExit(ArgParser parser) {
