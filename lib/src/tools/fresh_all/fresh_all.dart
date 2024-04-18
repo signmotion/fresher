@@ -30,7 +30,7 @@ class FreshAll extends Runner {
     // 1) Receiving all maintained projects.
     firstStep();
     {
-      printis('Receiving all maintained projects from `$sourcePath`');
+      printis('Receiving all maintained projects');
 
       const event = GettingFreshProjectsEvent();
       bloc.add(event);
