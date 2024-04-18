@@ -48,7 +48,7 @@ class FreshFile extends Equatable implements Comparable<FreshFile> {
 
   /// ! Compare by [key].
   @override
-  int compareTo(FreshFile other) => '$this'.compareTo('$other');
+  int compareTo(FreshFile other) => key.compareTo(other.key);
 
   @override
   String toString() => '$key : ${file.npath}';
