@@ -16,7 +16,7 @@ class FileWithStatus {
 enum UpdatedStatus {
   undspecified,
   added,
-  overwritten,
+  modified,
   skipped,
   unchanged,
 }
