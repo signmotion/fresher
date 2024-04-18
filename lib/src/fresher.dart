@@ -49,7 +49,7 @@ class Fresher {
   /// Ignores empty [Directory]s.
   Iterable<FreshFile> rootFiles() {
     final path = p.join(source, fresherPrefix);
-    return allFiles(path).toList()..sort();
+    return allFiles(path, rootFileConflictResolutions()).toList()..sort();
   }
 
   /// A set of all variables from [source], folder [freshPrefix],
@@ -65,7 +65,7 @@ class Fresher {
   Iterable<FreshFile> sdkFiles(String sdk) {
     final path = p.join(source, sdk, fresherPrefix);
     return {
-      ...allFiles(path),
+      ...allFiles(path, sdkFileConflictResolutions(sdk)),
       ...rootFiles(),
     }.toList()
       ..sort();
@@ -88,11 +88,39 @@ class Fresher {
   Iterable<FreshFile> projectFiles(String sdk, String projectId) {
     final path = p.join(source, sdk, projectId, fresherPrefix);
     return {
-      ...allFiles(path),
+      ...allFiles(path, projectFileConflictResolutions(sdk, projectId)),
       ...sdkFiles(sdk),
     }.toList()
       ..sort();
   }
+
+  /// A set of all [FileConflictResolution]s from [source], folder [freshPrefix].
+  Map<String, FileConflictResolution> rootFileConflictResolutions() =>
+      allFileConflictResolution(
+        p.join(source, fresherPrefix, fresherFile),
+      );
+
+  /// A set of all [FileConflictResolution]s from [source]/[sdk], folder [freshPrefix].
+  Map<String, FileConflictResolution> sdkFileConflictResolutions(String sdk) =>
+      {
+        ...allFileConflictResolution(
+          p.join(source, sdk, fresherPrefix, fresherFile),
+        ),
+        ...rootFileConflictResolutions(),
+      };
+
+  /// A set of all [FileConflictResolution]s from [source]/[sdk]/[projectId],
+  /// folder [freshPrefix].
+  Map<String, FileConflictResolution> projectFileConflictResolutions(
+    String sdk,
+    String projectId,
+  ) =>
+      {
+        ...allFileConflictResolution(
+          p.join(source, sdk, projectId, fresherPrefix, fresherFile),
+        ),
+        ...sdkFileConflictResolutions(sdk),
+      };
 
   /// A set of all variables from [source]/[sdk]/[projectId], folder [freshPrefix].
   /// Ignores empty [Directory]s.
@@ -146,15 +174,61 @@ class Fresher {
       .toList()
     ..sort();
 
+  /// A resolution by [key].
+  /// Default: [FileConflictResolution.overwrite].
+  static FileConflictResolution fileConflictResolution(
+    String key,
+    Map<String, FileConflictResolution> resolutions,
+  ) =>
+      resolutions[key] ?? FileConflictResolution.overwrite;
+
   /// All [FreshFile]s by [path].
-  Iterable<FreshFile> allFiles(String path) => Directory(path)
-      .listSync(recursive: true)
-      .whereType<File>()
-      .where((e) => !e.containsFresherEntity(path))
-      .map((file) => FreshFile(
-            key: file.fresherKeyEntity(path),
-            file: WFile(file),
-          ));
+  Iterable<FreshFile> allFiles(
+    String path,
+    Map<String, FileConflictResolution> resolutions,
+  ) =>
+      Directory(path)
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where((e) => !e.containsFresherEntity(path))
+          .map(
+            (file) => FreshFile(
+              key: file.fresherKeyEntity(path),
+              file: WFile(file),
+              fileConflictResolution: fileConflictResolution(
+                file.fresherKeyEntity(path),
+                resolutions,
+              ),
+            ),
+          );
+
+  /// All [FreshVariable]s from [fresherFile] by [path].
+  Map<String, FileConflictResolution> allFileConflictResolution(String path) {
+    final w = WFile(path);
+    if (!w.existsFile()) {
+      return const {};
+    }
+
+    final s = w.readAsText()!;
+    final d = loadYaml(s) as YamlMap;
+    final resolutions = d['file_conflict_resolutions'] as YamlList? ?? [];
+
+    final map = <String, FileConflictResolution>{};
+    for (final r in resolutions) {
+      final o = switch (r) {
+        {
+          'name': String? name,
+          'resolution': String? resolution,
+        } =>
+          (name ?? '', resolution ?? ''),
+        _ => throw ArgumentError(r, 'resolutions'),
+      };
+      map[o.$1] = FileConflictResolution.values
+          .findByName(o.$2, defaults: FileConflictResolution.unspecified)!;
+    }
+
+    return map;
+  }
 
   /// All [FreshVariable]s from [fresherFile] by [path].
   Iterable<FreshVariable> allFileVariables(

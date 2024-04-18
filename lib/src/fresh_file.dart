@@ -5,6 +5,7 @@ class FreshFile extends Equatable implements Comparable<FreshFile> {
   const FreshFile({
     required this.key,
     required this.file,
+    required this.fileConflictResolution,
   }) : assert(key.length > 0);
 
   /// A path to file into the project.
@@ -13,6 +14,8 @@ class FreshFile extends Equatable implements Comparable<FreshFile> {
 
   /// A file from [Fresher] folder.
   final WFile file;
+
+  final FileConflictResolution fileConflictResolution;
 
   bool get binary => file.binary();
 

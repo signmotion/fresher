@@ -13,12 +13,14 @@ import 'package:recase/recase.dart';
 import 'package:wfile/wfile.dart';
 import 'package:yaml/yaml.dart';
 
+part 'src/extensions/enum.dart';
 part 'src/extensions/file_system_entity.dart';
 part 'src/extensions/pause.dart';
 part 'src/extensions/string.dart';
 
 part 'src/constants.dart';
 part 'src/emoji_template.dart';
+part 'src/file_conflict_resolution.dart';
 part 'src/fresh_file.dart';
 part 'src/fresh_variable.dart';
 part 'src/fresher.dart';

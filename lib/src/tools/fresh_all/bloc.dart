@@ -102,6 +102,10 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
       final from = file.file.npath;
       final to = file.pathToFileForUpdate('..', project.id);
       event.output('$from\n  -> $to');
+      if (file.fileConflictResolution != FileConflictResolution.overwrite) {
+        event.output(
+            '  with conflict resolution ${file.fileConflictResolution.name}');
+      }
 
       final fileTo = WFile(to);
       final prevContent = fileTo.readAsBytes();
@@ -111,6 +115,9 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
       late final UpdatedStatus status;
       if (prevContent == null) {
         status = UpdatedStatus.added;
+      } else if (file.fileConflictResolution ==
+          FileConflictResolution.doNotOverwrite) {
+        status = UpdatedStatus.skipped;
       } else if (content.toList().equals(prevContent.toList())) {
         status = UpdatedStatus.unchanged;
       } else {

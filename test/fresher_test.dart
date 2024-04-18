@@ -406,4 +406,19 @@ void main() {
       }
     });
   });
+
+  group('file conflict resolutions', () {
+    const sdk = 'dart';
+    const projectId = 'id_gen';
+
+    test('resolutions for project', () {
+      final r = f.projectFileConflictResolutions(sdk, projectId);
+      expect(
+        r,
+        equals({
+          'CHANGELOG.md': FileConflictResolution.doNotOverwrite,
+        }),
+      );
+    });
+  });
 }
