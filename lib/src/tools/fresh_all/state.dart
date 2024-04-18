@@ -10,7 +10,7 @@ class FreshAllState extends AState {
     this.projects = const [],
     this.sdks = const [],
     this.variables = const [],
-    this.filesWithStatus = const [],
+    this.filesWithStatus = const {},
     this.error,
     this.stackTrace,
   });
@@ -20,7 +20,8 @@ class FreshAllState extends AState {
   final Iterable<String> sdks;
   final Iterable<FreshVariable> variables;
 
-  final List<FileWithStatus> filesWithStatus;
+  /// Key is [FreshProject.key].
+  final Map<String, List<FileWithStatus>> filesWithStatus;
 
   final Object? error;
   final StackTrace? stackTrace;
@@ -33,7 +34,7 @@ class FreshAllState extends AState {
     Iterable<FreshProject>? projects,
     Iterable<String>? sdks,
     Iterable<FreshVariable>? variables,
-    List<FileWithStatus>? filesWithStatus,
+    Map<String, List<FileWithStatus>>? filesWithStatus,
     Object? error,
     StackTrace? stackTrace,
   }) =>

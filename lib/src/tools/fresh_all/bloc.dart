@@ -44,7 +44,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     GettingFreshFilesEvent event,
     Emitter<FreshAllState> emit,
   ) async {
-    final key = event.project.id;
+    final key = event.project.key;
     unsetCompleted(key);
 
     emit(state.copyWith(
@@ -73,7 +73,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     GettingFreshVariablesEvent event,
     Emitter<FreshAllState> emit,
   ) async {
-    final key = event.project.id;
+    final key = event.project.key;
     unsetCompleted(key);
 
     emit(state.copyWith(
@@ -91,7 +91,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     Emitter<FreshAllState> emit,
   ) async {
     final project = event.project;
-    final key = project.id;
+    final key = project.key;
     unsetCompleted(key);
 
     final files = fresher.projectFiles(project.sdk, project.id);
@@ -120,10 +120,11 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
         fileTo.writeAsBytes(content);
       }
 
-      final l = [
+      final prevs = state.filesWithStatus[key] ?? [];
+      final l = <String, List<FileWithStatus>>{
         ...state.filesWithStatus,
-        FileWithStatus(file: file, status: status),
-      ];
+        key: [...prevs, FileWithStatus(file: file, status: status)],
+      };
       emit(state.copyWith(filesWithStatus: l));
 
       event.output('  ${status.name}');

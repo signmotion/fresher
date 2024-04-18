@@ -33,8 +33,9 @@ class FreshAll extends Runner {
       printis('Receiving all maintained projects');
 
       const event = GettingFreshProjectsEvent();
+      final key = '$event';
       bloc.add(event);
-      await bloc.completed('$event');
+      await bloc.completed(key);
 
       final all = bloc.state.projects.map((p) => '$p').toList();
       pr('Maintained projects: $all');
@@ -72,7 +73,7 @@ class FreshAll extends Runner {
     increaseCurrentIndent();
 
     bloc.add(FreshingProjectEvent(project: project));
-    await bloc.completed(project.id);
+    await bloc.completed(project.key);
 
     decreaseCurrentIndent();
     pr('Freshed the project `$project`.');
