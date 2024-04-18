@@ -292,7 +292,10 @@ void main() {
 
       // templated value
       final text = variable.value(variables);
-      WFile('_output/1.md').writeAsText(text);
+      WFile('_output/welcome_section.md').writeAsText(text);
+      expect(text, isNot(contains('{{owner_id}}')));
+      expect(text, isNot(contains('{{project_id}}')));
+      expect(text, isNot(contains('{{project_title}}')));
 
       // owner_id
       {
@@ -341,7 +344,7 @@ void main() {
       // templated value
       final variables = f.projectVariables(sdk, projectId).toList();
       final text = file.value(variables);
-      WFile('_output/2.md').writeAsText(text);
+      WFile('_output/README.md').writeAsText(text);
       expect(text, isNot(contains('{{project_id}}')));
       expect(text, isNot(contains('{{project_title}}')));
       expect(text, isNot(contains('{{project_with}}')));
@@ -359,6 +362,44 @@ void main() {
       {
         final v = variables
             .firstWhereOrNull((v) => v.hasName('created_with'))!
+            .value(variables);
+        expect(v, isNotEmpty);
+        expect(text, contains(v));
+      }
+    });
+
+    test('LICENSE', () {
+      const name = 'LICENSE';
+      final files = f.projectFiles(sdk, projectId).toList();
+      final file = files.firstWhereOrNull((v) => v.key == name)!;
+
+      // raw value
+      final raw = file.rawValue;
+      expect(raw, contains('{{current_year}}'));
+      expect(raw, contains('{{owner_full_name}}'));
+      expect(raw, contains('{{owner_website}}'));
+
+      // templated value
+      final variables = f.projectVariables(sdk, projectId).toList();
+      final text = file.value(variables);
+      WFile('_output/LICENSE').writeAsText(text);
+      expect(text, isNot(contains('{{current_year}}')));
+      expect(text, isNot(contains('{{owner_full_name}}')));
+      expect(text, isNot(contains('{{owner_website}}')));
+
+      // current_year
+      {
+        final v = variables
+            .firstWhereOrNull((v) => v.hasName('current_year'))!
+            .value(variables);
+        expect(v, isNotEmpty);
+        expect(text, contains(v));
+      }
+
+      // owner_full_name
+      {
+        final v = variables
+            .firstWhereOrNull((v) => v.hasName('owner_full_name'))!
             .value(variables);
         expect(v, isNotEmpty);
         expect(text, contains(v));
