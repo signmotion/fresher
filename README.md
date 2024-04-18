@@ -48,6 +48,7 @@ And here is a curated list of how you can help:
 
 Once you start using the **Fresher**, it will become easy to choose the functionality to contribute. But if you already get everything you need from this package but have some free time, let me write here what I have planned:
 
+- Result output. Group by status and order by file path.
 - Use a [fixed with emojis](https://github.com/jonahwilliams/mustache/pull/6/files) mustache
   instead `EmojiTemplate`.
 
