@@ -15,7 +15,10 @@ class FreshAllResultRunner extends ResultRunner {
 
     for (final e in state.filesWithStatus.entries) {
       r += '\n${e.key}\n';
-      final table = Table(header: ['Status'.whiteBright, 'File'.whiteBright]);
+      final table = Table(
+        header: ['Status'.whiteBright, 'File'.whiteBright],
+        columnAlignment: [HorizontalAlign.right, HorizontalAlign.left],
+      );
       for (final fs in e.value) {
         table.add([fs.status.coloredName, fs.file.key]);
       }
