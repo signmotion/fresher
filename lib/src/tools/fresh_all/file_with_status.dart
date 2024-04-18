@@ -14,9 +14,20 @@ class FileWithStatus {
 }
 
 enum UpdatedStatus {
-  undspecified,
-  added,
-  modified,
-  skipped,
-  unchanged,
+  undspecified(),
+  added(),
+  modified(),
+  skipped(),
+  unchanged();
+
+  const UpdatedStatus();
+
+  String get coloredName => switch (name) {
+        'unspecified' => name.white.onRed,
+        'added' => name.white.onGreen,
+        'modified' => name.white.onYellow,
+        'skipped' => name.white.onGray,
+        'unchanged' => name.gray,
+        _ => name.yellowBright,
+      };
 }

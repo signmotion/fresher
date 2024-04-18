@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:chalkdart/chalkstrings.dart';
 import 'package:cli_table/cli_table.dart';
 import 'package:collection/collection.dart';
 import 'package:wfile/wfile.dart';
