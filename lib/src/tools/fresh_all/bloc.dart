@@ -115,7 +115,8 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
         status = UpdatedStatus.modified;
       }
 
-      if ([UpdatedStatus.added, UpdatedStatus.modified].contains(status)) {
+      const writes = [UpdatedStatus.added, UpdatedStatus.modified];
+      if (writes.contains(status)) {
         fileTo.writeAsBytes(content);
       }
 
