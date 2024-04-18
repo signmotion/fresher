@@ -51,6 +51,7 @@ Once you start using the **Fresher**, it will become easy to choose the function
 - Result output. Group by status and order by file path.
 - Use a [fixed with emojis](https://github.com/jonahwilliams/mustache/pull/6/files) mustache
   instead `EmojiTemplate`.
+- Optimize. Cache the heavy values for `Fresher`: `projectFileConflictResolutions`, etc.
 
 It's just a habit of mine: writing down ideas that come to mind while working on a project. I confess that I rarely return to these notes. But now, hopefully, even if you don't have an idea yet, the above notes will help you choose the suitable "feature" and become a contributor to the open-source community.
 
