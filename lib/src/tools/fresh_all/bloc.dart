@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:collection/collection.dart';
 import 'package:wfile/wfile.dart';
 
 import '../../../fresher.dart';
@@ -108,13 +109,13 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
       late final UpdatedStatus status;
       if (prevContent == null) {
         status = UpdatedStatus.added;
-      } else if (content == prevContent) {
+      } else if (content.toList().equals(prevContent.toList())) {
         status = UpdatedStatus.unchanged;
       } else {
-        status = UpdatedStatus.overwritten;
+        status = UpdatedStatus.modified;
       }
 
-      if ([UpdatedStatus.added, UpdatedStatus.overwritten].contains(status)) {
+      if ([UpdatedStatus.added, UpdatedStatus.modified].contains(status)) {
         fileTo.writeAsBytes(content);
       }
 
