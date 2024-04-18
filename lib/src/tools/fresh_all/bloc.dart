@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -17,7 +18,13 @@ part 'result.dart';
 part 'state.dart';
 
 class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
-  FreshAllBloc(Directory source) : super(FreshAllState(source: source)) {
+  FreshAllBloc(
+    Directory source, {
+    required bool leaveSpaces,
+  }) : super(FreshAllState(
+          source: source,
+          leaveSpaces: leaveSpaces,
+        )) {
     on<AEvent>(
       _onEvent,
       transformer: sequential(),
@@ -40,7 +47,10 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
         AEvent() => throw Exception('Unsupported event: $event'),
       };
 
-  Fresher get fresher => Fresher(state.source.path);
+  Fresher get fresher => Fresher(
+        state.source.path,
+        leaveSpaces: state.leaveSpaces,
+      );
 
   Future<void> _onGettingFreshFilesEvent(
     GettingFreshFilesEvent event,

@@ -6,6 +6,7 @@ class FreshAllState extends AState {
     // services
     super.completed = const {},
     // own
+    this.leaveSpaces = false,
     this.files = const [],
     this.projects = const [],
     this.sdks = const [],
@@ -14,6 +15,8 @@ class FreshAllState extends AState {
     this.error,
     this.stackTrace,
   });
+
+  final bool leaveSpaces;
 
   final Iterable<FreshFile> files;
   final Iterable<FreshProject> projects;
@@ -30,6 +33,7 @@ class FreshAllState extends AState {
     Directory? source,
     Map<String, bool>? completed,
     // own
+    bool? leaveSpaces,
     Iterable<FreshFile>? files,
     Iterable<FreshProject>? projects,
     Iterable<String>? sdks,
@@ -41,6 +45,7 @@ class FreshAllState extends AState {
       FreshAllState(
         source: source ?? this.source,
         completed: completed ?? this.completed,
+        leaveSpaces: leaveSpaces ?? this.leaveSpaces,
         files: files ?? this.files,
         projects: projects ?? this.projects,
         sdks: sdks ?? this.sdks,
@@ -53,6 +58,7 @@ class FreshAllState extends AState {
   @override
   List<Object?> get props => [
         ...super.props,
+        leaveSpaces,
         files,
         projects,
         sdks,

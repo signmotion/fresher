@@ -15,5 +15,6 @@ class Tools {
   Future<ResultRunner> freshAll() async => FreshAll(
         sourceDirectory: o.sourceDirectory,
         filter: o.projectIds,
+        leaveSpaces: o.leaveSpaces,
       ).run();
 }

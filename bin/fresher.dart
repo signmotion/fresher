@@ -25,6 +25,11 @@ Future<void> run(List<String> args) async {
         ' If empty, all known projects will be updated.',
   );
 
+  parser.addFlag(
+    'leave-spaces',
+    help: 'All spaces at the ends will be preserved.',
+  );
+
   late final ArgResults results;
   try {
     results = parser.parse(args);
@@ -38,7 +43,8 @@ Future<void> run(List<String> args) async {
 
   final o = ToolsOptions()
     ..sourceFolder = results.rest.first
-    ..projectIds = (results['projects'] as String?)?.split(',') ?? [];
+    ..projectIds = (results['projects'] as String?)?.split(',') ?? []
+    ..leaveSpaces = results.wasParsed('leave-spaces');
 
   final tools = Tools(o);
   final r = await tools.freshAll();

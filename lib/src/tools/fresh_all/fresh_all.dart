@@ -4,6 +4,7 @@ class FreshAll extends Runner {
   FreshAll({
     required this.sourceDirectory,
     this.filter = const [],
+    this.leaveSpaces = false,
   }) {
     assert(
       sourceDirectory.existsSync(),
@@ -21,11 +22,14 @@ class FreshAll extends Runner {
   /// If empty, then will update all projects.
   final List<String> filter;
 
+  /// Keep all spaces at the ends.
+  final bool leaveSpaces;
+
   /// Reads and constructs files from [sourcePath] and copies its to
   /// the projects folders.
   @override
   Future<ResultRunner> run() async {
-    final bloc = FreshAllBloc(sourceDirectory);
+    final bloc = FreshAllBloc(sourceDirectory, leaveSpaces: leaveSpaces);
 
     // 1) Receiving all maintained projects.
     firstStep();

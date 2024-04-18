@@ -2,9 +2,13 @@ part of '../fresher.dart';
 
 /// Access to data for refreshing projects files from source.
 class Fresher {
-  const Fresher(this.source);
+  const Fresher(
+    this.source, {
+    required this.leaveSpaces,
+  });
 
   final String source;
+  final bool leaveSpaces;
 
   /// [path] without [source], [sdk], [projectId] and with some modification.
   String scope(
@@ -253,6 +257,7 @@ class Fresher {
           scope: sc,
           names: FreshVariable.generateNames(e.key as String? ?? ''),
           rawValue: '${e.value}',
+          leaveSpaces: leaveSpaces,
         )
     ];
   }
@@ -281,6 +286,7 @@ class Fresher {
         scope: sc,
         names: FreshVariable.generateNames(w.basenameWithoutExtension),
         rawValue: w.readAsText()!,
+        leaveSpaces: leaveSpaces,
       );
     });
 
@@ -291,6 +297,7 @@ class Fresher {
               scope: scope(w.npath, sdk: sdk, projectId: projectId),
               names: FreshVariable.generateNames(w.basenameWithoutExtension),
               rawValue: w.readAsText()!,
+              leaveSpaces: leaveSpaces,
             )
           ];
 

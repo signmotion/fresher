@@ -8,4 +8,6 @@ class ToolsOptions {
   Directory get sourceDirectory => Directory(sourcePath);
 
   List<String> projectIds = [];
+
+  bool leaveSpaces = false;
 }

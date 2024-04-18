@@ -6,7 +6,7 @@ import 'package:wfile/wfile.dart';
 
 void main() {
   final source = p.join('test', 'data', 'all_projects');
-  final f = Fresher(source);
+  final f = Fresher(source, leaveSpaces: false);
 
   group('scope', () {
     test('$source/$fresherPrefix/$fresherFile', () {

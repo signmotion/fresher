@@ -11,9 +11,12 @@ class FreshAllResultRunner extends ResultRunner {
 
   @override
   String toString() {
-    var r = '';
+    // group and sort
+    final sorted =
+        SplayTreeMap<String, List<FileWithStatus>>.from(state.filesWithStatus);
 
-    for (final e in state.filesWithStatus.entries) {
+    var r = '';
+    for (final e in sorted.entries) {
       r += '\n${e.key}\n';
       final table = Table(
         header: ['Status'.whiteBright, 'File'.whiteBright],

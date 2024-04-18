@@ -6,10 +6,15 @@ class FreshVariable extends Equatable implements Comparable<FreshVariable> {
     required this.scope,
     required this.names,
     required this.rawValue,
+    required this.leaveSpaces,
   }) : assert(names.length > 0);
 
-  factory FreshVariable.empty() =>
-      FreshVariable(scope: '', names: const [''], rawValue: '');
+  factory FreshVariable.empty() => FreshVariable(
+        scope: '',
+        names: const [''],
+        rawValue: '',
+        leaveSpaces: false,
+      );
 
   /// Look at <https://pub.dev/packages/recase>. All from the link above,
   /// but exluded:
@@ -59,14 +64,21 @@ class FreshVariable extends Equatable implements Comparable<FreshVariable> {
 
   /// A templated [rawValue].
   /// All `{{...}}` will replace to values from [variables].
-  String value(Iterable<FreshVariable> variables) =>
-      EmojiTemplate(rawValue).renderString(mapped(variables));
+  String value(Iterable<FreshVariable> variables) {
+    final r = EmojiTemplate(rawValue).renderString(mapped(variables));
+    return leaveSpaces ? r : r.trim();
+  }
 
   /// Map with [name] (key) and [rawValue] (value) but excluded this [name].
   Map<String, dynamic> mapped(Iterable<FreshVariable> variables) {
     final l = variables.whereNot((v) => v.hasName(name)).toList();
-    return {for (final v in l) v.name: v.rawValue};
+    return {
+      for (final v in l) v.name: leaveSpaces ? v.rawValue : v.rawValue.trim()
+    };
   }
+
+  /// Leave spaces at the ends.
+  final bool leaveSpaces;
 
   @override
   List<Object?> get props => [fullName];
