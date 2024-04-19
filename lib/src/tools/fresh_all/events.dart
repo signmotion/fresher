@@ -28,8 +28,8 @@ class GettingFreshVariablesEvent extends AFreshAllEvent {
   List<Object?> get props => [...super.props, project];
 }
 
-class FreshingProjectEvent extends AFreshAllEvent {
-  const FreshingProjectEvent({
+class FreshingProjectFilesEvent extends AFreshAllEvent {
+  const FreshingProjectFilesEvent({
     required this.project,
     this.output = defaultOutput,
   });

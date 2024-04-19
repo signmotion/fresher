@@ -54,7 +54,7 @@ Future<void> run(List<String> args) async {
 void printUsageAndExit(ArgParser parser) {
   print('''
 Usage:
-\tdart bin/fresher.dart ../path/to/project/source
+\tdart bin/fresher.dart ../path/to/project/bases
 ${parser.usage}
   ''');
   // exit code `64` indicates a usage error

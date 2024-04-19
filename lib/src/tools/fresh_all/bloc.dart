@@ -40,7 +40,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
         GettingFreshProjectsEvent e => _onGettingFreshProjectsEvent(e, emit),
         GettingFreshVariablesEvent e => _onGettingFreshVariablesEvent(e, emit),
         GettingSdksEvent e => _onGettingSdksEvent(e, emit),
-        FreshingProjectEvent e => _onFreshingProjectEvent(e, emit),
+        FreshingProjectFilesEvent e => _onFreshingProjectFilesEvent(e, emit),
         OutputEvent e => _onOutputEvent(e, emit),
         // unsupported event
         AEvent() => throw Exception('Unsupported event: $event'),
@@ -97,8 +97,8 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     setCompleted(key);
   }
 
-  Future<void> _onFreshingProjectEvent(
-    FreshingProjectEvent event,
+  Future<void> _onFreshingProjectFilesEvent(
+    FreshingProjectFilesEvent event,
     Emitter<FreshAllState> emit,
   ) async {
     final project = event.project;

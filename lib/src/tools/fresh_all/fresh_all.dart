@@ -73,13 +73,20 @@ class FreshAll extends Runner {
     FreshProject project,
     FreshAllBloc bloc,
   ) async {
-    pr('\nFreshing the project `$project`...');
+    _freshProjectFiles(project, bloc);
+  }
+
+  Future<void> _freshProjectFiles(
+    FreshProject project,
+    FreshAllBloc bloc,
+  ) async {
+    pr('\nFreshing the files for project `$project`...');
     increaseCurrentIndent();
 
-    bloc.add(FreshingProjectEvent(project: project));
+    bloc.add(FreshingProjectFilesEvent(project: project));
     await bloc.completed(project.key);
 
     decreaseCurrentIndent();
-    pr('Freshed the project `$project`.');
+    pr('Freshed the files for project `$project`.');
   }
 }
