@@ -1,7 +1,7 @@
-name: project_with_pubspec
+name: pubspec_yaml_only
 description: >-
-  Some noted about the project.
-repository: https://github.com/signmotion
+  Some notes about the project.
+repository: https://github.com/signmotio
 topics:
   - some
   - topic

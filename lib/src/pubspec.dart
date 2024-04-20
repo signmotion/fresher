@@ -2,20 +2,19 @@ part of '../fresher.dart';
 
 /// A `pubspec.yaml` file.
 class Pubspec extends Equatable implements Comparable<Pubspec> {
-  const Pubspec({
-    required this.prefix,
-    required this.projectId,
-  }) : assert(projectId.length > 0);
+  Pubspec(this.pathToProject) {
+    if (!exists) {
+      throw PathNotFoundException(pathToProject, const OSError());
+    }
+  }
 
   static const filename = 'pubspec.yaml';
 
-  /// A prefix for path to [projectId].
-  final String prefix;
-
-  final String projectId;
+  /// A path to project folder that contains [filename].
+  final String pathToProject;
 
   /// A path to `pubspec.yaml` file for [projectId].
-  String get pathToFile => p.join(prefix, projectId, filename).npath;
+  String get pathToFile => p.join(pathToProject, filename).npath;
 
   WFile get file => WFile(pathToFile);
 
@@ -26,7 +25,7 @@ class Pubspec extends Equatable implements Comparable<Pubspec> {
   YamlMap get content => loadYaml(rawContent) as YamlMap;
 
   @override
-  List<Object?> get props => [prefix, projectId];
+  List<Object?> get props => [pathToProject];
 
   /// ! Compare by [pathToFile].
   @override

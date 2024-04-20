@@ -166,7 +166,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     final key = project.key;
     unsetCompleted(key);
 
-    final pubspec = Pubspec(prefix: '..', projectId: project.id);
+    final pubspec = Pubspec('../${project.id}');
     if (!pubspec.exists) {
       throw PathNotFoundException(pubspec.file.npath, const OSError());
     }

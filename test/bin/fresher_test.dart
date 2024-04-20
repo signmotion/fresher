@@ -45,5 +45,5 @@ Future<void> main() async {
       );
       await expectLater(process.stdout, emitsThrough('Result prepared.'));
     });
-  }, tags: ['current']);
+  });
 }

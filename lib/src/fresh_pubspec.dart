@@ -3,14 +3,9 @@ part of '../fresher.dart';
 /// A [Pubspec] with options for freshing.
 /// See [FreshPackage].
 class FreshPubspec extends Pubspec {
-  const FreshPubspec({
-    required super.prefix,
-    required super.projectId,
-  });
+  FreshPubspec(super.pathToProject);
 
-  String get path => p.join(prefix, projectId);
-
-  /// Outdated dependencies for [prefix]/[projectId] from pub.dev
+  /// Outdated dependencies for [pathToProject] from pub.dev
   /// as [Map]<[String], [FreshPackage]>.
   /// See [outdatedAsJson].
   Future<Map<String, FreshPackage>> get outdated async {
@@ -33,7 +28,8 @@ class FreshPubspec extends Pubspec {
               kind: kind ?? '',
               isDiscontinued: isDiscontinued ?? false,
               currentLock: current!['version'] as String? ?? '',
-              currentYaml: FreshPackage.yamlFile(path, package).currentYaml,
+              currentYaml:
+                  FreshPackage.yamlFile(pathToProject, package).currentYaml,
               upgradable: upgradable!['version'] as String? ?? '',
               resolvable: resolvable!['version'] as String? ?? '',
               latest: latest!['version'] as String? ?? '',
@@ -43,18 +39,18 @@ class FreshPubspec extends Pubspec {
     };
   }
 
-  /// Outdated dependencies for [prefix]/[projectId] from pub.dev
+  /// Outdated dependencies for [pathToProject]/[projectId] from pub.dev
   /// as [List]<[JsonMap]>.
   /// See [outdated].
   Future<List<JsonMap>> get outdatedAsJson async {
     const executable = 'dart';
-    final args = ['pub', 'outdated', '--json', '--directory="$path"'];
+    final args = ['pub', 'outdated', '--json', '--directory="$pathToProject"'];
     final process = await Process.start(executable, args);
-    final output = await process.stdout.transform(utf8.decoder).join('\n');
+    final output = await process.stdout.transform(utf8.decoder).join(newLine);
     final exitCode = await process.exitCode;
     if (exitCode != 0) {
-      throw Exception(
-          'Process `$executable` `$args` failed with exit code $exitCode.');
+      throw Exception('Process `$executable` with `$args` failed.'
+          ' Exit code is $exitCode.');
     }
 
     return output.jsonMap['packages'] as List<JsonMap>;
