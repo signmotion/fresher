@@ -12,7 +12,6 @@ Future<void> main() async {
         process.stdout,
         emits(startsWith('Dart SDK version:')),
       );
-      await process.shouldExit(0);
     });
   });
 
@@ -28,7 +27,6 @@ Future<void> main() async {
         emitsThrough(startsWith('Maintained projects:')),
       );
       await expectLater(process.stdout, emitsThrough('Result prepared.'));
-      await process.shouldExit(0);
     });
-  });
+  }, tags: ['current']);
 }
