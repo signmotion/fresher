@@ -177,9 +177,9 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
       print(e);
       final package = FreshPackage(
         id: e.key as String,
-        version: e.value as String,
+        currentYaml: e.value as String,
       );
-      final latestVersion = await package.latestVersion;
+      final latestVersion = await package.getLatestVersion;
       print('$package, latest version `$latestVersion`');
     }
 
