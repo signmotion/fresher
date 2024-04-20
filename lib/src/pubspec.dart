@@ -4,7 +4,7 @@ part of '../fresher.dart';
 class Pubspec extends Equatable implements Comparable<Pubspec> {
   Pubspec(this.pathToProject) {
     if (!exists) {
-      throw PathNotFoundException(pathToProject, const OSError());
+      throw PathNotFoundException(pathToFile, const OSError());
     }
   }
 
