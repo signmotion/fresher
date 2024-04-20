@@ -10,49 +10,56 @@ class FreshPubspec extends Pubspec {
   /// See [outdatedAsJson].
   Future<Map<String, FreshPackage>> get outdated async {
     final l = await outdatedAsJson;
+    final r = <String, FreshPackage>{};
+    for (final o in l) {
+      final key = o['package'] as String;
+      r[key] = switch (o) {
+        {
+          'package': String? package,
+          'kind': String? kind,
+          'isDiscontinued': bool? isDiscontinued,
+          'current': Map<String, dynamic>? current,
+          'upgradable': Map<String, dynamic>? upgradable,
+          'resolvable': Map<String, dynamic>? resolvable,
+          'latest': Map<String, dynamic>? latest,
+        } =>
+          FreshPackage(
+            id: package!,
+            kind: kind ?? '',
+            isDiscontinued: isDiscontinued ?? false,
+            currentLock: current?['version'] as String? ?? '',
+            currentYaml: FreshPackage.yamlFile(pathToFile, package).currentYaml,
+            upgradable: upgradable!['version'] as String? ?? '',
+            resolvable: resolvable!['version'] as String? ?? '',
+            latest: latest!['version'] as String? ?? '',
+          ),
+        _ => throw ArgumentError(l.sjson, 'l'),
+      };
+    }
 
-    return {
-      for (final o in l)
-        o['package'] as String: switch (o) {
-          {
-            'package': String? package,
-            'kind': String? kind,
-            'isDiscontinued': bool? isDiscontinued,
-            'current': Map<String, dynamic>? current,
-            'upgradable': Map<String, dynamic>? upgradable,
-            'resolvable': Map<String, dynamic>? resolvable,
-            'latest': Map<String, dynamic>? latest,
-          } =>
-            FreshPackage(
-              id: package!,
-              kind: kind ?? '',
-              isDiscontinued: isDiscontinued ?? false,
-              currentLock: current!['version'] as String? ?? '',
-              currentYaml:
-                  FreshPackage.yamlFile(pathToProject, package).currentYaml,
-              upgradable: upgradable!['version'] as String? ?? '',
-              resolvable: resolvable!['version'] as String? ?? '',
-              latest: latest!['version'] as String? ?? '',
-            ),
-          _ => throw ArgumentError(l.sjson, 'l'),
-        }
-    };
+    return r;
   }
 
   /// Outdated dependencies for [pathToProject]/[projectId] from pub.dev
-  /// as [List]<[JsonMap]>.
+  /// as [Iterable]<[JsonMap]>.
   /// See [outdated].
-  Future<List<JsonMap>> get outdatedAsJson async {
+  Future<Iterable<JsonMap>> get outdatedAsJson async {
+    const filterKinds = ['dev', 'direct'];
+
     const executable = 'dart';
-    final args = ['pub', 'outdated', '--json', '--directory="$pathToProject"'];
+    final args = ['pub', 'outdated', '--json', '--directory=$pathToProject'];
     final process = await Process.start(executable, args);
     final output = await process.stdout.transform(utf8.decoder).join(newLine);
     final exitCode = await process.exitCode;
     if (exitCode != 0) {
+      logger.i(output);
+      logger.e(await process.stderr.transform(utf8.decoder).join(newLine));
       throw Exception('Process `$executable` with `$args` failed.'
           ' Exit code is $exitCode.');
     }
 
-    return output.jsonMap['packages'] as List<JsonMap>;
+    return (output.jsonMap['packages'] as List<dynamic>)
+        .map((e) => e as JsonMap)
+        .where((e) => filterKinds.contains(e['kind']));
   }
 }
