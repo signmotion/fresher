@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:collection/collection.dart';
 import 'package:fresher/fresher.dart';
 import 'package:path/path.dart' as p;
@@ -6,7 +8,9 @@ import 'package:wfile/wfile.dart';
 
 void main() {
   final source = p.join('test', 'data', 'all_projects');
-  final f = Fresher(source, leaveSpaces: false);
+  final f = Fresher(FreshAllOptions()
+    ..sourceDirectory = Directory(source)
+    ..leaveSpaces = false);
 
   group('scope', () {
     test('$source/$fresherPrefix/$fresherFile', () {

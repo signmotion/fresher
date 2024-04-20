@@ -1,11 +1,11 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:chalkdart/chalkstrings.dart';
 import 'package:cli_table/cli_table.dart';
 import 'package:collection/collection.dart';
+import 'package:dcli/dcli.dart';
 import 'package:wfile/wfile.dart';
+import 'package:yaml/yaml.dart';
 
 import '../../../fresher.dart';
 import '../../common/bloc.dart';
@@ -17,13 +17,8 @@ part 'result.dart';
 part 'state.dart';
 
 class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
-  FreshAllBloc(
-    Directory source, {
-    required bool leaveSpaces,
-  }) : super(FreshAllState(
-          source: source,
-          leaveSpaces: leaveSpaces,
-        )) {
+  FreshAllBloc(FreshAllOptions options)
+      : super(FreshAllState(options: options)) {
     on<AEvent>(
       _onEvent,
       transformer: sequential(),
@@ -36,20 +31,31 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
   ) async =>
       switch (event) {
         // fresh all projects
+        GettingSdksEvent e => _onGettingSdksEvent(e, emit),
         GettingFreshFilesEvent e => _onGettingFreshFilesEvent(e, emit),
         GettingFreshProjectsEvent e => _onGettingFreshProjectsEvent(e, emit),
         GettingFreshVariablesEvent e => _onGettingFreshVariablesEvent(e, emit),
-        GettingSdksEvent e => _onGettingSdksEvent(e, emit),
         FreshingProjectFilesEvent e => _onFreshingProjectFilesEvent(e, emit),
+        UpgradingProjectDependenciesEvent e =>
+          _onUpgradingProjectDependenciesEvent(e, emit),
         OutputEvent e => _onOutputEvent(e, emit),
         // unsupported event
         AEvent() => throw Exception('Unsupported event: $event'),
       };
 
-  Fresher get fresher => Fresher(
-        state.source.path,
-        leaveSpaces: state.leaveSpaces,
-      );
+  Fresher get fresher => Fresher(state.options);
+
+  Future<void> _onGettingSdksEvent(
+    GettingSdksEvent event,
+    Emitter<FreshAllState> emit,
+  ) async {
+    final key = '$event';
+    unsetCompleted(key);
+
+    emit(state.copyWith(sdks: fresher.sdks));
+
+    setCompleted(key);
+  }
 
   Future<void> _onGettingFreshFilesEvent(
     GettingFreshFilesEvent event,
@@ -151,14 +157,28 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     setCompleted(key);
   }
 
-  Future<void> _onGettingSdksEvent(
-    GettingSdksEvent event,
+  Future<void> _onUpgradingProjectDependenciesEvent(
+    UpgradingProjectDependenciesEvent event,
     Emitter<FreshAllState> emit,
   ) async {
-    final key = '$event';
+    final project = event.project;
+    final key = project.key;
     unsetCompleted(key);
 
-    emit(state.copyWith(sdks: fresher.sdks));
+    final w = WFile(['..', project.id, 'pubspec.yaml']);
+    if (!w.existsFile()) {
+      throw FileNotFoundException(w.npath);
+    }
+
+    final s = w.readAsText()!;
+    final d = loadYaml(s) as YamlMap;
+    final dependencies = d['dependencies'] as YamlMap;
+    for (final e in dependencies.entries) {
+      print(e);
+    }
+
+    throw UnimplementedError();
+    // TODO
 
     setCompleted(key);
   }

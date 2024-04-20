@@ -2,13 +2,13 @@ part of '../fresher.dart';
 
 /// Access to data for refreshing projects files from source.
 class Fresher {
-  const Fresher(
-    this.source, {
-    required this.leaveSpaces,
-  });
+  const Fresher(this.options);
 
-  final String source;
-  final bool leaveSpaces;
+  /// See [o].
+  final FreshAllOptions options;
+
+  /// Alias for [options].
+  FreshAllOptions get o => options;
 
   /// [path] without [source], [sdk], [projectId] and with some modification.
   String scope(
@@ -17,7 +17,7 @@ class Fresher {
     String? projectId,
   }) {
     var r = path.normalizedPath
-        .replaceFirst(source.normalizedPath, '')
+        .replaceFirst(o.sourcePath.normalizedPath, '')
         .replaceFirst('$fresherPrefix/', '')
         .replaceFirst('//', '')
         .toLowerCase();
@@ -52,22 +52,22 @@ class Fresher {
   /// A set of all [File] from [source], folder [freshPrefix].
   /// Ignores empty [Directory]s.
   Iterable<FreshFile> rootFiles() {
-    final path = p.join(source, fresherPrefix);
+    final path = p.join(o.sourcePath, fresherPrefix);
     return allFiles(path, rootFileConflictResolutions()).toList()..sort();
   }
 
   /// A set of all variables from [source], folder [freshPrefix],
   /// file [fresherFile] and files starts with [freshPrefix].
   Iterable<FreshVariable> rootVariables() => {
-        ...allFileVariables(p.join(source, fresherPrefix, fresherFile)),
-        ...allScopeFilesVariables(p.join(source, fresherPrefix)),
+        ...allFileVariables(p.join(o.sourcePath, fresherPrefix, fresherFile)),
+        ...allScopeFilesVariables(p.join(o.sourcePath, fresherPrefix)),
       }.toList()
         ..sort();
 
   /// A set of all [File] from [source]/[sdk], folder [freshPrefix].
   /// Ignores empty [Directory]s.
   Iterable<FreshFile> sdkFiles(String sdk) {
-    final path = p.join(source, sdk, fresherPrefix);
+    final path = p.join(o.sourcePath, sdk, fresherPrefix);
     return {
       ...allFiles(path, sdkFileConflictResolutions(sdk)),
       ...rootFiles(),
@@ -79,10 +79,13 @@ class Fresher {
   /// Ignores empty [Directory]s.
   Iterable<FreshVariable> sdkVariables(String sdk) => {
         ...allFileVariables(
-          p.join(source, sdk, fresherPrefix, fresherFile),
+          p.join(o.sourcePath, sdk, fresherPrefix, fresherFile),
           sdk: sdk,
         ),
-        ...allScopeFilesVariables(p.join(source, sdk, fresherPrefix), sdk: sdk),
+        ...allScopeFilesVariables(
+          p.join(o.sourcePath, sdk, fresherPrefix),
+          sdk: sdk,
+        ),
         ...rootVariables(),
       }.toList()
         ..sort();
@@ -90,7 +93,7 @@ class Fresher {
   /// A set of all [File] from [source]/[sdk]/[projectId], folder [freshPrefix].
   /// Ignores empty [Directory]s.
   Iterable<FreshFile> projectFiles(String sdk, String projectId) {
-    final path = p.join(source, sdk, projectId, fresherPrefix);
+    final path = p.join(o.sourcePath, sdk, projectId, fresherPrefix);
     return {
       ...allFiles(path, projectFileConflictResolutions(sdk, projectId)),
       ...sdkFiles(sdk),
@@ -101,14 +104,14 @@ class Fresher {
   /// A set of all [FileConflictResolution]s from [source], folder [freshPrefix].
   Map<String, FileConflictResolution> rootFileConflictResolutions() =>
       allFileConflictResolution(
-        p.join(source, fresherPrefix, fresherFile),
+        p.join(o.sourcePath, fresherPrefix, fresherFile),
       );
 
   /// A set of all [FileConflictResolution]s from [source]/[sdk], folder [freshPrefix].
   Map<String, FileConflictResolution> sdkFileConflictResolutions(String sdk) =>
       {
         ...allFileConflictResolution(
-          p.join(source, sdk, fresherPrefix, fresherFile),
+          p.join(o.sourcePath, sdk, fresherPrefix, fresherFile),
         ),
         ...rootFileConflictResolutions(),
       };
@@ -121,7 +124,7 @@ class Fresher {
   ) =>
       {
         ...allFileConflictResolution(
-          p.join(source, sdk, projectId, fresherPrefix, fresherFile),
+          p.join(o.sourcePath, sdk, projectId, fresherPrefix, fresherFile),
         ),
         ...sdkFileConflictResolutions(sdk),
       };
@@ -131,7 +134,7 @@ class Fresher {
   Iterable<FreshVariable> projectVariables(String sdk, String projectId) => {
         ...allFileVariables(
           p.join(
-            source,
+            o.sourcePath,
             sdk,
             projectId,
             fresherPrefix,
@@ -142,7 +145,7 @@ class Fresher {
         ),
         ...allScopeFilesVariables(
           p.join(
-            source,
+            o.sourcePath,
             sdk,
             projectId,
             fresherPrefix,
@@ -156,7 +159,7 @@ class Fresher {
 
   /// A set of all projects from all [sdks].
   Iterable<FreshProject> get projects => sdks
-      .map((sdk) => p.join(source, sdk))
+      .map((sdk) => p.join(o.sourcePath, sdk))
       .map((sourceSdk) => Directory(sourceSdk)
           .listSync()
           .whereType<Directory>()
@@ -170,7 +173,7 @@ class Fresher {
     ..sort();
 
   /// A set of all SDKs from [source].
-  Iterable<String> get sdks => Directory(source)
+  Iterable<String> get sdks => Directory(o.sourcePath)
       .listSync()
       .whereType<Directory>()
       .where((e) => !e.isFresherDirectory && !e.isServiceEntity)
@@ -257,7 +260,7 @@ class Fresher {
           scope: sc,
           names: FreshVariable.generateNames(e.key as String? ?? ''),
           rawValue: '${e.value}',
-          leaveSpaces: leaveSpaces,
+          leaveSpaces: o.leaveSpaces,
         )
     ];
   }
@@ -286,7 +289,7 @@ class Fresher {
         scope: sc,
         names: FreshVariable.generateNames(w.basenameWithoutExtension),
         rawValue: w.readAsText()!,
-        leaveSpaces: leaveSpaces,
+        leaveSpaces: o.leaveSpaces,
       );
     });
 
@@ -297,7 +300,7 @@ class Fresher {
               scope: scope(w.npath, sdk: sdk, projectId: projectId),
               names: FreshVariable.generateNames(w.basenameWithoutExtension),
               rawValue: w.readAsText()!,
-              leaveSpaces: leaveSpaces,
+              leaveSpaces: o.leaveSpaces,
             )
           ];
 

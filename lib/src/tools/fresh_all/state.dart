@@ -2,11 +2,10 @@ part of 'bloc.dart';
 
 class FreshAllState extends AState {
   const FreshAllState({
-    required super.source,
+    required this.options,
     // services
     super.completed = const {},
     // own
-    this.leaveSpaces = false,
     this.files = const [],
     this.projects = const [],
     this.sdks = const [],
@@ -16,7 +15,11 @@ class FreshAllState extends AState {
     this.stackTrace,
   });
 
-  final bool leaveSpaces;
+  /// See [o].
+  final FreshAllOptions options;
+
+  /// Alias for [options].
+  FreshAllOptions get o => options;
 
   final Iterable<FreshFile> files;
   final Iterable<FreshProject> projects;
@@ -30,7 +33,8 @@ class FreshAllState extends AState {
   final StackTrace? stackTrace;
 
   FreshAllState copyWith({
-    Directory? source,
+    FreshAllOptions? options,
+    // services
     Map<String, bool>? completed,
     // own
     bool? leaveSpaces,
@@ -43,9 +47,8 @@ class FreshAllState extends AState {
     StackTrace? stackTrace,
   }) =>
       FreshAllState(
-        source: source ?? this.source,
+        options: options ?? this.options,
         completed: completed ?? this.completed,
-        leaveSpaces: leaveSpaces ?? this.leaveSpaces,
         files: files ?? this.files,
         projects: projects ?? this.projects,
         sdks: sdks ?? this.sdks,
@@ -58,7 +61,7 @@ class FreshAllState extends AState {
   @override
   List<Object?> get props => [
         ...super.props,
-        leaveSpaces,
+        options,
         files,
         projects,
         sdks,

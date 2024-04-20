@@ -1,35 +1,27 @@
 part of 'bloc.dart';
 
 class FreshAll extends Runner {
-  FreshAll({
-    required this.sourceDirectory,
-    this.filter = const [],
-    this.leaveSpaces = false,
-  }) {
+  FreshAll(this.options) {
     assert(
-      sourceDirectory.existsSync(),
-      'A source path `$sourcePath` should be exists.',
+      o.sourceDirectory != null && o.sourceDirectory!.existsSync(),
+      'A source path `${o.sourcePath}` should be exists.',
     );
   }
 
   @override
   String get name => 'Fresh All';
 
-  final Directory sourceDirectory;
-  String get sourcePath => sourceDirectory.path;
+  /// See [o].
+  final FreshAllOptions options;
 
-  /// Project IDs to update.
-  /// If empty, then will update all projects.
-  final List<String> filter;
-
-  /// Keep all spaces at the ends.
-  final bool leaveSpaces;
+  /// Alias for [options].
+  FreshAllOptions get o => options;
 
   /// Reads and constructs files from [sourcePath] and copies its to
   /// the projects folders.
   @override
   Future<ResultRunner> run() async {
-    final bloc = FreshAllBloc(sourceDirectory, leaveSpaces: leaveSpaces);
+    final bloc = FreshAllBloc(options);
 
     // 1) Receiving all maintained projects.
     firstStep();
@@ -49,7 +41,7 @@ class FreshAll extends Runner {
     nextStep();
     {
       for (final project in bloc.state.projects) {
-        if (filter.isEmpty || filter.contains(project.id)) {
+        if (o.filter.isEmpty || o.filter.contains(project.id)) {
           await _freshProject(project, bloc);
         } else {
           printi('\nProject `${project.id}` skipped by filter.');
@@ -74,6 +66,7 @@ class FreshAll extends Runner {
     FreshAllBloc bloc,
   ) async {
     _freshProjectFiles(project, bloc);
+    // TODO _upgradeProjectDependencies(project, bloc);
   }
 
   Future<void> _freshProjectFiles(
@@ -88,5 +81,19 @@ class FreshAll extends Runner {
 
     decreaseCurrentIndent();
     pr('Freshed the files for project `$project`.');
+  }
+
+  Future<void> _upgradeProjectDependencies(
+    FreshProject project,
+    FreshAllBloc bloc,
+  ) async {
+    pr('\nUpgrading dependencies for project `$project`...');
+    increaseCurrentIndent();
+
+    bloc.add(UpgradingProjectDependenciesEvent(project: project));
+    await bloc.completed(project.key);
+
+    decreaseCurrentIndent();
+    pr('Upgrading dependencies for project `$project`.');
   }
 }

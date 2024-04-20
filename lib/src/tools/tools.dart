@@ -7,14 +7,16 @@ class Tools {
         'A source `${options.sourceDirectory.path}` should be exists.');
   }
 
+  /// See [o].
   final ToolsOptions options;
 
+  /// Alias for [options].
   ToolsOptions get o => options;
 
   /// Update all projects
-  Future<ResultRunner> freshAll() async => FreshAll(
-        sourceDirectory: o.sourceDirectory,
-        filter: o.projectIds,
-        leaveSpaces: o.leaveSpaces,
-      ).run();
+  Future<ResultRunner> freshAll() async => FreshAll(FreshAllOptions()
+        ..sourceDirectory = o.sourceDirectory
+        ..filter = o.projectIds
+        ..leaveSpaces = o.leaveSpaces)
+      .run();
 }

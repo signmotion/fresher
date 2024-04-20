@@ -5,7 +5,7 @@ import '../util/cli.dart';
 Future<void> main() async {
   const cli = Cli();
 
-  group('call dart.exe', () {
+  group('call dart.exe, fast check', () {
     test('pub get', () async {
       final process = await cli.run(['--version']);
       await expectLater(
@@ -16,10 +16,13 @@ Future<void> main() async {
     });
   });
 
-  group('fresher FreshAll', () {
-    test('correct path', () async {
-      final process =
-          await cli.run(['bin/fresher.dart', 'test/data/all_projects']);
+  group('fresher.dart --projects=id_gen', () {
+    test('--no-upgrade-dependencies', () async {
+      final process = await cli.run([
+        'bin/fresher.dart',
+        '--no-upgrade-dependencies',
+        'test/data/all_projects',
+      ]);
       await expectLater(
         process.stdout,
         emitsThrough(startsWith('Maintained projects:')),

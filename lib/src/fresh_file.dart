@@ -9,7 +9,7 @@ class FreshFile extends Equatable implements Comparable<FreshFile> {
   }) : assert(key.length > 0);
 
   /// A path to file into the project.
-  /// Same a path to file into [Fresher] folder but without sdk path.
+  /// Same a path to file into [Fresher] folder but without `sdk/project` path.
   final String key;
 
   /// A file from [Fresher] folder.

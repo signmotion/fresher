@@ -6,6 +6,10 @@ abstract class AFreshAllEvent extends AEvent {
   const AFreshAllEvent();
 }
 
+class GettingSdksEvent extends AFreshAllEvent {
+  const GettingSdksEvent();
+}
+
 class GettingFreshFilesEvent extends AFreshAllEvent {
   const GettingFreshFilesEvent({required this.project});
 
@@ -44,6 +48,22 @@ class FreshingProjectFilesEvent extends AFreshAllEvent {
   List<Object?> get props => [...super.props, project, output];
 }
 
+class UpgradingProjectDependenciesEvent extends AFreshAllEvent {
+  const UpgradingProjectDependenciesEvent({
+    required this.project,
+    this.output = defaultOutput,
+  });
+
+  final FreshProject project;
+  final void Function(String s) output;
+
+  static void defaultOutput(String s) => print(s);
+  //static Future<void> defaultOutput(String s) async => stdout..write(s);
+
+  @override
+  List<Object?> get props => [...super.props, project, output];
+}
+
 class OutputEvent extends AFreshAllEvent {
   const OutputEvent(this.output, this.s);
 
@@ -52,8 +72,4 @@ class OutputEvent extends AFreshAllEvent {
 
   @override
   List<Object?> get props => [...super.props, output, s];
-}
-
-class GettingSdksEvent extends AFreshAllEvent {
-  const GettingSdksEvent();
 }
