@@ -31,9 +31,8 @@ Future<void> main() async {
     });
   });
 
-  // with upgrade dependencies
   group('fresher.dart --projects=id_gen', () {
-    test('--no-upgrade-dependencies', () async {
+    test('upgrade dependencies', () async {
       final process = await cli.run([
         'bin/fresher.dart',
         '--projects=id_gen',
