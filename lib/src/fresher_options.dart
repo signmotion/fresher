@@ -10,4 +10,7 @@ class FresherOptions {
 
   /// Keep all spaces at the ends.
   bool leaveSpaces = false;
+
+  /// Skip an upgrade dependencies.
+  bool noUpgradeDependencies = false;
 }

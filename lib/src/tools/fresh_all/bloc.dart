@@ -177,7 +177,6 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
       print(e);
     }
 
-    throw UnimplementedError();
     // TODO
 
     setCompleted(key);

@@ -29,9 +29,8 @@ class FreshAll extends Runner {
       printis('Receiving all maintained projects');
 
       const event = GettingFreshProjectsEvent();
-      final key = '$event';
       bloc.add(event);
-      await bloc.completed(key);
+      await bloc.allCompleted();
 
       final all = bloc.state.projects.map((p) => '$p').toList();
       pr('Maintained projects: $all');
@@ -66,7 +65,13 @@ class FreshAll extends Runner {
     FreshAllBloc bloc,
   ) async {
     _freshProjectFiles(project, bloc);
-    // TODO _upgradeProjectDependencies(project, bloc);
+
+    if (!o.noUpgradeDependencies) {
+      _upgradeProjectDependencies(project, bloc);
+    } else {
+      pr('\nSkipped an upgrade dependencies,'
+          ' because `--no-upgrade-dependencies`.');
+    }
   }
 
   Future<void> _freshProjectFiles(
@@ -77,7 +82,7 @@ class FreshAll extends Runner {
     increaseCurrentIndent();
 
     bloc.add(FreshingProjectFilesEvent(project: project));
-    await bloc.completed(project.key);
+    await bloc.allCompleted();
 
     decreaseCurrentIndent();
     pr('Freshed the files for project `$project`.');
@@ -91,9 +96,9 @@ class FreshAll extends Runner {
     increaseCurrentIndent();
 
     bloc.add(UpgradingProjectDependenciesEvent(project: project));
-    await bloc.completed(project.key);
+    await bloc.allCompleted();
 
     decreaseCurrentIndent();
-    pr('Upgrading dependencies for project `$project`.');
+    pr('Upgraded dependencies for project `$project`.');
   }
 }

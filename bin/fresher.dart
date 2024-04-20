@@ -30,6 +30,11 @@ Future<void> run(List<String> args) async {
     help: 'All spaces at the ends will be preserved.',
   );
 
+  parser.addFlag(
+    'no-upgrade-dependencies',
+    help: 'Skip an upgrade dependencies.',
+  );
+
   late final ArgResults results;
   try {
     results = parser.parse(args);
@@ -44,7 +49,8 @@ Future<void> run(List<String> args) async {
   final o = ToolsOptions()
     ..sourceFolder = results.rest.first
     ..projectIds = (results['projects'] as String?)?.split(',') ?? []
-    ..leaveSpaces = results.wasParsed('leave-spaces');
+    ..leaveSpaces = results.wasParsed('leave-spaces')
+    ..noUpgradeDependencies = results.wasParsed('no-upgrade-dependencies');
 
   final tools = Tools(o);
   final r = await tools.freshAll();

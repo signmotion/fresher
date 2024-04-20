@@ -17,6 +17,7 @@ class Tools {
   Future<ResultRunner> freshAll() async => FreshAll(FresherOptions()
         ..sourceDirectory = o.sourceDirectory
         ..filter = o.projectIds
-        ..leaveSpaces = o.leaveSpaces)
+        ..leaveSpaces = o.leaveSpaces
+        ..noUpgradeDependencies = o.noUpgradeDependencies)
       .run();
 }
