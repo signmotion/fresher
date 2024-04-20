@@ -15,19 +15,19 @@ class FreshPackage extends Equatable implements Comparable<FreshPackage> {
     this.latest = '',
   }) : assert(id.length > 0);
 
-  /// Constructs a package [id] from `yaml` file that defined by [path].
-  factory FreshPackage.yamlFile(String path, String id) {
-    final file = WFile(path);
+  /// Constructs a package [id] from `yaml` file that defined by [pathToPubspec].
+  factory FreshPackage.yamlFile(String pathToPubspec, String id) {
+    final file = WFile(pathToPubspec);
     if (!file.existsFile()) {
       throw PathNotFoundException(file.npath, const OSError());
     }
 
     final d = loadYaml(file.readAsText()!) as YamlMap;
     final dependencies = d['dependencies'] as YamlMap;
-    final devDependencies = d['dependencies'] as YamlMap;
+    final devDependencies = d['dev_dependencies'] as YamlMap;
     final v = (dependencies[id] ?? devDependencies[id]) as String?;
     if (v == null) {
-      throw ArgumentError('Package `$id` not found in `$path`.', 'v');
+      throw ArgumentError('Package `$id` not found in `$pathToPubspec`.', 'v');
     }
 
     final kind = dependencies[id] == null ? 'dev' : 'direct';
