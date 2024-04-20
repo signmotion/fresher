@@ -1,8 +1,8 @@
 part of '../fresher.dart';
 
 /// A `pubspec.yaml` file.
-class PubspecFile extends Equatable implements Comparable<PubspecFile> {
-  const PubspecFile({
+class Pubspec extends Equatable implements Comparable<Pubspec> {
+  const Pubspec({
     required this.prefix,
     required this.projectId,
   }) : assert(projectId.length > 0);
@@ -30,7 +30,7 @@ class PubspecFile extends Equatable implements Comparable<PubspecFile> {
 
   /// ! Compare by [pathToFile].
   @override
-  int compareTo(PubspecFile other) => pathToFile.compareTo(other.pathToFile);
+  int compareTo(Pubspec other) => pathToFile.compareTo(other.pathToFile);
 
   @override
   String toString() => pathToFile;

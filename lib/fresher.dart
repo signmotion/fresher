@@ -31,4 +31,4 @@ part 'src/fresh_pubspec.dart';
 part 'src/fresh_variable.dart';
 part 'src/fresher.dart';
 part 'src/fresher_options.dart';
-part 'src/pubspec_file.dart';
+part 'src/pubspec.dart';
