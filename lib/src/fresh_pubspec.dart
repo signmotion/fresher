@@ -2,8 +2,8 @@ part of '../fresher.dart';
 
 /// A [PubspecFile] with options for freshing.
 /// See [FreshPackage].
-class FreshPubspecFile extends PubspecFile {
-  const FreshPubspecFile({
+class FreshPubspec extends PubspecFile {
+  const FreshPubspec({
     required super.prefix,
     required super.projectId,
   });

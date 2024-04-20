@@ -27,7 +27,7 @@ part 'src/file_conflict_resolution.dart';
 part 'src/fresh_file.dart';
 part 'src/fresh_package.dart';
 part 'src/fresh_project.dart';
-part 'src/fresh_pubspec_file.dart';
+part 'src/fresh_pubspec.dart';
 part 'src/fresh_variable.dart';
 part 'src/fresher.dart';
 part 'src/fresher_options.dart';

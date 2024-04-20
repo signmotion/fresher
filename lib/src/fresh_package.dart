@@ -2,7 +2,7 @@ part of '../fresher.dart';
 
 /// The package for refresh.
 /// See `dart pub outdated --json`.
-/// See [FreshPubspecFile].
+/// See [FreshPubspec].
 class FreshPackage extends Equatable implements Comparable<FreshPackage> {
   const FreshPackage({
     required this.id,
