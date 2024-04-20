@@ -32,7 +32,11 @@ class FreshPackage extends Equatable implements Comparable<FreshPackage> {
 
     final kind = dependencies[id] == null ? 'dev' : 'direct';
 
-    return FreshPackage(id: id, kind: kind, currentYaml: v);
+    return FreshPackage(
+      id: id,
+      kind: kind,
+      currentYaml: v.startsWith('^') ? v.substring(1) : v,
+    );
   }
 
   /// An ID of package on pub.dev.
@@ -48,6 +52,7 @@ class FreshPackage extends Equatable implements Comparable<FreshPackage> {
   final String currentLock;
 
   /// A current version from `pubspec.yaml` file.
+  /// See [weakCurrentYaml].
   final String currentYaml;
 
   /// An upgradable version.
@@ -63,6 +68,9 @@ class FreshPackage extends Equatable implements Comparable<FreshPackage> {
   bool get hasVersionLock => currentLock.isNotEmpty;
 
   bool get hasVersionYaml => currentYaml.isNotEmpty;
+
+  bool get weakCurrentYaml =>
+      currentYaml.startsWith('>') || currentYaml.startsWith('<');
 
   /// Parse a text [s] to [semver](https://semver.org/spec/v2.0.0-rc.1.html).
   /// Thanks [pub_semver](https://pub.dev/packages/pub_semver).
