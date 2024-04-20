@@ -64,10 +64,10 @@ class FreshAll extends Runner {
     FreshProject project,
     FreshAllBloc bloc,
   ) async {
-    _freshProjectFiles(project, bloc);
+    await _freshProjectFiles(project, bloc);
 
     if (!o.noUpgradeDependencies) {
-      _upgradeProjectDependencies(project, bloc);
+      await _upgradeProjectDependencies(project, bloc);
     } else {
       pr('\nSkipped an upgrade dependencies,'
           ' because `--no-upgrade-dependencies`.');
