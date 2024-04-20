@@ -5,11 +5,43 @@ part of '../fresher.dart';
 class FreshPubspec extends Pubspec {
   FreshPubspec(super.pathToProject);
 
+  /// Returns a record: new content, upgraded packages, and skipped packages.
+  Future<(String, List<FreshPackage>, List<FreshPackage>)> get upgraded async {
+    final l = await outdated;
+    var newContent = rawContentYaml;
+    final upgradedPackages = <FreshPackage>[];
+    final skippedPackages = <FreshPackage>[];
+    for (final package in l.values) {
+      if (package.currentYaml == package.resolvable ||
+          package.weakCurrentYaml) {
+        skippedPackages.add(package);
+        continue;
+      }
+
+      // replace the text because we want to preserve the file format
+      // example a line of dependency:
+      // `uuid: ^4.1.0`
+      final current = package.currentYaml.replaceFirst('^', '');
+      final from = '${package.id}: ^$current';
+      final to = '${package.id}: ^${package.resolvable}';
+      final t = newContent.replaceFirst(from, to);
+      if (t == newContent) {
+        skippedPackages.add(package);
+      } else {
+        upgradedPackages.add(package);
+        newContent = t;
+      }
+    }
+
+    return (newContent, upgradedPackages, skippedPackages);
+  }
+
   /// Outdated dependencies for [pathToProject] from pub.dev
   /// as [Map]<[String], [FreshPackage]>.
   /// See [outdatedAsJson].
   Future<Map<String, FreshPackage>> get outdated async {
     final l = await outdatedAsJson;
+
     final r = <String, FreshPackage>{};
     for (final o in l) {
       final key = o['package'] as String;
@@ -28,7 +60,8 @@ class FreshPubspec extends Pubspec {
             kind: kind ?? '',
             isDiscontinued: isDiscontinued ?? false,
             currentLock: current?['version'] as String? ?? '',
-            currentYaml: FreshPackage.yamlFile(pathToFile, package).currentYaml,
+            currentYaml:
+                FreshPackage.yamlFile(pathToFileYaml, package).currentYaml,
             upgradable: upgradable!['version'] as String? ?? '',
             resolvable: resolvable!['version'] as String? ?? '',
             latest: latest!['version'] as String? ?? '',
