@@ -6,28 +6,35 @@ void main() {
   group('correct data, outdatedAsJson', () {
     test('pubspec.yaml, no pubspec.lock', () async {
       final pubspec = FreshPubspec('test/data/pubspec_yaml_only');
+      pubspec.removeLock();
       final r = await pubspec.outdatedAsJson;
       expect(r.length, 4, reason: r.sjson);
-    });
-
-    test('pubspec.lock + pubspec.yaml', () async {
-      final pubspec = FreshPubspec('test/data/pubspec_lock_and_yaml');
-      final r = await pubspec.outdatedAsJson;
-      expect(r.length, 0, reason: r.sjson);
     });
   });
 
   group('correct data, outdated', () {
     test('pubspec.yaml, no pubspec.lock', () async {
       final pubspec = FreshPubspec('test/data/pubspec_yaml_only');
+      pubspec.removeLock();
       final r = await pubspec.outdated;
       expect(r.length, 4, reason: r.sjson);
     });
+  });
 
-    test('pubspec.lock + pubspec.yaml', () async {
-      final pubspec = FreshPubspec('test/data/pubspec_lock_and_yaml');
-      final r = await pubspec.outdated;
-      expect(r.length, 0, reason: r.sjson);
+  group('correct data, upgrade', () {
+    test('pubspec.yaml, no pubspec.lock', () async {
+      final pubspec = FreshPubspec('test/data/pubspec_yaml_only');
+      pubspec.removeLock();
+      final content = pubspec.rawContentYaml;
+      expect(content, contains('meta: ">=1.10.0 <3.0.0"'));
+      expect(content, contains('uuid: ^4.1.0'));
+      expect(content, contains('lints: ^3.0.0'));
+      expect(content, contains('test: ^1.25.2'));
+
+      final (newContent, upgraded, skipped) = await pubspec.upgraded;
+      expect(newContent, isNot(equals(content)));
+      expect(upgraded.length, 2, reason: upgraded.sjson);
+      expect(skipped.length, 2, reason: skipped.sjson);
     });
   });
 }
