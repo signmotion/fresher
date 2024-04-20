@@ -16,10 +16,10 @@ class FreshAllState extends AState {
   });
 
   /// See [o].
-  final FreshAllOptions options;
+  final FresherOptions options;
 
   /// Alias for [options].
-  FreshAllOptions get o => options;
+  FresherOptions get o => options;
 
   final Iterable<FreshFile> files;
   final Iterable<FreshProject> projects;
@@ -33,7 +33,7 @@ class FreshAllState extends AState {
   final StackTrace? stackTrace;
 
   FreshAllState copyWith({
-    FreshAllOptions? options,
+    FresherOptions? options,
     // services
     Map<String, bool>? completed,
     // own

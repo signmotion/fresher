@@ -8,7 +8,7 @@ import 'package:wfile/wfile.dart';
 
 void main() {
   final source = p.join('test', 'data', 'all_projects');
-  final f = Fresher(FreshAllOptions()
+  final f = Fresher(FresherOptions()
     ..sourceDirectory = Directory(source)
     ..leaveSpaces = false);
 

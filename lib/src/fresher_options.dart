@@ -1,6 +1,6 @@
 part of '../fresher.dart';
 
-class FreshAllOptions {
+class FresherOptions {
   Directory? sourceDirectory;
   String get sourcePath => sourceDirectory!.path;
 

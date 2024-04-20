@@ -12,10 +12,10 @@ class FreshAll extends Runner {
   String get name => 'Fresh All';
 
   /// See [o].
-  final FreshAllOptions options;
+  final FresherOptions options;
 
   /// Alias for [options].
-  FreshAllOptions get o => options;
+  FresherOptions get o => options;
 
   /// Reads and constructs files from [sourcePath] and copies its to
   /// the projects folders.

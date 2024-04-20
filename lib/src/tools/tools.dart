@@ -14,7 +14,7 @@ class Tools {
   ToolsOptions get o => options;
 
   /// Update all projects
-  Future<ResultRunner> freshAll() async => FreshAll(FreshAllOptions()
+  Future<ResultRunner> freshAll() async => FreshAll(FresherOptions()
         ..sourceDirectory = o.sourceDirectory
         ..filter = o.projectIds
         ..leaveSpaces = o.leaveSpaces)

@@ -5,10 +5,10 @@ class Fresher {
   const Fresher(this.options);
 
   /// See [o].
-  final FreshAllOptions options;
+  final FresherOptions options;
 
   /// Alias for [options].
-  FreshAllOptions get o => options;
+  FresherOptions get o => options;
 
   /// [path] without [source], [sdk], [projectId] and with some modification.
   String scope(

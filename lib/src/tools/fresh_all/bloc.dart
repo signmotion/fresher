@@ -17,7 +17,7 @@ part 'result.dart';
 part 'state.dart';
 
 class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
-  FreshAllBloc(FreshAllOptions options)
+  FreshAllBloc(FresherOptions options)
       : super(FreshAllState(options: options)) {
     on<AEvent>(
       _onEvent,
