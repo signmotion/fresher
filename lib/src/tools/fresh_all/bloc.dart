@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:chalkdart/chalkstrings.dart';
 import 'package:cli_table/cli_table.dart';
 import 'package:collection/collection.dart';
-import 'package:dcli/dcli.dart';
 import 'package:wfile/wfile.dart';
 import 'package:yaml/yaml.dart';
 
@@ -167,7 +168,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
 
     final w = WFile(['..', project.id, 'pubspec.yaml']);
     if (!w.existsFile()) {
-      throw FileNotFoundException(w.npath);
+      throw PathNotFoundException(w.npath, const OSError());
     }
 
     final s = w.readAsText()!;
