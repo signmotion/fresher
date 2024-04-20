@@ -36,7 +36,8 @@ dependencies:
   mustache_template: ^2.0.0
   path: ">=1.7.0 <3.0.0"
   process: ">=4.2.4 <6.0.0"
-  pub_updater: ">=0.4.0 <1.0.0"
+  pub_semver: ^2.1.4
+  pub_updater: ^0.4.0
   recase: ^4.1.0
   wfile:
     path: ../wfile

@@ -166,16 +166,21 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     final key = project.key;
     unsetCompleted(key);
 
-    final w = WFile(['..', project.id, 'pubspec.yaml']);
-    if (!w.existsFile()) {
-      throw PathNotFoundException(w.npath, const OSError());
+    final pubspec = PubspecFile(prefix: '..', projectId: project.id);
+    if (!pubspec.exists) {
+      throw PathNotFoundException(pubspec.file.npath, const OSError());
     }
 
-    final s = w.readAsText()!;
-    final d = loadYaml(s) as YamlMap;
+    final d = pubspec.content;
     final dependencies = d['dependencies'] as YamlMap;
     for (final e in dependencies.entries) {
       print(e);
+      final package = FreshPackage(
+        id: e.key as String,
+        version: e.value as String,
+      );
+      final latestVersion = await package.latestVersion;
+      print('$package, latest version `$latestVersion`');
     }
 
     // TODO

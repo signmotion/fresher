@@ -15,16 +15,33 @@ Future<void> main() async {
     });
   });
 
-  group('fresher.dart --projects=id_gen', () {
+  group('fresher.dart --projects=id_gen --no-upgrade-dependencies', () {
     test('--no-upgrade-dependencies', () async {
       final process = await cli.run([
         'bin/fresher.dart',
+        '--projects=id_gen',
         '--no-upgrade-dependencies',
         'test/data/all_projects',
       ]);
       await expectLater(
         process.stdout,
         emitsThrough(startsWith('Maintained projects:')),
+      );
+      await expectLater(process.stdout, emitsThrough('Result prepared.'));
+    });
+  });
+
+  // with upgrade dependencies
+  group('fresher.dart --projects=id_gen', () {
+    test('--no-upgrade-dependencies', () async {
+      final process = await cli.run([
+        'bin/fresher.dart',
+        '--projects=id_gen',
+        'test/data/all_projects',
+      ]);
+      await expectLater(
+        process.stdout,
+        emitsThrough(startsWith('Maintained projects1:')),
       );
       await expectLater(process.stdout, emitsThrough('Result prepared.'));
     });

@@ -17,6 +17,14 @@ class PubspecFile extends Equatable implements Comparable<PubspecFile> {
   /// A path to `pubspec.yaml` file for [projectId].
   String get pathToFile => p.join(prefix, projectId, filename).npath;
 
+  WFile get file => WFile(pathToFile);
+
+  bool get exists => file.existsFile();
+
+  String get rawContent => file.readAsText()!;
+
+  YamlMap get content => loadYaml(rawContent) as YamlMap;
+
   @override
   List<Object?> get props => [prefix, projectId];
 
