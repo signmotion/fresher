@@ -25,14 +25,7 @@ abstract class ABloc<E extends AEvent, S extends AState> extends Bloc<E, S> {
   /// Wait until all processes was finished.
   /// See [completed].
   Future<void> allCompleted() async {
-    for (var hasUncompleted = true; hasUncompleted;) {
-      hasUncompleted = false;
-      for (final v in state.completed.values) {
-        if (!v) {
-          hasUncompleted = true;
-          break;
-        }
-      }
+    while (state.completed.values.contains(false)) {
       await 200.pauseInMs;
     }
   }
