@@ -40,9 +40,9 @@ Future<void> main() async {
       ]);
       await expectLater(
         process.stdout,
-        emitsThrough(startsWith('Maintained projects1:')),
+        emitsThrough(startsWith('Upgraded dependencies for project1')),
       );
       await expectLater(process.stdout, emitsThrough('Result prepared.'));
     });
-  });
+  }, tags: ['current']);
 }

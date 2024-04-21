@@ -1,15 +1,13 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:chalkdart/chalkstrings.dart';
 import 'package:cli_table/cli_table.dart';
 import 'package:collection/collection.dart';
 import 'package:wfile/wfile.dart';
-import 'package:yaml/yaml.dart';
 
 import '../../../fresher.dart';
 import '../../common/bloc.dart';
+import '../../utils/log.dart';
 
 part 'events.dart';
 part 'file_with_status.dart';
@@ -109,7 +107,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     Emitter<FreshAllState> emit,
   ) async {
     final project = event.project;
-    final key = project.key;
+    final key = '$event-${project.key}';
     unsetCompleted(key);
 
     final files = fresher.projectFiles(project.sdk, project.id);
@@ -163,27 +161,47 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     Emitter<FreshAllState> emit,
   ) async {
     final project = event.project;
-    final key = project.key;
+    final key = '$event-${project.key}';
     unsetCompleted(key);
 
-    final pubspec = Pubspec('../${project.id}');
-    if (!pubspec.exists) {
-      throw PathNotFoundException(pubspec.file.npath, const OSError());
-    }
+    final path = pathToProjectWithPrefix('..', project.id).npath;
+    event.output('Looking `pubspec.yaml` by path `$path`...');
+    final pubspec = FreshPubspec(path);
 
-    final d = pubspec.content;
-    final dependencies = d['dependencies'] as YamlMap;
-    for (final e in dependencies.entries) {
-      print(e);
-      final package = FreshPackage(
-        id: e.key as String,
-        currentYaml: e.value as String,
-      );
-      final latestVersion = await package.getLatestVersion;
-      print('$package, latest version `$latestVersion`');
-    }
+    event.output('Removing `${pubspec.pathToFileLock}`...');
+    pubspec.removeLock();
+    event.output('Removed `${pubspec.pathToFileLock}`.');
 
-    // TODO
+    // final outdated = await pubspec.outdated;
+    // for (final package in outdated.values) {
+    //   print('$package');
+    // }
+
+    event.output('Upgrading `${pubspec.pathToFileYaml}`...');
+    final (newContent, upgradedPackages, skippedPackages) =
+        await pubspec.upgraded;
+    pubspec.writeYaml(newContent);
+    final countPackages = upgradedPackages.length + skippedPackages.length;
+    event.output('Upgraded ${upgradedPackages.length}/$countPackages packages'
+        ' into `${pubspec.pathToFileYaml}`.');
+
+    // final pubspec = Pubspec('../${project.id}');
+    // final d = pubspec.content;
+    // final dependencies = {
+    //   ...d['dependencies'] as YamlMap,
+    //   ...d['dev_dependencies'] as YamlMap,
+    // };
+    // for (final e in dependencies.entries) {
+    //   print(e);
+    //   final package = FreshPackage(
+    //     id: e.key as String,
+    //     currentYaml: e.value as String,
+    //   );
+    //   final latestVersion = await package.getLatestVersion;
+    //   print('$package, latest version `$latestVersion`');
+    // }
+
+    event.output('Upgraded `pubspec.yaml` by path `$path`.');
 
     setCompleted(key);
   }
