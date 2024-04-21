@@ -48,8 +48,8 @@ class FreshingProjectFilesEvent extends AFreshAllEvent {
   List<Object?> get props => [...super.props, project, output];
 }
 
-class UpgradingProjectDependenciesEvent extends AFreshAllEvent {
-  const UpgradingProjectDependenciesEvent({
+class UpgradingProjectEvent extends AFreshAllEvent {
+  const UpgradingProjectEvent({
     required this.project,
     this.output = defaultOutput,
   });

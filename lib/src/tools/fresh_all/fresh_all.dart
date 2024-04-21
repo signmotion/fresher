@@ -67,10 +67,10 @@ class FreshAll extends Runner {
     await _freshProjectFiles(project, bloc);
 
     if (!o.noUpgradeDependencies) {
-      await _upgradeProjectDependencies(project, bloc);
+      await _upgradeProject(project, bloc);
     } else {
       pr('\nSkipped an upgrade dependencies,'
-          ' because `--no-upgrade-dependencies`.');
+          ' because `--no-upgrade`.');
     }
   }
 
@@ -88,14 +88,14 @@ class FreshAll extends Runner {
     pr('Freshed the files for project `$project`.');
   }
 
-  Future<void> _upgradeProjectDependencies(
+  Future<void> _upgradeProject(
     FreshProject project,
     FreshAllBloc bloc,
   ) async {
     pr('\nUpgrading dependencies for project `$project`...');
     increaseCurrentIndent();
 
-    bloc.add(UpgradingProjectDependenciesEvent(project: project));
+    bloc.add(UpgradingProjectEvent(project: project));
     await bloc.allCompleted();
 
     decreaseCurrentIndent();

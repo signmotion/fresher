@@ -31,7 +31,7 @@ Future<void> run(List<String> args) async {
   );
 
   parser.addFlag(
-    'no-upgrade-dependencies',
+    'no-upgrade',
     help: 'Skip an upgrade dependencies.',
   );
 
@@ -50,7 +50,7 @@ Future<void> run(List<String> args) async {
     ..sourceFolder = results.rest.first
     ..projectIds = (results['projects'] as String?)?.split(',') ?? []
     ..leaveSpaces = results.wasParsed('leave-spaces')
-    ..noUpgradeDependencies = results.wasParsed('no-upgrade-dependencies');
+    ..noUpgrade = results.wasParsed('no-upgrade');
 
   final tools = Tools(o);
   final r = await tools.freshAll();

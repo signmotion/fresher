@@ -18,6 +18,6 @@ class Tools {
         ..sourceDirectory = o.sourceDirectory
         ..filter = o.projectIds
         ..leaveSpaces = o.leaveSpaces
-        ..noUpgradeDependencies = o.noUpgradeDependencies)
+        ..noUpgradeDependencies = o.noUpgrade)
       .run();
 }

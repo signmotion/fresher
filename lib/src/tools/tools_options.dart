@@ -10,5 +10,5 @@ class ToolsOptions {
   List<String> projectIds = [];
 
   bool leaveSpaces = false;
-  bool noUpgradeDependencies = false;
+  bool noUpgrade = false;
 }

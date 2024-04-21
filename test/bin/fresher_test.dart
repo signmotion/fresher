@@ -15,12 +15,12 @@ Future<void> main() async {
     });
   });
 
-  group('fresher.dart --projects=id_gen --no-upgrade-dependencies', () {
-    test('--no-upgrade-dependencies', () async {
+  group('fresher.dart --projects=id_gen --no-upgrade', () {
+    test('--no-upgrade', () async {
       final process = await cli.run([
         'bin/fresher.dart',
         '--projects=id_gen',
-        '--no-upgrade-dependencies',
+        '--no-upgrade',
         'test/data/all_projects',
       ]);
       await expectLater(

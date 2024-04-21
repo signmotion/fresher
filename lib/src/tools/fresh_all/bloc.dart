@@ -7,7 +7,6 @@ import 'package:wfile/wfile.dart';
 
 import '../../../fresher.dart';
 import '../../common/bloc.dart';
-import '../../utils/log.dart';
 
 part 'events.dart';
 part 'file_with_status.dart';
@@ -35,8 +34,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
         GettingFreshProjectsEvent e => _onGettingFreshProjectsEvent(e, emit),
         GettingFreshVariablesEvent e => _onGettingFreshVariablesEvent(e, emit),
         FreshingProjectFilesEvent e => _onFreshingProjectFilesEvent(e, emit),
-        UpgradingProjectDependenciesEvent e =>
-          _onUpgradingProjectDependenciesEvent(e, emit),
+        UpgradingProjectEvent e => _onUpgradingProjectEvent(e, emit),
         OutputEvent e => _onOutputEvent(e, emit),
         // unsupported event
         AEvent() => throw Exception('Unsupported event: $event'),
@@ -156,8 +154,8 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     setCompleted(key);
   }
 
-  Future<void> _onUpgradingProjectDependenciesEvent(
-    UpgradingProjectDependenciesEvent event,
+  Future<void> _onUpgradingProjectEvent(
+    UpgradingProjectEvent event,
     Emitter<FreshAllState> emit,
   ) async {
     final project = event.project;
