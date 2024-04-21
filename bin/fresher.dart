@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:fresher/fresher.dart';
 import 'package:fresher/tools_fresher.dart';
 import 'package:json_dart/json_dart.dart';
 
@@ -54,7 +55,7 @@ Future<void> run(List<String> args) async {
 
   final tools = Tools(o);
   final r = await tools.freshAll();
-  print('$r');
+  print('$newLine$r');
 }
 
 void printUsageAndExit(ArgParser parser) {
