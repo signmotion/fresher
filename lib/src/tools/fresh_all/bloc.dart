@@ -47,7 +47,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     GettingSdksEvent event,
     Emitter<FreshAllState> emit,
   ) async {
-    final key = '$event';
+    final key = '${event.runtimeType}';
     unsetCompleted(key);
 
     emit(state.copyWith(sdks: fresher.sdks));
@@ -76,7 +76,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     GettingFreshProjectsEvent event,
     Emitter<FreshAllState> emit,
   ) async {
-    final key = '$event';
+    final key = '${event.runtimeType}';
     unsetCompleted(key);
 
     emit(state.copyWith(projects: fresher.projects));
@@ -106,7 +106,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     Emitter<FreshAllState> emit,
   ) async {
     final project = event.project;
-    final key = '$event-${project.key}';
+    final key = '${event.runtimeType}-${project.key}';
     unsetCompleted(key);
 
     final files = fresher.projectFiles(project.sdk, project.id);
@@ -142,10 +142,10 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
         fileTo.writeAsBytes(content);
       }
 
-      final prevs = state.filesWithStatus[key] ?? [];
+      final prevs = state.filesWithStatus[project.key] ?? [];
       final l = <String, Iterable<FileWithStatus>>{
         ...state.filesWithStatus,
-        key: [...prevs, FileWithStatus(file: file, status: status)],
+        project.key: [...prevs, FileWithStatus(file: file, status: status)],
       };
       emit(state.copyWith(filesWithStatus: l));
 
@@ -160,7 +160,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     Emitter<FreshAllState> emit,
   ) async {
     final project = event.project;
-    final key = '$event-${project.key}';
+    final key = '${event.runtimeType}-${project.key}';
     unsetCompleted(key);
 
     final pubspec =
@@ -197,7 +197,10 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
             ));
     final l = <String, Iterable<PackageWithStatus>>{
       ...state.packagesWithStatus,
-      key: [...upgradedPackagesWithStatus, ...skippedPackagesWithStatus],
+      project.key: [
+        ...upgradedPackagesWithStatus,
+        ...skippedPackagesWithStatus,
+      ],
     };
     emit(state.copyWith(packagesWithStatus: l));
 
