@@ -27,7 +27,6 @@ dependencies:
   chalkdart: ^2.2.1
   cli_table: ^1.0.2
   collection: ">=1.18.0 <3.0.0"
-  dartx: ^1.2.0
   emoji_regex: ^0.0.5
   equatable: ^2.0.5
   json_dart: ^0.1.2
