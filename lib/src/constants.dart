@@ -10,4 +10,12 @@ const fresherFile = '$fresherPrefix.yaml';
 /// For example, a folder of VSCode or `.gitignore` file.
 const servicePrefix = '.';
 
-const newLine = '\r\n';
+/// A platform depended line separator.
+/// ! Copied from <https://github.com/signmotion/dart_helpers>.
+String get newLine => Platform.isWindows
+    ? '\r\n'
+    : Platform.isMacOS
+        ? '\r'
+        : Platform.isLinux
+            ? '\n'
+            : '\n';
