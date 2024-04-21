@@ -46,10 +46,9 @@ void main() {
       bloc.add(const FreshingProjectFilesEvent(project: project));
       await bloc.allCompleted();
 
-      expect(
-        bloc.state.filesWithStatus.keys.toList(),
-        const ['dart:id_gen'],
-      );
+      final fs = bloc.state.filesWithStatus;
+      expect(fs.keys.toList(), const ['dart:id_gen']);
+      expect(fs.values.first.length, 21);
     });
   }, tags: ['current']);
 }
