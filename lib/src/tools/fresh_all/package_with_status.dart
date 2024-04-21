@@ -14,8 +14,9 @@ class PackageWithStatus implements Comparable<PackageWithStatus> {
   int compareTo(PackageWithStatus other) => '$this'.compareTo('$other');
 
   @override
-  String toString() => '$status\t${package.id} ${package.currentYaml}'
-      '${status == UpdatedPackageStatus.modified ? package.resolvable : ""}';
+  String toString() => '$status\t${package.id} ${package.currentYaml} '
+          '${status == UpdatedPackageStatus.modified ? package.resolvable : ""}'
+      .trim();
 }
 
 enum UpdatedPackageStatus {
