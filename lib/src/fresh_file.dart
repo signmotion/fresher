@@ -44,7 +44,7 @@ class FreshFile extends Equatable implements Comparable<FreshFile> {
 
   /// A path into the project.
   String pathToFileForUpdate(String prefix, String projectId) =>
-      p.join(prefix, projectId, key).npath;
+      p.join(pathToProjectWithPrefix(prefix, projectId), key).npath;
 
   @override
   List<Object?> get props => [key];
@@ -56,3 +56,7 @@ class FreshFile extends Equatable implements Comparable<FreshFile> {
   @override
   String toString() => '$key : ${file.npath}';
 }
+
+/// A path to the project folder.
+String pathToProjectWithPrefix(String prefix, String projectId) =>
+    p.join(prefix, projectId).npath;
