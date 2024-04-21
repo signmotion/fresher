@@ -11,6 +11,7 @@ import '../../common/bloc.dart';
 part 'events.dart';
 part 'file_with_status.dart';
 part 'fresh_all.dart';
+part 'package_with_status.dart';
 part 'result.dart';
 part 'state.dart';
 
@@ -124,25 +125,25 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
       final content =
           file.binary ? file.rawValueAsBytes : file.valueAsBytes(variables);
 
-      late final UpdatedStatus status;
+      late final UpdatedFileStatus status;
       if (prevContent == null) {
-        status = UpdatedStatus.added;
+        status = UpdatedFileStatus.added;
       } else if (file.fileConflictResolution ==
           FileConflictResolution.doNotOverwrite) {
-        status = UpdatedStatus.skipped;
+        status = UpdatedFileStatus.skipped;
       } else if (content.toList().equals(prevContent.toList())) {
-        status = UpdatedStatus.unchanged;
+        status = UpdatedFileStatus.unchanged;
       } else {
-        status = UpdatedStatus.modified;
+        status = UpdatedFileStatus.modified;
       }
 
-      const writes = [UpdatedStatus.added, UpdatedStatus.modified];
+      const writes = [UpdatedFileStatus.added, UpdatedFileStatus.modified];
       if (writes.contains(status)) {
         fileTo.writeAsBytes(content);
       }
 
       final prevs = state.filesWithStatus[key] ?? [];
-      final l = <String, List<FileWithStatus>>{
+      final l = <String, Iterable<FileWithStatus>>{
         ...state.filesWithStatus,
         key: [...prevs, FileWithStatus(file: file, status: status)],
       };
@@ -162,9 +163,10 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     final key = '$event-${project.key}';
     unsetCompleted(key);
 
-    final path = pathToProjectWithPrefix('..', project.id).npath;
-    event.output('Looking `pubspec.yaml` by path `$path`...');
-    final pubspec = FreshPubspec(path);
+    final pubspec =
+        FreshPubspec.withPrefix(prefix: '..', project: event.project);
+    event
+        .output('Looking `pubspec.yaml` by path `${pubspec.pathToProject}`...');
 
     event.output('Removing `${pubspec.pathToFileLock}`...');
     pubspec.removeLock();
@@ -183,6 +185,22 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     event.output('Upgraded ${upgradedPackages.length}/$countPackages packages'
         ' into `${pubspec.pathToFileYaml}`.');
 
+    final upgradedPackagesWithStatus =
+        upgradedPackages.map((package) => PackageWithStatus(
+              package: package,
+              status: UpdatedPackageStatus.modified,
+            ));
+    final skippedPackagesWithStatus =
+        skippedPackages.map((package) => PackageWithStatus(
+              package: package,
+              status: UpdatedPackageStatus.unchanged,
+            ));
+    final l = <String, Iterable<PackageWithStatus>>{
+      ...state.packagesWithStatus,
+      key: [...upgradedPackagesWithStatus, ...skippedPackagesWithStatus],
+    };
+    emit(state.copyWith(packagesWithStatus: l));
+
     // final pubspec = Pubspec('../${project.id}');
     // final d = pubspec.content;
     // final dependencies = {
@@ -199,7 +217,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     //   print('$package, latest version `$latestVersion`');
     // }
 
-    event.output('Upgraded `pubspec.yaml` by path `$path`.');
+    event.output('Upgraded `pubspec.yaml` by path `${pubspec.pathToProject}`.');
 
     setCompleted(key);
   }

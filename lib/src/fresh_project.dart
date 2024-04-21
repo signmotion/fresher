@@ -5,17 +5,16 @@ class FreshProject extends Equatable implements Comparable<FreshProject> {
   const FreshProject({
     required this.sdk,
     required this.id,
-  })  : assert(sdk.length > 0),
-        assert(id.length > 0);
+  }) : assert(id.length > 0);
+
+  /// Compounded [sdk] and [id].
+  String get key => '$sdk:$id';
 
   /// An SDK (same folder name contains projects).
   final String sdk;
 
   /// An ID (same folder name).
   final String id;
-
-  /// Compounded [sdk] and [id].
-  String get key => '$sdk:$id';
 
   @override
   List<Object?> get props => [sdk, id];

@@ -11,6 +11,7 @@ class FreshAllState extends AState {
     this.sdks = const [],
     this.variables = const [],
     this.filesWithStatus = const {},
+    this.packagesWithStatus = const {},
     this.error,
     this.stackTrace,
   });
@@ -27,7 +28,10 @@ class FreshAllState extends AState {
   final Iterable<FreshVariable> variables;
 
   /// Key is [FreshProject.key].
-  final Map<String, List<FileWithStatus>> filesWithStatus;
+  final Map<String, Iterable<FileWithStatus>> filesWithStatus;
+
+  /// Key is [FreshPackage.key].
+  final Map<String, Iterable<PackageWithStatus>> packagesWithStatus;
 
   final Object? error;
   final StackTrace? stackTrace;
@@ -42,7 +46,8 @@ class FreshAllState extends AState {
     Iterable<FreshProject>? projects,
     Iterable<String>? sdks,
     Iterable<FreshVariable>? variables,
-    Map<String, List<FileWithStatus>>? filesWithStatus,
+    Map<String, Iterable<FileWithStatus>>? filesWithStatus,
+    Map<String, Iterable<PackageWithStatus>>? packagesWithStatus,
     Object? error,
     StackTrace? stackTrace,
   }) =>
@@ -54,6 +59,7 @@ class FreshAllState extends AState {
         sdks: sdks ?? this.sdks,
         variables: variables ?? this.variables,
         filesWithStatus: filesWithStatus ?? this.filesWithStatus,
+        packagesWithStatus: packagesWithStatus ?? this.packagesWithStatus,
         error: error ?? this.error,
         stackTrace: stackTrace ?? this.stackTrace,
       );
@@ -67,6 +73,7 @@ class FreshAllState extends AState {
         sdks,
         variables,
         filesWithStatus,
+        packagesWithStatus,
         error,
         stackTrace,
       ];

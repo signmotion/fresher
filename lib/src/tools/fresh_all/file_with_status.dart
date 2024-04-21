@@ -7,7 +7,7 @@ class FileWithStatus implements Comparable<FileWithStatus> {
   });
 
   final FreshFile file;
-  final UpdatedStatus status;
+  final UpdatedFileStatus status;
 
   /// ! Group by [status.priority].
   @override
@@ -17,14 +17,14 @@ class FileWithStatus implements Comparable<FileWithStatus> {
   String toString() => '$status\t$file';
 }
 
-enum UpdatedStatus {
+enum UpdatedFileStatus {
   undspecified(100),
   added(1),
   modified(2),
   skipped(3),
   unchanged(4);
 
-  const UpdatedStatus(this.priority);
+  const UpdatedFileStatus(this.priority);
 
   final int priority;
 

@@ -5,6 +5,7 @@ part of '../fresher.dart';
 /// See [FreshPubspec].
 class FreshPackage extends Equatable implements Comparable<FreshPackage> {
   const FreshPackage({
+    required this.project,
     required this.id,
     this.kind = '',
     this.isDiscontinued = false,
@@ -15,29 +16,40 @@ class FreshPackage extends Equatable implements Comparable<FreshPackage> {
     this.latest = '',
   }) : assert(id.length > 0);
 
-  /// Constructs a package [id] from `yaml` file that defined by [pathToPubspec].
-  factory FreshPackage.yamlFile(String pathToPubspec, String id) {
-    final file = WFile(pathToPubspec);
-    if (!file.existsFile()) {
-      throw PathNotFoundException(file.npath, const OSError());
+  /// Constructs a package [id] from `yaml` file that defined by [prefix]
+  /// and [project.id].
+  factory FreshPackage.yamlFile({
+    required String prefix,
+    required FreshProject project,
+    required String id,
+  }) {
+    final pathToProject = p.join(prefix, project.id);
+    final pubspec = Pubspec(pathToProject);
+    if (!pubspec.existsYaml) {
+      throw PathNotFoundException(pubspec.pathToFileYaml, const OSError());
     }
 
-    final d = loadYaml(file.readAsText()!) as YamlMap;
+    final d = pubspec.contentYaml;
     final dependencies = d['dependencies'] as YamlMap;
     final devDependencies = d['dev_dependencies'] as YamlMap;
     final v = (dependencies[id] ?? devDependencies[id]) as String?;
     if (v == null) {
-      throw ArgumentError('Package `$id` not found in `$pathToPubspec`.', 'v');
+      throw ArgumentError('Package `$id` not found in `$pathToProject`.', 'v');
     }
 
-    final kind = dependencies[id] == null ? 'dev' : 'direct';
-
     return FreshPackage(
+      project: project,
       id: id,
-      kind: kind,
+      kind: dependencies[id] == null ? 'dev' : 'direct',
       currentYaml: v.startsWith('^') ? v.substring(1) : v,
     );
   }
+
+  /// Compounded [project.key] and [id].
+  /// This property introduced by analogy with [FreshProject.key].
+  String get key => '${project.key}:$id';
+
+  final FreshProject project;
 
   /// An ID of package on pub.dev.
   final String id;
@@ -100,6 +112,7 @@ class FreshPackage extends Equatable implements Comparable<FreshPackage> {
 
   @override
   List<Object?> get props => [
+        project,
         id,
         kind,
         isDiscontinued,

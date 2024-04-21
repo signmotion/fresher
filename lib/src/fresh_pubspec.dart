@@ -3,7 +3,25 @@ part of '../fresher.dart';
 /// A [Pubspec] with options for freshing.
 /// See [FreshPackage].
 class FreshPubspec extends Pubspec {
-  FreshPubspec(super.pathToProject);
+  FreshPubspec(
+    super.pathToProject, {
+    required this.prefix,
+    required this.project,
+  });
+
+  factory FreshPubspec.withPrefix({
+    required String prefix,
+    required FreshProject project,
+  }) =>
+      FreshPubspec(
+        p.join(prefix, project.id),
+        prefix: prefix,
+        project: project,
+      );
+
+  final String prefix;
+
+  final FreshProject project;
 
   /// Returns a record: new content, upgraded packages, and skipped packages.
   Future<(String, List<FreshPackage>, List<FreshPackage>)> get upgraded async {
@@ -56,12 +74,16 @@ class FreshPubspec extends Pubspec {
           'latest': Map<String, dynamic>? latest,
         } =>
           FreshPackage(
+            project: project,
             id: package!,
             kind: kind ?? '',
             isDiscontinued: isDiscontinued ?? false,
             currentLock: current?['version'] as String? ?? '',
-            currentYaml:
-                FreshPackage.yamlFile(pathToFileYaml, package).currentYaml,
+            currentYaml: FreshPackage.yamlFile(
+              prefix: prefix,
+              project: project,
+              id: package,
+            ).currentYaml,
             upgradable: upgradable!['version'] as String? ?? '',
             resolvable: resolvable!['version'] as String? ?? '',
             latest: latest!['version'] as String? ?? '',
