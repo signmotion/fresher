@@ -36,5 +36,20 @@ void main() {
         const ['dart:id_gen', 'flutter:title_widget'],
       );
     });
+  });
+
+  group('FreshingProjectFilesEvent', () {
+    final bloc = FreshAllBloc(options);
+
+    test('check', () async {
+      const project = FreshProject(sdk: 'dart', id: 'id_gen');
+      bloc.add(const FreshingProjectFilesEvent(project: project));
+      await bloc.allCompleted();
+
+      expect(
+        bloc.state.filesWithStatus.keys.toList(),
+        const ['dart:id_gen'],
+      );
+    });
   }, tags: ['current']);
 }
