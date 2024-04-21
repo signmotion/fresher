@@ -32,13 +32,13 @@ void main() {
 
   group('sdks & projects', () {
     test('sdks', () {
-      expect(f.sdks, equals(['dart', 'flutter']));
+      expect(f.sdks, const ['dart', 'flutter']);
     });
 
     test('projects', () {
       expect(
         f.projects.map((p) => '$p').toList(),
-        equals(['dart:id_gen', 'flutter:title_widget']),
+        const ['dart:id_gen', 'flutter:title_widget'],
       );
     });
   });
