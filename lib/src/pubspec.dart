@@ -36,6 +36,9 @@ class Pubspec extends Equatable implements Comparable<Pubspec> {
 
   YamlMap get contentLock => loadYaml(rawContentLock) as YamlMap;
 
+  /// Update a content for [fileYaml] to [newContent].
+  void writeYaml(String newContent) => fileYaml.writeAsText(newContent);
+
   /// Deletes a [pathToFileLock].
   void removeLock() => fileLock.delete();
 
