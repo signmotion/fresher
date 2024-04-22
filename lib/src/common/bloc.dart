@@ -34,6 +34,12 @@ abstract class ABloc<E extends AEvent, S extends AState> extends Bloc<E, S> {
 
   void setCompleted(String key, [bool value = true]);
 
+  void setAllCompleted([bool value = true]) {
+    for (final key in state.completed.keys) {
+      setCompleted(key, value);
+    }
+  }
+
   @mustCallSuper
   @override
   Future<void> close() async {
