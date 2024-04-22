@@ -34,10 +34,12 @@ class GettingFreshVariablesEvent extends AFreshAllEvent {
 
 class FreshingProjectFilesEvent extends AFreshAllEvent {
   const FreshingProjectFilesEvent({
+    required this.pathPrefix,
     required this.project,
     this.output = defaultOutput,
   });
 
+  final String pathPrefix;
   final FreshProject project;
   final void Function(String s) output;
 
@@ -45,15 +47,17 @@ class FreshingProjectFilesEvent extends AFreshAllEvent {
   //static Future<void> defaultOutput(String s) async => stdout..write(s);
 
   @override
-  List<Object?> get props => [...super.props, project, output];
+  List<Object?> get props => [...super.props, pathPrefix, project, output];
 }
 
 class UpgradingProjectEvent extends AFreshAllEvent {
   const UpgradingProjectEvent({
+    required this.pathPrefix,
     required this.project,
     this.output = defaultOutput,
   });
 
+  final String pathPrefix;
   final FreshProject project;
   final void Function(String s) output;
 
@@ -61,7 +65,7 @@ class UpgradingProjectEvent extends AFreshAllEvent {
   //static Future<void> defaultOutput(String s) async => stdout..write(s);
 
   @override
-  List<Object?> get props => [...super.props, project, output];
+  List<Object?> get props => [...super.props, pathPrefix, project, output];
 }
 
 class OutputEvent extends AFreshAllEvent {
