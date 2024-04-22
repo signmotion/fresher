@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 
 /// ! See CLI tests in `test/bin/fresher_test.dart`.
 /// ! See Fresher tests in `test/fresher_test.dart`.
-void main() {
+Future<void> main() async {
   final source = p.join('test', 'data', 'all_projects');
   final options = FresherOptions()
     ..sourceDirectory = Directory(source)
@@ -43,12 +43,41 @@ void main() {
 
     test('check', () async {
       const project = FreshProject(sdk: 'dart', id: 'id_gen');
-      bloc.add(const FreshingProjectFilesEvent(project: project));
+      bloc.add(const FreshingProjectFilesEvent(
+        pathPrefix: '_output',
+        project: project,
+      ));
       await bloc.allCompleted();
 
       final fs = bloc.state.filesWithStatus;
       expect(fs.keys.toList(), const ['dart:id_gen']);
       expect(fs.values.first.length, 21);
     });
-  }, tags: ['current']);
+  });
+
+  /* Doesn't work: interrupts when Process.start().
+  Use `bin/fresher_test.dart`, `check upgraded dependencies`.
+  group('UpgradingProjectEvent', () {
+    final source = p.join('test', 'data');
+    final options = FresherOptions()
+      ..sourceDirectory = Directory(source)
+      ..leaveSpaces = false;
+    final bloc = FreshAllBloc(options);
+
+    test('check', () async {
+      const project = FreshProject(sdk: '', id: 'pubspec_yaml_only');
+      bloc.add(UpgradingProjectEvent(
+        pathPrefix: source.npath,
+        project: project,
+      ));
+      await bloc.allCompleted();
+
+      expect(bloc.state.ok, isTrue, reason: '${bloc.state.error}');
+
+      final fs = bloc.state.packagesWithStatus;
+      expect(fs.keys.toList(), const [':id_gen']);
+      expect(fs.values.first.length, 4);
+    });
+  });
+  */
 }
