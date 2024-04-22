@@ -81,7 +81,7 @@ class FreshAll extends Runner {
     pr('\nFreshing the files for project `$project`...');
     increaseCurrentIndent();
 
-    bloc.add(FreshingProjectFilesEvent(project: project));
+    bloc.add(FreshingProjectFilesEvent(pathPrefix: '..', project: project));
     await bloc.allCompleted();
 
     decreaseCurrentIndent();
@@ -95,7 +95,7 @@ class FreshAll extends Runner {
     pr('\nUpgrading dependencies for project `$project`...');
     increaseCurrentIndent();
 
-    bloc.add(UpgradingProjectEvent(project: project));
+    bloc.add(UpgradingProjectEvent(pathPrefix: '..', project: project));
     await bloc.allCompleted();
 
     decreaseCurrentIndent();
