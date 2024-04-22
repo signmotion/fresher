@@ -2,11 +2,12 @@ part of '../fresher.dart';
 
 /// A `pubspec.yaml` file.
 class Pubspec extends Equatable implements Comparable<Pubspec> {
-  Pubspec(this.pathToProject) {
-    if (!existsYaml) {
-      throw PathNotFoundException(pathToFileYaml, const OSError());
-    }
-  }
+  const Pubspec(this.pathToProject);
+  // {
+  //   if (!existsYaml) {
+  //     throw PathNotFoundException(pathToFileYaml, const OSError());
+  //   }
+  // }
 
   static const filenameYaml = 'pubspec.yaml';
   static const filenameLock = 'pubspec.lock';
