@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:chalkdart/chalkstrings.dart';
@@ -7,6 +9,7 @@ import 'package:wfile/wfile.dart';
 
 import '../../../fresher.dart';
 import '../../common/bloc.dart';
+import '../../utils/log.dart';
 
 part 'events.dart';
 part 'file_with_status.dart';
@@ -27,8 +30,9 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
   Future<void> _onEvent(
     AEvent event,
     Emitter<FreshAllState> emit,
-  ) async =>
-      switch (event) {
+  ) async {
+    try {
+      await switch (event) {
         // fresh all projects
         GettingSdksEvent e => _onGettingSdksEvent(e, emit),
         GettingFreshFilesEvent e => _onGettingFreshFilesEvent(e, emit),
@@ -40,6 +44,15 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
         // unsupported event
         AEvent() => throw Exception('Unsupported event: $event'),
       };
+    } catch (ex, stackTrace) {
+      emit(state.copyWith(error: ex, stackTrace: stackTrace));
+
+      setAllCompleted();
+
+      logger.e(ex);
+      rethrow;
+    }
+  }
 
   Fresher get fresher => Fresher(state.options);
 
@@ -113,7 +126,7 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     final variables = fresher.projectVariables(project.sdk, project.id);
     for (final file in files) {
       final from = file.file.npath;
-      final to = file.pathToFileForUpdate('..', project.id);
+      final to = file.pathToFileForUpdate(event.pathPrefix, project.id);
       event.output('$from\n  -> $to');
       if (file.fileConflictResolution != FileConflictResolution.overwrite) {
         event.output(
@@ -163,14 +176,24 @@ class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
     final key = '${event.runtimeType}-${project.key}';
     unsetCompleted(key);
 
-    final pubspec =
-        FreshPubspec.withPrefix(prefix: '..', project: event.project);
+    final pubspec = FreshPubspec.withPrefix(
+      prefix: event.pathPrefix,
+      project: event.project,
+    );
     event
         .output('Looking `pubspec.yaml` by path `${pubspec.pathToProject}`...');
+    if (!pubspec.existsYaml) {
+      logger.e('File `${pubspec.pathToFileYaml}` not found.');
+      final ex = PathNotFoundException(pubspec.pathToFileYaml, const OSError());
+      emit(state.copyWith(error: ex, stackTrace: StackTrace.current));
+      throw ex;
+    }
 
-    event.output('Removing `${pubspec.pathToFileLock}`...');
-    pubspec.removeLock();
-    event.output('Removed `${pubspec.pathToFileLock}`.');
+    if (pubspec.existsLock) {
+      event.output('Removing `${pubspec.pathToFileLock}`...');
+      pubspec.removeLock();
+      event.output('Removed `${pubspec.pathToFileLock}`.');
+    }
 
     // final outdated = await pubspec.outdated;
     // for (final package in outdated.values) {
