@@ -17,7 +17,7 @@ Future<void> main() async {
   });
 
   group('fresher.dart --projects=id_gen --no-upgrade', () {
-    test('--no-upgrade', () async {
+    test('check maintained projects', () async {
       final process = await cli.run([
         'bin/fresher.dart',
         '--projects=id_gen',
@@ -33,7 +33,7 @@ Future<void> main() async {
   });
 
   group('fresher.dart --projects=id_gen', () {
-    test('upgrade dependencies', () async {
+    test('check upgraded dependencies', () async {
       final process = await cli.run([
         'bin/fresher.dart',
         '--projects=id_gen',
