@@ -3,7 +3,7 @@ part of '../fresher.dart';
 /// A [Pubspec] with options for freshing.
 /// See [FreshPackage].
 class FreshPubspec extends Pubspec {
-  FreshPubspec(
+  const FreshPubspec(
     super.pathToProject, {
     required this.prefix,
     required this.project,
@@ -14,7 +14,7 @@ class FreshPubspec extends Pubspec {
     required FreshProject project,
   }) =>
       FreshPubspec(
-        p.join(prefix, project.id),
+        p.join(prefix, project.id).npath,
         prefix: prefix,
         project: project,
       );
@@ -95,7 +95,7 @@ class FreshPubspec extends Pubspec {
     return r;
   }
 
-  /// Outdated dependencies for [pathToProject]/[projectId] from pub.dev
+  /// Outdated dependencies for [pathToProject] from pub.dev
   /// as [Iterable]<[JsonMap]>.
   /// See [outdated].
   Future<Iterable<JsonMap>> get outdatedAsJson async {
@@ -103,17 +103,28 @@ class FreshPubspec extends Pubspec {
 
     const executable = 'dart';
     final args = ['pub', 'outdated', '--json', '--directory=$pathToProject'];
-    final process = await Process.start(executable, args);
-    final output = await process.stdout.transform(utf8.decoder).join(newLine);
-    final exitCode = await process.exitCode;
-    if (exitCode != 0) {
-      logger.i(output);
-      logger.e(await process.stderr.transform(utf8.decoder).join(newLine));
-      throw Exception('Process `$executable` with `$args` failed.'
-          ' Exit code is $exitCode.');
+    late final Process process;
+    try {
+      process = await Process.start(executable, args);
+    } catch (ex) {
+      logger.e(ex);
+      rethrow;
     }
 
-    return (output.jsonMap['packages'] as List<dynamic>)
+    final outputStdout =
+        await process.stdout.transform(utf8.decoder).join(newLine);
+    final outputStderr =
+        await process.stderr.transform(utf8.decoder).join(newLine);
+    final exitCode = await process.exitCode;
+    if (exitCode != 0) {
+      logger.i(outputStdout);
+      logger.e(outputStderr);
+      throw Exception('Process `$executable` with `$args` failed.'
+          ' Exit code is $exitCode.'
+          ' Error output: `$outputStderr`.');
+    }
+
+    return (outputStdout.jsonMap['packages'] as List<dynamic>)
         .map((e) => e as JsonMap)
         .where((e) => filterKinds.contains(e['kind']));
   }
