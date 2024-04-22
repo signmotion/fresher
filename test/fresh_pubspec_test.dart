@@ -2,7 +2,7 @@ import 'package:fresher/fresher.dart';
 import 'package:json_dart/json_dart.dart';
 import 'package:test/test.dart';
 
-void main() {
+Future<void> main() async {
   const project = FreshProject(sdk: '', id: 'pubspec_yaml_only');
   final pubspec =
       FreshPubspec.withPrefix(prefix: 'test/data', project: project);
