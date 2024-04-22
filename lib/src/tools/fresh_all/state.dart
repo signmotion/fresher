@@ -36,6 +36,9 @@ class FreshAllState extends AState {
   final Object? error;
   final StackTrace? stackTrace;
 
+  /// `true` when there is no [error].
+  bool get ok => error == null;
+
   FreshAllState copyWith({
     FresherOptions? options,
     // services
