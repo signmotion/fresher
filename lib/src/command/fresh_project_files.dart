@@ -4,17 +4,13 @@ class FreshProjectFiles
     extends ACommand<Map<String, Iterable<FileWithStatus>>, FresherOptions> {
   const FreshProjectFiles(
     super.options, {
+    super.output,
     required this.pathPrefix,
     required this.project,
-    this.output = defaultOutput,
   });
 
   final String pathPrefix;
   final FreshProject project;
-  final void Function(String s) output;
-
-  // ignore: avoid_print
-  static void defaultOutput(String s) => print(s);
 
   /// Key is [FreshProject.key].
   @override
