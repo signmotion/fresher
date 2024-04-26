@@ -1,4 +1,4 @@
-part of '../../fresher.dart';
+part of '_.dart';
 
 extension FresherStringFileSystemEntityExt on String {
   /// Trimmed path with replaced `\` to `/`.

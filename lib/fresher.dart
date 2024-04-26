@@ -16,12 +16,8 @@ import 'package:recase/recase.dart';
 import 'package:wfile/wfile.dart';
 import 'package:yaml/yaml.dart';
 
+import 'src/extension/_.dart';
 import 'src/util/log.dart';
-
-part 'src/extension/enum.dart';
-part 'src/extension/file_system_entity.dart';
-part 'src/extension/pause.dart';
-part 'src/extension/string.dart';
 
 part 'src/constants.dart';
 part 'src/emoji_template.dart';

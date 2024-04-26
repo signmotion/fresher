@@ -1,4 +1,4 @@
-part of '../../fresher.dart';
+part of '_.dart';
 
 extension FresherPauseExt on int {
   /// Pause in milliseconds.

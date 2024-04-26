@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:fresher/fresher.dart';
+import 'package:fresher/src/extension/_.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:wfile/wfile.dart';

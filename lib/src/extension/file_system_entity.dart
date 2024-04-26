@@ -1,4 +1,4 @@
-part of '../../fresher.dart';
+part of '_.dart';
 
 extension FresherFileSystemEntityExt on FileSystemEntity {
   /// See [containsFresherEntity].
