@@ -9,9 +9,7 @@ import 'package:wfile/wfile.dart';
 Future<void> main() async {
   group('correct data', () {
     final source = p.join('test', 'data');
-    final options = FresherOptions()
-      ..sourceDirectory = Directory(source)
-      ..leaveSpaces = false;
+    final options = FresherOptions()..sourceDirectory = Directory(source);
     const project = FreshProject(sdk: '', id: 'pubspec_yaml_only');
     final command = UpgradeProject(
       options,

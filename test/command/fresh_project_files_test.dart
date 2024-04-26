@@ -8,9 +8,7 @@ import 'package:test/test.dart';
 Future<void> main() async {
   group('correct data', () {
     final source = p.join('test', 'data', 'all_projects');
-    final options = FresherOptions()
-      ..sourceDirectory = Directory(source)
-      ..leaveSpaces = false;
+    final options = FresherOptions()..sourceDirectory = Directory(source);
     const project = FreshProject(sdk: 'dart', id: 'id_gen');
     final command = FreshProjectFiles(
       options,
