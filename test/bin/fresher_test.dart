@@ -2,7 +2,6 @@ import 'package:test/test.dart';
 
 import '../util/cli.dart';
 
-/// ! See BLoC tests in `test/fresh_all_test.dart`.
 Future<void> main() async {
   const cli = Cli();
 
@@ -30,7 +29,7 @@ Future<void> main() async {
       );
       await expectLater(process.stdout, emitsThrough('Result prepared.'));
     });
-  }, tags: ['current']);
+  });
 
   group('fresher.dart --projects=id_gen', () {
     test('check upgraded dependencies', () async {
