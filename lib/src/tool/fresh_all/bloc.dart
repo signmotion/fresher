@@ -3,7 +3,7 @@ import 'package:cli_table/cli_table.dart';
 
 import '../../../fresher.dart';
 import '../../command/_.dart';
-import '../../common/bloc.dart';
+import '../../common/_.dart';
 
 part 'file_with_status.dart';
 part 'fresh_all.dart';

@@ -1,4 +1,4 @@
-part of 'bloc.dart';
+part of '_.dart';
 
 /// Result after completed a run.
 /// See [Runner].
