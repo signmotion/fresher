@@ -22,7 +22,9 @@ class FreshProjectFiles
     for (final file in files) {
       final from = file.file.npath;
       final to = file.pathToFileForUpdate(pathPrefix, project.id);
-      output('$from\n  -> $to');
+      final pfrom =
+          from.replaceFirst('./', '').replaceFirst('$fresherPrefix/', '');
+      output('$pfrom -> $to');
       if (file.fileConflictResolution != FileConflictResolution.overwrite) {
         output(
             '  with conflict resolution ${file.fileConflictResolution.name}');
