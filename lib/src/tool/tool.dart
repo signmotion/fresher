@@ -1,17 +1,17 @@
 part of '../../tools_fresher.dart';
 
-class Tools {
-  Tools(this.options) {
+class Tool {
+  Tool(this.options) {
     assert(options.sourceFolder.isNotEmpty);
     assert(options.sourceDirectory.existsSync(),
         'A source `${options.sourceDirectory.path}` should be exists.');
   }
 
   /// See [o].
-  final ToolsOptions options;
+  final ToolOptions options;
 
   /// Alias for [options].
-  ToolsOptions get o => options;
+  ToolOptions get o => options;
 
   /// Update all projects
   Future<ResultRunner> freshAll() async => FreshAll(FresherOptions()

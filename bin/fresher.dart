@@ -47,13 +47,13 @@ Future<void> run(List<String> args) async {
     printUsageAndExit(parser);
   }
 
-  final o = ToolsOptions()
+  final o = ToolOptions()
     ..sourceFolder = results.rest.first
     ..projectIds = (results['projects'] as String?)?.split(',') ?? []
     ..leaveSpaces = results.wasParsed('leave-spaces')
     ..noUpgrade = results.wasParsed('no-upgrade');
 
-  final tools = Tools(o);
+  final tools = Tool(o);
   final r = await tools.freshAll();
   print('$newLine$r');
 }

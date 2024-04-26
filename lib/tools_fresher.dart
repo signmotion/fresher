@@ -6,7 +6,7 @@ import 'package:path/path.dart' as p;
 
 import 'fresher.dart';
 import 'src/common/bloc.dart';
-import 'src/tools/fresh_all/bloc.dart';
+import 'src/tool/fresh_all/bloc.dart';
 
-part 'src/tools/tools_options.dart';
-part 'src/tools/tools.dart';
+part 'src/tool/tool_options.dart';
+part 'src/tool/tool.dart';

@@ -1,6 +1,6 @@
 part of '../../tools_fresher.dart';
 
-class ToolsOptions {
+class ToolOptions {
   String sourcePathPrefix = '';
   String sourceFolder = '';
 

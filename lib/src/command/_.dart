@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:wfile/wfile.dart';
 
 import '../../fresher.dart';
-import '../tools/fresh_all/bloc.dart';
+import '../tool/fresh_all/bloc.dart';
 import '../utils/log.dart';
 
 part 'command.dart';
