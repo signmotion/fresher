@@ -1,4 +1,4 @@
-part of 'bloc.dart';
+part of '_.dart';
 
 class PackageWithStatus implements Comparable<PackageWithStatus> {
   const PackageWithStatus({

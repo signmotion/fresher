@@ -1,4 +1,4 @@
-part of 'bloc.dart';
+part of '_.dart';
 
 class FileWithStatus implements Comparable<FileWithStatus> {
   const FileWithStatus({
