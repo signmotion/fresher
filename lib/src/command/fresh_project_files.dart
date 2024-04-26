@@ -1,7 +1,7 @@
 part of '_.dart';
 
 class FreshProjectFiles
-    extends ACommand<Map<String, Iterable<FileWithStatus>>, FresherOptions> {
+    extends ACommand<Iterable<FileWithStatus>, FresherOptions> {
   const FreshProjectFiles(
     super.options, {
     super.output,
@@ -12,13 +12,12 @@ class FreshProjectFiles
   final String pathPrefix;
   final FreshProject project;
 
-  /// Key is [FreshProject.key].
   @override
-  Future<Map<String, Iterable<FileWithStatus>>> run() async {
+  Future<Iterable<FileWithStatus>> run() async {
     final fresher = Fresher(options);
     final files = fresher.projectFiles(project.sdk, project.id);
     final variables = fresher.projectVariables(project.sdk, project.id);
-    final filesWithStatus = <String, Iterable<FileWithStatus>>{};
+    final filesWithStatus = <FileWithStatus>[];
     for (final file in files) {
       final from = file.file.npath;
       final to = file.pathToFileForUpdate(pathPrefix, project.id);
@@ -52,11 +51,7 @@ class FreshProjectFiles
         fileTo.writeAsBytes(content);
       }
 
-      filesWithStatus.update(
-        project.key,
-        (prev) => [...prev, FileWithStatus(file: file, status: status)],
-        ifAbsent: () => [FileWithStatus(file: file, status: status)],
-      );
+      filesWithStatus.add(FileWithStatus(file: file, status: status));
 
       output('  ${status.name}');
     }

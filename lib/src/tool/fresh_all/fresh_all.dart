@@ -93,10 +93,7 @@ class FreshAll extends Runner<FreshAllResultRunner> {
       pathPrefix: '..',
       project: project,
     ).run();
-    result.filesWithStatus = {
-      ...result.filesWithStatus,
-      r.keys.first: r.values.first
-    };
+    result.filesWithStatus = {project.key: r};
 
     decreaseCurrentIndent();
     pr('Freshed the files for project `$project`.');

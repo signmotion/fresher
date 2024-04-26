@@ -18,8 +18,7 @@ Future<void> main() async {
 
     test('run', () async {
       final r = await command.run();
-      expect(r.keys.toList(), const ['dart:id_gen']);
-      expect(r.values.first.length, 21);
+      expect(r.length, 21);
     });
   });
 }
