@@ -11,14 +11,17 @@ Future<void> main() async {
     final options = FresherOptions()
       ..sourceDirectory = Directory(source)
       ..leaveSpaces = false;
-    final command = GetFreshProjects(options);
+    const project = FreshProject(sdk: 'dart', id: 'id_gen');
+    final command = FreshProjectFiles(
+      options,
+      pathPrefix: '_output',
+      project: project,
+    );
 
     test('run', () async {
       final r = await command.run();
-      expect(
-        r.map((p) => '$p').toList(),
-        const ['dart:id_gen', 'flutter:title_widget'],
-      );
+      expect(r.keys.toList(), const ['dart:id_gen']);
+      expect(r.values.first.length, 21);
     });
-  });
+  }, tags: ['current']);
 }
