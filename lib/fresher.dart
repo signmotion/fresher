@@ -18,10 +18,10 @@ import 'package:yaml/yaml.dart';
 
 import 'src/util/log.dart';
 
-part 'src/extensions/enum.dart';
-part 'src/extensions/file_system_entity.dart';
-part 'src/extensions/pause.dart';
-part 'src/extensions/string.dart';
+part 'src/extension/enum.dart';
+part 'src/extension/file_system_entity.dart';
+part 'src/extension/pause.dart';
+part 'src/extension/string.dart';
 
 part 'src/constants.dart';
 part 'src/emoji_template.dart';
