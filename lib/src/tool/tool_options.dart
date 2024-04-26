@@ -1,4 +1,4 @@
-part of '../../tools_fresher.dart';
+part of '../../tool_fresher.dart';
 
 class ToolOptions {
   String sourcePathPrefix = '';

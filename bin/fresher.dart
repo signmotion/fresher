@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:fresher/fresher.dart';
-import 'package:fresher/tools_fresher.dart';
+import 'package:fresher/tool_fresher.dart';
 import 'package:json_dart/json_dart.dart';
 
 Future<void> main(List<String> args) async {
