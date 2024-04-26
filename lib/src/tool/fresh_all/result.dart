@@ -1,17 +1,20 @@
 part of '_.dart';
 
 class FreshAllResultRunner extends ResultRunner {
-  FreshAllResultRunner();
+  FreshAllResultRunner()
+      : projects = [],
+        filesWithStatus = {},
+        packagesWithStatus = {};
 
-  late Iterable<FreshProject> projects;
-  late Map<String, Iterable<FileWithStatus>> filesWithStatus;
-  late Map<String, Iterable<PackageWithStatus>> packagesWithStatus;
+  Iterable<FreshProject> projects;
+  Map<String, Iterable<FileWithStatus>> filesWithStatus;
+  Map<String, Iterable<PackageWithStatus>> packagesWithStatus;
 
   /// All rewieved files with statuses.
   String statFiles() {
     var r = '';
 
-    r += 'Files: ${filesWithStatus.length}$newLine';
+    r += 'Files:$newLine';
     for (final e in filesWithStatus.entries) {
       final projectKey = e.key;
       r += '$newLine${projectKey.blueBright}$newLine';
@@ -35,7 +38,7 @@ class FreshAllResultRunner extends ResultRunner {
   String statPackages() {
     var r = '';
 
-    r += 'Packages: ${packagesWithStatus.length}$newLine';
+    r += 'Packages:$newLine';
     for (final e in packagesWithStatus.entries) {
       final projectKey = e.key;
       r += '$newLine${projectKey.blueBright}$newLine';

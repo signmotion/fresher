@@ -42,7 +42,9 @@ class FreshAll extends Runner<FreshAllResultRunner> {
           await _freshProject(project, result);
         } else {
           printi('\nProject `${project.id}` skipped by filter.');
-          result.packagesWithStatus = const {};
+          result.packagesWithStatus.addEntries(
+            [MapEntry(project.key, const {})],
+          );
         }
       }
     }
@@ -79,11 +81,15 @@ class FreshAll extends Runner<FreshAllResultRunner> {
     pr('\nFreshing the files for project `$project`...');
     increaseCurrentIndent();
 
-    result.filesWithStatus = await FreshProjectFiles(
+    final r = await FreshProjectFiles(
       options,
       pathPrefix: '..',
       project: project,
     ).run();
+    result.filesWithStatus = {
+      ...result.filesWithStatus,
+      r.keys.first: r.values.first
+    };
 
     decreaseCurrentIndent();
     pr('Freshed the files for project `$project`.');
@@ -96,11 +102,15 @@ class FreshAll extends Runner<FreshAllResultRunner> {
     pr('\nUpgrading dependencies for project `$project`...');
     increaseCurrentIndent();
 
-    result.packagesWithStatus = await UpgradeProject(
+    final r = await UpgradeProject(
       options,
       pathPrefix: '..',
       project: project,
     ).run();
+    result.packagesWithStatus = {
+      ...result.packagesWithStatus,
+      r.keys.first: r.values.first
+    };
 
     decreaseCurrentIndent();
     pr('Upgraded dependencies for project `$project`.');
