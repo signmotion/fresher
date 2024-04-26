@@ -113,11 +113,11 @@ class FreshPubspec extends Pubspec {
 
     final outputStdout =
         await process.stdout.transform(utf8.decoder).join(newLine);
-    final outputStderr =
-        await process.stderr.transform(utf8.decoder).join(newLine);
     final exitCode = await process.exitCode;
     if (exitCode != 0) {
       logger.i(outputStdout);
+      final outputStderr =
+          await process.stderr.transform(utf8.decoder).join(newLine);
       logger.e(outputStderr);
       throw Exception('Process `$executable` with `$args` failed.'
           ' Exit code is $exitCode.'
