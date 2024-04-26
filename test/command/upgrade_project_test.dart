@@ -19,10 +19,14 @@ Future<void> main() async {
       project: project,
     );
 
+    void copyFromOriginalYaml() => WFile('test/data/pubspec_yaml_only')
+        .copy('pubspec.original.yaml', 'pubspec.yaml');
+
     test('run', () async {
+      copyFromOriginalYaml();
       final r = await command.run();
       expect(r.keys.toList(), const [':pubspec_yaml_only']);
       expect(r.values.first.length, 4);
     });
-  }, tags: ['current']);
+  });
 }
