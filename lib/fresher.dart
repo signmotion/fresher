@@ -16,7 +16,7 @@ import 'package:recase/recase.dart';
 import 'package:wfile/wfile.dart';
 import 'package:yaml/yaml.dart';
 
-import 'src/utils/log.dart';
+import 'src/util/log.dart';
 
 part 'src/extensions/enum.dart';
 part 'src/extensions/file_system_entity.dart';

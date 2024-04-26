@@ -6,7 +6,7 @@ import 'package:wfile/wfile.dart';
 
 import '../../fresher.dart';
 import '../tool/fresh_all/bloc.dart';
-import '../utils/log.dart';
+import '../util/log.dart';
 
 part 'command.dart';
 part 'fresh_project_files.dart';
