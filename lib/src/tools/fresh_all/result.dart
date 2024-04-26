@@ -1,20 +1,18 @@
 part of 'bloc.dart';
 
 class FreshAllResultRunner extends ResultRunner {
-  const FreshAllResultRunner({
-    required super.ok,
-    super.error,
-    required this.state,
-  });
+  FreshAllResultRunner();
 
-  final FreshAllState state;
+  late Iterable<FreshProject> projects;
+  late Map<String, Iterable<FileWithStatus>> filesWithStatus;
+  late Map<String, Iterable<PackageWithStatus>> packagesWithStatus;
 
   /// All rewieved files with statuses.
   String statFiles() {
     var r = '';
 
-    r += 'Files: ${state.filesWithStatus.length}$newLine';
-    for (final e in state.filesWithStatus.entries) {
+    r += 'Files: ${filesWithStatus.length}$newLine';
+    for (final e in filesWithStatus.entries) {
       final projectKey = e.key;
       r += '$newLine${projectKey.blueBright}$newLine';
       final table = Table(
@@ -37,8 +35,8 @@ class FreshAllResultRunner extends ResultRunner {
   String statPackages() {
     var r = '';
 
-    r += 'Packages: ${state.packagesWithStatus.length}$newLine';
-    for (final e in state.packagesWithStatus.entries) {
+    r += 'Packages: ${packagesWithStatus.length}$newLine';
+    for (final e in packagesWithStatus.entries) {
       final projectKey = e.key;
       r += '$newLine${projectKey.blueBright}$newLine';
       final table = Table(

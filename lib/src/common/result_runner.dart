@@ -3,14 +3,11 @@ part of 'bloc.dart';
 /// Result after completed a run.
 /// See [Runner].
 abstract class ResultRunner {
-  const ResultRunner({
-    required this.ok,
-    this.error,
-  });
+  ResultRunner({this.error});
 
-  final bool ok;
+  Exception? error;
 
-  final Exception? error;
+  bool get ok => error == null;
 
   bool get hasError => !ok;
 }

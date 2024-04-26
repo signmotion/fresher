@@ -3,12 +3,12 @@
 part of 'bloc.dart';
 
 /// Run a process for [sourcePath].
-abstract class Runner {
+abstract class Runner<R> {
   Runner();
 
   String get name;
 
-  Future<ResultRunner> run();
+  Future<R> run();
 
   void pr(String s) => print(s);
 

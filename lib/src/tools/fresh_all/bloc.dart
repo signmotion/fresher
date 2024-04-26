@@ -8,6 +8,7 @@ import 'package:collection/collection.dart';
 import 'package:wfile/wfile.dart';
 
 import '../../../fresher.dart';
+import '../../command/_.dart';
 import '../../common/bloc.dart';
 import '../../utils/log.dart';
 
@@ -18,8 +19,8 @@ part 'package_with_status.dart';
 part 'result.dart';
 part 'state.dart';
 
-class FreshAllBloc extends ABloc<AEvent, FreshAllState> {
-  FreshAllBloc(FresherOptions options)
+class FreshAllBloc1 extends ABloc<AEvent, FreshAllState> {
+  FreshAllBloc1(FresherOptions options)
       : super(FreshAllState(options: options)) {
     on<AEvent>(
       _onEvent,

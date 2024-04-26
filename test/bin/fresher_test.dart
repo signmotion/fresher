@@ -30,7 +30,7 @@ Future<void> main() async {
       );
       await expectLater(process.stdout, emitsThrough('Result prepared.'));
     });
-  });
+  }, tags: ['current']);
 
   group('fresher.dart --projects=id_gen', () {
     test('check upgraded dependencies', () async {
