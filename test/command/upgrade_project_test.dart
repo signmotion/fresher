@@ -23,8 +23,7 @@ Future<void> main() async {
     test('run', () async {
       copyFromOriginalYaml();
       final r = await command.run();
-      expect(r.keys.toList(), const [':pubspec_yaml_only']);
-      expect(r.values.first.length, 4);
+      expect(r.length, 4);
     });
   });
 }

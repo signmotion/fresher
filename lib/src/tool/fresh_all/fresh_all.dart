@@ -114,10 +114,7 @@ class FreshAll extends Runner<FreshAllResultRunner> {
       pathPrefix: '..',
       project: project,
     ).run();
-    result.packagesWithStatus = {
-      ...result.packagesWithStatus,
-      r.keys.first: r.values.first
-    };
+    result.packagesWithStatus = {project.key: r};
 
     decreaseCurrentIndent();
     pr('Upgraded dependencies for project `$project`.');

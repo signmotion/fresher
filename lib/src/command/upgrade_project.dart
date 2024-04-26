@@ -1,7 +1,7 @@
 part of '_.dart';
 
 class UpgradeProject
-    extends ACommand<Map<String, Iterable<PackageWithStatus>>, FresherOptions> {
+    extends ACommand<Iterable<PackageWithStatus>, FresherOptions> {
   const UpgradeProject(
     super.options, {
     super.output,
@@ -14,7 +14,7 @@ class UpgradeProject
 
   /// Key is [FreshProject.key].
   @override
-  Future<Map<String, Iterable<PackageWithStatus>>> run() async {
+  Future<Iterable<PackageWithStatus>> run() async {
     final pubspec = FreshPubspec.withPrefix(
       prefix: pathPrefix,
       project: project,
@@ -54,12 +54,10 @@ class UpgradeProject
               package: package,
               status: UpdatedPackageStatus.unchanged,
             ));
-    final packagesWithStatus = <String, Iterable<PackageWithStatus>>{
-      project.key: [
-        ...upgradedPackagesWithStatus,
-        ...skippedPackagesWithStatus,
-      ],
-    };
+    final packagesWithStatus = <PackageWithStatus>[
+      ...upgradedPackagesWithStatus,
+      ...skippedPackagesWithStatus,
+    ];
 
     // final pubspec = Pubspec('../${project.id}');
     // final d = pubspec.content;
