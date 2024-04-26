@@ -68,6 +68,34 @@ class FreshAllResultRunner extends ResultRunner {
         }
         r += '$table$newLine';
       }
+
+      // git log
+      final log = gitLogs[key];
+      if (log != null) {
+        r += '${newLine}git log$newLine';
+        var count = 0;
+        final lines = log.readAsTextLines()!;
+        var firstCommit = true;
+        for (final line in lines) {
+          final s = line.split(' ').sublist(1).join(' ').trim();
+          if (s.isEmpty) {
+            // skip empty line
+            continue;
+          }
+
+          r += '* $s$newLine';
+
+          ++count;
+          if (count >= fresherMaxGitLogLines) {
+            firstCommit = false;
+            break;
+          }
+        }
+
+        if (!firstCommit) {
+          r += '* ...$newLine';
+        }
+      }
     }
 
     return r;

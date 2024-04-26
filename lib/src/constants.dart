@@ -10,6 +10,9 @@ const fresherFile = '$fresherPrefix.yaml';
 /// For example, a `git log`.
 const fresherOutputFolder = '_output';
 
+/// Count of git log lines when output result.
+const fresherMaxGitLogLines = 60;
+
 /// The start of filename for detect a service file or directory.
 /// For example, a folder of VSCode or `.gitignore` file.
 const servicePrefix = '.';
