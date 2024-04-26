@@ -66,11 +66,18 @@ class FreshAll extends Runner<FreshAllResultRunner> {
   ) async {
     await _freshProjectFiles(project, result);
 
-    if (!o.noUpgradeDependencies) {
-      await _upgradeProject(project, result);
-    } else {
+    if (o.noUpgradeDependencies) {
       pr('\nSkipped an upgrade dependencies,'
           ' because `--no-upgrade`.');
+    } else {
+      await _upgradeProject(project, result);
+    }
+
+    if (o.noGitLogs) {
+      pr('\nSkipped a fetch git log,'
+          ' because `--no-git-log`.');
+    } else {
+      await _gitLog(project, result);
     }
   }
 
@@ -114,5 +121,26 @@ class FreshAll extends Runner<FreshAllResultRunner> {
 
     decreaseCurrentIndent();
     pr('Upgraded dependencies for project `$project`.');
+  }
+
+  Future<void> _gitLog(
+    FreshProject project,
+    FreshAllResultRunner result,
+  ) async {
+    pr('\nFetching a git log for project `$project`...');
+    increaseCurrentIndent();
+
+    final r = await GitLog(
+      options,
+      pathPrefix: '..',
+      project: project,
+    ).run();
+    result.gitLogs = {
+      ...result.gitLogs,
+      project.key: r,
+    };
+
+    decreaseCurrentIndent();
+    pr('Fetched a git log for project `$project`.');
   }
 }

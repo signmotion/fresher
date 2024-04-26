@@ -13,4 +13,7 @@ class FresherOptions {
 
   /// Skip an upgrade dependencies.
   bool noUpgradeDependencies = false;
+
+  /// Skip a fetch git logs.
+  bool noGitLogs = false;
 }

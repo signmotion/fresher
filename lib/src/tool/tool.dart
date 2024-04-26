@@ -14,10 +14,12 @@ class Tool {
   ToolOptions get o => options;
 
   /// Update all projects
-  Future<FreshAllResultRunner> freshAll() async => FreshAll(FresherOptions()
-        ..sourceDirectory = o.sourceDirectory
-        ..filter = o.projectIds
-        ..leaveSpaces = o.leaveSpaces
-        ..noUpgradeDependencies = o.noUpgrade)
-      .run();
+  Future<FreshAllResultRunner> freshAll() async => FreshAll(
+        FresherOptions()
+          ..sourceDirectory = o.sourceDirectory
+          ..filter = o.projectIds
+          ..leaveSpaces = o.leaveSpaces
+          ..noUpgradeDependencies = o.noUpgrade
+          ..noGitLogs = o.noGitLogs,
+      ).run();
 }

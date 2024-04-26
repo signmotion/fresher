@@ -11,4 +11,5 @@ class ToolOptions {
 
   bool leaveSpaces = false;
   bool noUpgrade = false;
+  bool noGitLogs = false;
 }

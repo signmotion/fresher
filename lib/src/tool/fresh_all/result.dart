@@ -4,11 +4,13 @@ class FreshAllResultRunner extends ResultRunner {
   FreshAllResultRunner()
       : projects = [],
         filesWithStatus = {},
-        packagesWithStatus = {};
+        packagesWithStatus = {},
+        gitLogs = {};
 
   Iterable<FreshProject> projects;
   Map<String, Iterable<FileWithStatus>> filesWithStatus;
   Map<String, Iterable<PackageWithStatus>> packagesWithStatus;
+  Map<String, WFile> gitLogs;
 
   /// All rewieved projects.
   String statProjects() {

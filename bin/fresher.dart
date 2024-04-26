@@ -36,6 +36,11 @@ Future<void> run(List<String> args) async {
     help: 'Skip an upgrade dependencies.',
   );
 
+  parser.addFlag(
+    'no-git-logs',
+    help: 'Skip a fetch git logs.',
+  );
+
   late final ArgResults results;
   try {
     results = parser.parse(args);
@@ -51,7 +56,8 @@ Future<void> run(List<String> args) async {
     ..sourceFolder = results.rest.first
     ..projectIds = (results['projects'] as String?)?.split(',') ?? []
     ..leaveSpaces = results.wasParsed('leave-spaces')
-    ..noUpgrade = results.wasParsed('no-upgrade');
+    ..noUpgrade = results.wasParsed('no-upgrade')
+    ..noGitLogs = results.wasParsed('no-git-logs');
 
   final tools = Tool(o);
   final r = await tools.freshAll();

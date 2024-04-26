@@ -6,6 +6,10 @@ const fresherPrefix = '+';
 /// The file with variables and rules.
 const fresherFile = '$fresherPrefix.yaml';
 
+/// The folder for output some data by processing projects.
+/// For example, a `git log`.
+const fresherOutputFolder = '_output';
+
 /// The start of filename for detect a service file or directory.
 /// For example, a folder of VSCode or `.gitignore` file.
 const servicePrefix = '.';
