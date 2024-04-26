@@ -10,56 +10,67 @@ class FreshAllResultRunner extends ResultRunner {
   Map<String, Iterable<FileWithStatus>> filesWithStatus;
   Map<String, Iterable<PackageWithStatus>> packagesWithStatus;
 
-  /// All rewieved files with statuses.
-  String statFiles() {
+  /// All rewieved projects.
+  String statProjects() {
     var r = '';
 
-    r += 'Files:$newLine';
-    for (final e in filesWithStatus.entries) {
-      final projectKey = e.key;
-      r += '$newLine${projectKey.blueBright}$newLine';
-      final table = Table(
-        header: ['Status'.whiteBright, 'File'.whiteBright],
-        columnAlignment: [HorizontalAlign.right, HorizontalAlign.left],
-      );
-      // group and sort
-      final sorted = List.of(e.value, growable: false)..sort();
-      for (final l in sorted) {
-        final s = l.file.key;
-        table.add([l.status.coloredName, s]);
+    for (final project in projects) {
+      final key = project.key;
+
+      // files
+      final files = filesWithStatus[key];
+      if (files != null && files.isNotEmpty) {
+        r += '$newLine${key.blueBright}$newLine';
+        final table = Table(
+          header: const ['Status', 'File'].map((s) => s.whiteBright).toList(),
+          columnAlignment: const [HorizontalAlign.right, HorizontalAlign.left],
+        );
+        // group and sort
+        final sorted = List.of(files, growable: false)..sort();
+        for (final l in sorted) {
+          final s = l.file.key;
+          table.add([l.status.coloredName, s]);
+        }
+        r += '$table$newLine';
       }
-      r += '$table';
-    }
 
-    return r;
-  }
-
-  /// All rewieved packages with statuses.
-  String statPackages() {
-    var r = '';
-
-    r += 'Packages:$newLine';
-    for (final e in packagesWithStatus.entries) {
-      final projectKey = e.key;
-      r += '$newLine${projectKey.blueBright}$newLine';
-      final table = Table(
-        header: ['Status'.whiteBright, 'Package'.whiteBright],
-        columnAlignment: [HorizontalAlign.right, HorizontalAlign.left],
-      );
-      // group and sort
-      final sorted = List.of(e.value, growable: false)..sort();
-      for (final l in sorted) {
-        final s = '${l.package.id} ${l.package.currentYaml} '
-                '${l.status == UpdatedPackageStatus.modified ? l.package.resolvable : ""}'
-            .trim();
-        table.add([l.status.coloredName, s]);
+      // upgraded packages
+      final packages = packagesWithStatus[key];
+      if (packages != null && packages.isNotEmpty) {
+        final table = Table(
+          header: const [
+            'Status',
+            'Package',
+            'version',
+            'upgraded',
+          ].map((s) => s.whiteBright).toList(),
+          columnAlignment: const [
+            HorizontalAlign.right,
+            HorizontalAlign.left,
+            HorizontalAlign.right,
+            HorizontalAlign.right,
+          ],
+        );
+        // group and sort
+        final sorted = List.of(packages, growable: false)..sort();
+        for (final l in sorted) {
+          final resolvable = l.status == UpdatedPackageStatus.modified
+              ? l.package.resolvable
+              : '';
+          table.add([
+            l.status.coloredName,
+            l.package.id,
+            l.package.currentYaml,
+            resolvable,
+          ]);
+        }
+        r += '$table$newLine';
       }
-      r += '$table';
     }
 
     return r;
   }
 
   @override
-  String toString() => '${statFiles()}$newLine${statPackages()}';
+  String toString() => statProjects();
 }
