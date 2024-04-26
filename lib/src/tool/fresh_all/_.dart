@@ -3,7 +3,8 @@ import 'package:cli_table/cli_table.dart';
 
 import '../../../fresher.dart';
 import '../../command/_.dart';
-import '../../common/_.dart';
+import '../result_runner.dart';
+import '../runner.dart';
 
 part 'file_with_status.dart';
 part 'fresh_all.dart';

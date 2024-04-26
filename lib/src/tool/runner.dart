@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print
 
-part of '_.dart';
-
 /// Run a process for [sourcePath].
 abstract class Runner<R> {
   Runner();

@@ -1,5 +1,3 @@
-part of '_.dart';
-
 /// Result after completed a run.
 /// See [Runner].
 abstract class ResultRunner {
