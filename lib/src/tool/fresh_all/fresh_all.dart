@@ -31,7 +31,8 @@ class FreshAll extends Runner<FreshAllResultRunner> {
       result.projects = await GetFreshProjects(options).run();
 
       final all = result.projects.map((p) => '$p').toList();
-      pr('Maintained projects: $all');
+      pr('Maintained ${all.length}'
+          ' project${all.length == 1 ? '' : 's'}: $all');
     }
 
     // 2) For each maintained projects.
