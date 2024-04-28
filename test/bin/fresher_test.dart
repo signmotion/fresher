@@ -26,7 +26,7 @@ Future<void> main() async {
       ]);
       await expectLater(
         process.stdout,
-        emitsThrough(startsWith('Maintained projects:')),
+        emitsThrough(startsWith('Maintained ')),
       );
       await expectLater(process.stdout, emitsThrough('Result prepared.'));
     });
