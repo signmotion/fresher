@@ -1,5 +1,4 @@
 import 'package:fresher/fresher.dart';
-import 'package:fresher/src/extension/_.dart';
 import 'package:json_dart/json_dart.dart';
 import 'package:test/test.dart';
 import 'package:wfile/wfile.dart';
