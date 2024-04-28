@@ -30,9 +30,9 @@ class FreshPackage extends Equatable implements Comparable<FreshPackage> {
     }
 
     final d = pubspec.contentYaml;
-    final dependencies = d['dependencies'] as YamlMap;
-    final devDependencies = d['dev_dependencies'] as YamlMap;
-    final vdep = dependencies[id] ?? devDependencies[id];
+    final dependencies = d['dependencies'] as YamlMap?;
+    final devDependencies = d['dev_dependencies'] as YamlMap?;
+    final vdep = dependencies?[id] ?? devDependencies?[id];
     // no detect a version for no String type
     final v = vdep is String? ? vdep : '';
     if (v == null) {
@@ -42,7 +42,7 @@ class FreshPackage extends Equatable implements Comparable<FreshPackage> {
     return FreshPackage(
       project: project,
       id: id,
-      kind: dependencies[id] == null ? 'dev' : 'direct',
+      kind: dependencies?[id] == null ? 'dev' : 'direct',
       currentYaml: v.startsWith('^') ? v.substring(1) : v,
     );
   }
