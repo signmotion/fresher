@@ -8,6 +8,7 @@ const fresherFile = '$fresherPrefix.yaml';
 
 /// The folder for output some data by processing projects.
 /// For example, a `git log`.
+/// See [FresherFileSystemEntityExt.isInFresherOutputFolder].
 const fresherOutputFolder = '_output';
 
 /// Count of git log lines when output result.
@@ -15,6 +16,7 @@ const fresherMaxGitLogLines = 30;
 
 /// The start of filename for detect a service file or directory.
 /// For example, a folder of VSCode or `.gitignore` file.
+/// See [FresherFileSystemEntityExt.isServiceEntity].
 const servicePrefix = '.';
 
 /// A platform depended line separator.
