@@ -163,7 +163,10 @@ class Fresher {
       .map((sourceSdk) => Directory(sourceSdk)
           .listSync()
           .whereType<Directory>()
-          .where((e) => !e.isFresherDirectory && !e.isServiceEntity)
+          .where((e) =>
+              !e.isFresherDirectory &&
+              !e.isServiceEntity &&
+              !e.isInFresherOutputFolder)
           .map((e) => FreshProject(
                 sdk: p.basename(e.parent.path),
                 id: p.basename(e.path),
@@ -176,7 +179,10 @@ class Fresher {
   Iterable<String> get sdks => Directory(o.sourcePath)
       .listSync()
       .whereType<Directory>()
-      .where((e) => !e.isFresherDirectory && !e.isServiceEntity)
+      .where((e) =>
+          !e.isFresherDirectory &&
+          !e.isServiceEntity &&
+          !e.isInFresherOutputFolder)
       .map((e) => p.basename(e.path))
       .toList()
     ..sort();
