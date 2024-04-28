@@ -19,7 +19,11 @@ extension FresherFileSystemEntityExt on FileSystemEntity {
   bool get isFresherFile =>
       this is File && p.basename(path).startsWith(fresherPrefix);
 
-  /// Service files detecting by `.` prefix.
+  /// Detects [fresherOutputFolder].
+  bool get isInFresherOutputFolder =>
+      p.split(path).contains(fresherOutputFolder);
+
+  /// Service files and folders detecting by [servicePrefix] prefix.
   bool get isServiceEntity => p.basename(path).startsWith(servicePrefix);
 
   /// [normalizedPath] without [prefix].
