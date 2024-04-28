@@ -101,6 +101,9 @@ class FreshPubspec extends Pubspec {
   Future<Iterable<JsonMap>> get outdatedAsJson async {
     const filterKinds = ['dev', 'direct'];
 
+    // ! we need some time before next call `dart pub outdated`
+    await 1200.pauseInMs;
+
     const executable = 'dart';
     final args = ['pub', 'outdated', '--json', '--directory=$pathToProject'];
     late final Process process;

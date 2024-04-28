@@ -1,4 +1,5 @@
 import 'package:fresher/fresher.dart';
+import 'package:fresher/src/extension/_.dart';
 import 'package:json_dart/json_dart.dart';
 import 'package:test/test.dart';
 import 'package:wfile/wfile.dart';
@@ -7,9 +8,10 @@ Future<void> main() async {
   const project = FreshProject(sdk: '', id: 'pubspec_yaml_only');
   final pubspec =
       FreshPubspec.withPrefix(prefix: 'test/data', project: project);
+  final pubspecYamlOnly = WFile('test/data/${project.id}');
 
-  void copyFromOriginalYaml() => WFile('test/data/pubspec_yaml_only')
-      .copy('pubspec.original.yaml', 'pubspec.yaml');
+  void copyFromOriginalYaml() =>
+      pubspecYamlOnly.copy('pubspec.original.yaml', 'pubspec.yaml');
 
   group('correct data, outdatedAsJson', () {
     test('pubspec.yaml, no pubspec.lock', () async {

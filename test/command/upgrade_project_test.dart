@@ -7,6 +7,8 @@ import 'package:test/test.dart';
 import 'package:wfile/wfile.dart';
 
 Future<void> main() async {
+  final pubspecYamlOnly = WFile('test/data/pubspec_yaml_only');
+
   group('correct data', () {
     final source = p.join('test', 'data');
     final options = FresherOptions()..sourceDirectory = Directory(source);
@@ -17,8 +19,8 @@ Future<void> main() async {
       project: project,
     );
 
-    void copyFromOriginalYaml() => WFile('test/data/pubspec_yaml_only')
-        .copy('pubspec.original.yaml', 'pubspec.yaml');
+    void copyFromOriginalYaml() =>
+        pubspecYamlOnly.copy('pubspec.original.yaml', 'pubspec.yaml');
 
     test('run', () async {
       copyFromOriginalYaml();
