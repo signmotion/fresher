@@ -7,7 +7,7 @@ Future<void> main() async {
   const project = FreshProject(sdk: '', id: 'pubspec_yaml_only');
   final pubspec =
       FreshPubspec.withPrefix(prefix: 'test/data', project: project);
-  final pubspecYamlOnly = WFile('test/data/${project.id}');
+  final pubspecYamlOnly = WFile('${pubspec.prefix}/${project.id}');
 
   void copyFromOriginalYaml() =>
       pubspecYamlOnly.copy('pubspec.original.yaml', 'pubspec.yaml');
