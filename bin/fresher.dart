@@ -32,8 +32,9 @@ Future<void> run(List<String> args) async {
   );
 
   parser.addFlag(
-    'no-upgrade',
-    help: 'Skip an upgrade dependencies.',
+    'no-changes',
+    help: 'Leave destination files without changes: just a log output.'
+        ' But `pubspec.lock`s will be deleted from projects.',
   );
 
   parser.addFlag(
@@ -41,6 +42,10 @@ Future<void> run(List<String> args) async {
     help: 'Skip a fetch git logs.',
   );
 
+  parser.addFlag(
+    'no-upgrade',
+    help: 'Skip an upgrade dependencies.',
+  );
   late final ArgResults results;
   try {
     results = parser.parse(args);
@@ -56,8 +61,9 @@ Future<void> run(List<String> args) async {
     ..sourceFolder = results.rest.first
     ..projectIds = (results['projects'] as String?)?.split(',') ?? []
     ..leaveSpaces = results.wasParsed('leave-spaces')
-    ..noUpgrade = results.wasParsed('no-upgrade')
-    ..noGitLogs = results.wasParsed('no-git-logs');
+    ..noChanges = results.wasParsed('no-changes')
+    ..noGitLogs = results.wasParsed('no-git-logs')
+    ..noUpgrade = results.wasParsed('no-upgrade');
 
   final tools = Tool(o);
   final r = await tools.freshAll();

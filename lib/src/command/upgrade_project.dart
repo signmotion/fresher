@@ -39,7 +39,9 @@ class UpgradeProject
     output('Upgrading `${pubspec.pathToFileYaml}`...');
     final (newContent, upgradedPackages, skippedPackages) =
         await pubspec.upgraded;
-    pubspec.writeYaml(newContent);
+    if (!o.noChanges) {
+      pubspec.writeYaml(newContent);
+    }
     final countPackages = upgradedPackages.length + skippedPackages.length;
     output('Upgraded ${upgradedPackages.length}/$countPackages packages'
         ' into `${pubspec.pathToFileYaml}`.');

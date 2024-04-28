@@ -15,11 +15,12 @@ Future<void> main() async {
     });
   });
 
-  group('fresher.dart --projects=id_gen --no-upgrade', () {
+  group('fresher.dart --projects=id_gen --no-changes --no-upgrade', () {
     test('check maintained projects', () async {
       final process = await cli.run([
         'bin/fresher.dart',
         '--projects=id_gen',
+        '--no-changes',
         '--no-upgrade',
         'test/data/all_projects',
       ]);
@@ -31,11 +32,12 @@ Future<void> main() async {
     });
   });
 
-  group('fresher.dart --projects=id_gen', () {
+  group('fresher.dart --projects=id_gen --no-changes', () {
     test('check upgraded dependencies', () async {
       final process = await cli.run([
         'bin/fresher.dart',
         '--projects=id_gen',
+        '--no-changes',
         'test/data/all_projects',
       ]);
       await expectLater(

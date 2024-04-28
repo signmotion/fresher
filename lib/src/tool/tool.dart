@@ -19,7 +19,8 @@ class Tool {
           ..sourceDirectory = o.sourceDirectory
           ..filter = o.projectIds
           ..leaveSpaces = o.leaveSpaces
-          ..noUpgradeDependencies = o.noUpgrade
-          ..noGitLogs = o.noGitLogs,
+          ..noChanges = o.noChanges
+          ..noGitLogs = o.noGitLogs
+          ..noUpgradeDependencies = o.noUpgrade,
       ).run();
 }

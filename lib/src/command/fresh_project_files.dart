@@ -46,9 +46,11 @@ class FreshProjectFiles
         status = UpdatedFileStatus.modified;
       }
 
-      const writes = [UpdatedFileStatus.added, UpdatedFileStatus.modified];
-      if (writes.contains(status)) {
-        fileTo.writeAsBytes(content);
+      if (!o.noChanges) {
+        const writes = [UpdatedFileStatus.added, UpdatedFileStatus.modified];
+        if (writes.contains(status)) {
+          fileTo.writeAsBytes(content);
+        }
       }
 
       filesWithStatus.add(FileWithStatus(file: file, status: status));

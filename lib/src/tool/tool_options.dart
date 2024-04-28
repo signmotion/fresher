@@ -10,6 +10,7 @@ class ToolOptions {
   List<String> projectIds = [];
 
   bool leaveSpaces = false;
-  bool noUpgrade = false;
+  bool noChanges = false;
   bool noGitLogs = false;
+  bool noUpgrade = false;
 }

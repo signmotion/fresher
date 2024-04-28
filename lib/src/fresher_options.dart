@@ -11,9 +11,12 @@ class FresherOptions {
   /// Keep all spaces at the ends.
   bool leaveSpaces = false;
 
-  /// Skip an upgrade dependencies.
-  bool noUpgradeDependencies = false;
+  /// Leave destination files without changes.
+  bool noChanges = false;
 
   /// Skip a fetch git logs.
   bool noGitLogs = false;
+
+  /// Skip an upgrade dependencies.
+  bool noUpgradeDependencies = false;
 }
