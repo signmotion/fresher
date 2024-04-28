@@ -24,5 +24,5 @@ Future<void> main() async {
       expect(r.existsFile(), isTrue);
       expect(r.readAsText(), contains('First.'));
     });
-  }, tags: ['current']);
+  });
 }
