@@ -32,7 +32,9 @@ class FreshPackage extends Equatable implements Comparable<FreshPackage> {
     final d = pubspec.contentYaml;
     final dependencies = d['dependencies'] as YamlMap;
     final devDependencies = d['dev_dependencies'] as YamlMap;
-    final v = (dependencies[id] ?? devDependencies[id]) as String?;
+    final vdep = dependencies[id] ?? devDependencies[id];
+    // no detect a version for no String type
+    final v = vdep is String? ? vdep : '';
     if (v == null) {
       throw ArgumentError('Package `$id` not found in `$pathToProject`.', 'v');
     }
