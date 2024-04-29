@@ -29,23 +29,28 @@ Future<void> run(List<String> args) async {
   parser.addFlag(
     'leave-spaces',
     help: 'All spaces at the ends will be preserved.',
+    negatable: false,
   );
 
   parser.addFlag(
     'no-changes',
     help: 'Leave destination files without changes: just a log output.'
         ' But `pubspec.lock`s will be deleted from projects.',
+    negatable: false,
   );
 
   parser.addFlag(
     'no-git-logs',
     help: 'Skip a fetch git logs.',
+    negatable: false,
   );
 
   parser.addFlag(
     'no-upgrade',
     help: 'Skip an upgrade dependencies.',
+    negatable: false,
   );
+
   late final ArgResults results;
   try {
     results = parser.parse(args);
@@ -72,9 +77,9 @@ Future<void> run(List<String> args) async {
 
 void printUsageAndExit(ArgParser parser) {
   print('''
-Usage:
-\tdart bin/fresher.dart [flags] [options] ../path/to/project/bases
-${parser.usage}
+\nUsage:
+dart bin/fresher.dart [flags] [options] ../path/to/project/base
+\n${parser.usage}
   ''');
   // exit code `64` indicates a usage error
   exit(64);
