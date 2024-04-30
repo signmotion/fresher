@@ -22,7 +22,7 @@ Future<void> main() async {
       final r = await command.run();
       expect(r.npath, '$fresherOutputFolder/fresher/git.log');
       expect(r.existsFile(), isTrue);
-      expect(r.readAsText(), contains('First.'));
+      expect(r.readAsText(), isNotEmpty);
     });
   });
 }

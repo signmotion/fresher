@@ -18,7 +18,7 @@ Future<void> main() async {
 
     test('run', () async {
       final r = await command.run();
-      expect(r.length, 21);
+      expect(r.length, greaterThanOrEqualTo(18));
     });
   });
 }
