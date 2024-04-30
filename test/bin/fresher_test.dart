@@ -13,7 +13,7 @@ Future<void> main() async {
         emits(startsWith('Dart SDK version:')),
       );
     });
-  });
+  }, tags: ['windows']);
 
   group('fresher.dart --projects=id_gen --no-changes --no-upgrade', () {
     test('check maintained projects', () async {
@@ -30,7 +30,7 @@ Future<void> main() async {
       );
       await expectLater(process.stdout, emitsThrough('Result prepared.'));
     });
-  });
+  }, tags: ['windows']);
 
   group('fresher.dart --projects=id_gen --no-changes', () {
     test('check upgraded dependencies', () async {
@@ -46,5 +46,5 @@ Future<void> main() async {
       );
       await expectLater(process.stdout, emitsThrough('Result prepared.'));
     });
-  });
+  }, tags: ['windows']);
 }
