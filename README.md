@@ -39,7 +39,7 @@ One sunny aftenoon I read on Reddit that people are looking for projects to help
 
 When I came across resources like [The ultimate Flutter resources](https://github.com/yassine-bennkhay/Ultimate-Flutter-Resources) and [Learn Dart in Y minutes](https://learnxinyminutes.com/docs/dart), I wanted to add them too because both Dart and Flutter are really 🌟 awesome.
 
-More and more packages were added, and more time was spent on updating them. For long-term support of a full-fledged CI, I don't have the resources. Should I go on?
+More packages were added, and more time was spent on updating them. Should I go on?
 
 Honestly, I didn't want to create this package because I recognize the complexities and I [heard](https://reddit.com/r/dartlang/comments/1bzltni/a_build_system_for_dozens_of_flutter_dart_projects): "Melos / Cider / Publish Tools / Sideckick (choose one of them) will solve your problems with Dart / Flutter package maintenance". I spent ~2 weeks researching the available tools and I've tabulated my research below.
 
