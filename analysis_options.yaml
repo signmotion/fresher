@@ -6,7 +6,7 @@ analyzer:
     strict-inference: true
     strict-raw-types: true
 
-  exclude: [build/**, lib/**.g.dart, test/data/**]
+  exclude: [build/**, lib/**.g.dart, test/data/**, _output]
 
 linter:
   rules:

@@ -1,6 +1,6 @@
 # Style Guide
 
-This is a general style guide that shall govern over all `Fresher` repositories. The aim is
+This is a general style guide that shall govern over all **Fresher** project. The aim is
 to keep all codebases clean and pristine. This includes high level guidance to help with simple
 decisions in the day-to-day development life.
 
@@ -57,7 +57,7 @@ foo(f1,
 ### Imports
 
 - Never include unused or duplicated imports.
-- You must always use relative imports for imports within the `Fresher` library
+- You must always use relative imports for imports within the `fresher` library
   (internal imports must be relative).
 - Omit `./` for relative imports from the same directory.
 - Avoid importing groups of APIs internally.
@@ -95,7 +95,8 @@ void something(int smaller, int bigger) {
 
 ### TODO
 
-TODO comments should follow this template: `// TODO(username): Comment`
+TODO comments should follow this template:
+`// TODO(username): Comment`
 
 I.e., double slash, one space, `TODO` in caps followed by your name in parenthesis, colon, one space
 and the comment, capitalized as a sentence. No need to include a period if it's a single sentence.
