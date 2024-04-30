@@ -1,10 +1,12 @@
 name: fresher
 description: >-
-  A tool to help keep your projects up to date.
+  A tool to help keep your multiple projects in multiple repositories up to date:
+  automated upgrade dependencies, update links, files, etc.
 repository: https://github.com/signmotion/fresher
 topics:
   - tools
   - maintenance
+  - automated
   - git
   - organizer
 publish_to: none
