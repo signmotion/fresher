@@ -36,8 +36,7 @@ dependencies:
   pub_semver: ^2.1.4
   pub_updater: ^0.4.0
   recase: ^4.1.0
-  wfile:
-    path: ../wfile
+  wfile: ^0.5.1
   yaml: ^3.1.2
 
 dev_dependencies:

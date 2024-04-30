@@ -564,9 +564,10 @@ packages:
   wfile:
     dependency: "direct main"
     description:
-      path: "../wfile"
-      relative: true
-    source: path
+      name: wfile
+      sha256: "522fbb53565232cbead6640bb8154fac7e322b24529ed4d827bea816a2c0142a"
+      url: "https://pub.dev"
+    source: hosted
     version: "0.5.1"
   xml:
     dependency: transitive
