@@ -256,6 +256,8 @@ In light of this, we (you) can construct a hierarchy of **any** complexity.
 
 ## 🤝 Who is Using Fresher
 
+When you start using Fresher in **your** projects, let me know and I'd be happy to help you with it.
+
 Just [tell me](https://syrokomskyi.com) and I'll add a link to your project here.
 
 TODO
