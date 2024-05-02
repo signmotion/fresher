@@ -41,13 +41,13 @@ Future<void> run(List<String> args) async {
 
   parser.addFlag(
     'no-git-logs',
-    help: 'Skip a fetch git logs.',
+    help: 'Skip the fetching git logs.',
     negatable: false,
   );
 
   parser.addFlag(
     'no-upgrade',
-    help: 'Skip an upgrade dependencies.',
+    help: 'Skip updating dependencies.',
     negatable: false,
   );
 
