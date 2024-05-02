@@ -23,6 +23,11 @@ class FreshAllResultRunner extends ResultRunner {
     var r = '';
 
     for (final project in projects) {
+      if (o.filter.isNotEmpty && !o.filter.contains(project.id)) {
+        // skip, because [filter]
+        continue;
+      }
+
       final key = project.key;
 
       // files
@@ -81,7 +86,7 @@ class FreshAllResultRunner extends ResultRunner {
 
       // git log
       if (o.noGitLogs) {
-        r += '${newLine}Result with option `No git log`.$newLine';
+        r += '${newLine}Result with option `No git logs`.$newLine';
       } else {
         final log = gitLogs[key];
         if (log != null) {
