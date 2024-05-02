@@ -21,7 +21,7 @@ class FreshAll extends Runner<FreshAllResultRunner> {
   /// the projects folders.
   @override
   Future<FreshAllResultRunner> run() async {
-    final result = FreshAllResultRunner();
+    final result = FreshAllResultRunner(o);
 
     // 1) Receiving all maintained projects.
     firstStep();

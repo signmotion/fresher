@@ -1,11 +1,17 @@
 part of '_.dart';
 
 class FreshAllResultRunner extends ResultRunner {
-  FreshAllResultRunner()
+  FreshAllResultRunner(this.options)
       : projects = [],
         filesWithStatus = {},
         packagesWithStatus = {},
         gitLogs = {};
+
+  /// See [o].
+  final FresherOptions options;
+
+  /// Alias for [options].
+  FresherOptions get o => options;
 
   Iterable<FreshProject> projects;
   Map<String, Iterable<FileWithStatus>> filesWithStatus;
@@ -37,63 +43,71 @@ class FreshAllResultRunner extends ResultRunner {
       }
 
       // upgraded packages
-      final packages = packagesWithStatus[key];
-      if (packages != null && packages.isNotEmpty) {
-        final table = Table(
-          header: const [
-            'Status',
-            'Package',
-            'version',
-            'upgraded',
-          ].map((s) => s.whiteBright).toList(),
-          columnAlignment: const [
-            HorizontalAlign.right,
-            HorizontalAlign.left,
-            HorizontalAlign.right,
-            HorizontalAlign.right,
-          ],
-        );
-        // group and sort
-        final sorted = List.of(packages, growable: false)..sort();
-        for (final l in sorted) {
-          final resolvable = l.status == UpdatedPackageStatus.modified
-              ? l.package.resolvable
-              : '';
-          table.add([
-            l.status.coloredName,
-            l.package.id,
-            l.package.currentYaml,
-            resolvable,
-          ]);
+      if (o.noUpgradeDependencies) {
+        r += '${newLine}Result with option `No upgrade dependencies`.$newLine';
+      } else {
+        final packages = packagesWithStatus[key];
+        if (packages != null && packages.isNotEmpty) {
+          final table = Table(
+            header: const [
+              'Status',
+              'Package',
+              'version',
+              'upgraded',
+            ].map((s) => s.whiteBright).toList(),
+            columnAlignment: const [
+              HorizontalAlign.right,
+              HorizontalAlign.left,
+              HorizontalAlign.right,
+              HorizontalAlign.right,
+            ],
+          );
+          // group and sort
+          final sorted = List.of(packages, growable: false)..sort();
+          for (final l in sorted) {
+            final resolvable = l.status == UpdatedPackageStatus.modified
+                ? l.package.resolvable
+                : '';
+            table.add([
+              l.status.coloredName,
+              l.package.id,
+              l.package.currentYaml,
+              resolvable,
+            ]);
+          }
+          r += '$table$newLine';
         }
-        r += '$table$newLine';
       }
 
       // git log
-      final log = gitLogs[key];
-      if (log != null) {
-        r += '${newLine}git log$newLine';
-        var count = 0;
-        final lines = log.readAsTextLines()!;
-        var firstCommit = true;
-        for (final line in lines) {
-          final s = line.split(' ').sublist(1).join(' ').trim();
-          if (s.isEmpty) {
-            // skip empty line
-            continue;
+      if (o.noGitLogs) {
+        r += '${newLine}Result with option `No git log`.$newLine';
+      } else {
+        final log = gitLogs[key];
+        if (log != null) {
+          r += '${newLine}git log$newLine';
+          var count = 0;
+          final lines = log.readAsTextLines()!;
+          var firstCommit = true;
+          for (final line in lines) {
+            final s = line.split(' ').sublist(1).join(' ').trim();
+            if (s.isEmpty) {
+              // skip empty line
+              continue;
+            }
+
+            r += '* $s$newLine';
+
+            ++count;
+            if (count >= fresherMaxGitLogLines) {
+              firstCommit = false;
+              break;
+            }
           }
 
-          r += '* $s$newLine';
-
-          ++count;
-          if (count >= fresherMaxGitLogLines) {
-            firstCommit = false;
-            break;
+          if (!firstCommit) {
+            r += '* ...$newLine';
           }
-        }
-
-        if (!firstCommit) {
-          r += '* ...$newLine';
         }
       }
     }
