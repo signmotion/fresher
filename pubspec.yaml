@@ -8,8 +8,7 @@ topics:
   - maintenance
   - automated
   - git
-  - organizer
-publish_to: none
+  - template
 
 # Compatible with https://semver.org
 # Format:
