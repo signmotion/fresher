@@ -16,11 +16,9 @@
 [![Issues](https://img.shields.io/github/issues/signmotion/fresher?logo=github&logoColor=white&style=for-the-badge)](https://github.com/signmotion/fresher/issues)
 [![Pub Score](https://img.shields.io/pub/points/fresher?logo=dart&logoColor=00b9fc&style=for-the-badge)](https://pub.dev/packages/fresher/score)
 
-An _invisible\*_ tool to help keep your **multiple** projects in **multiple** repositories up to date:
+An _invisible (means that maintenance packages are not aware of this tool)_ tool to help keep your **multiple** projects in **multiple** repositories up to date:
 automated upgrade dependencies, update links and sections in `README`, `CONTRIBUTING`, `STYLEGUIDE`, wiki, etc.
 The easy-to-use and [well-tested](https://github.com/signmotion/fresher/tree/master/test) Dart CLI.
-
-\* Invisible means that maintenance packages are not aware of this tool.
 Feel free to use it in your awesome project.
 
 [![CodeFactor](https://codefactor.io/repository/github/signmotion/fresher/badge?style=for-the-badge)](https://codefactor.io/repository/github/signmotion/fresher)
