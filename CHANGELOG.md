@@ -6,6 +6,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## 0.1.2
 
 - Improved `README`: expanded content, abbreviated title, reformatting, etc.
+- Reduced a log output.
+- Fixed loss of output when multiple projects are present.
 
 ## 0.1.1
 
