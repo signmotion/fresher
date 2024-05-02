@@ -94,7 +94,10 @@ class FreshAll extends Runner<FreshAllResultRunner> {
       pathPrefix: '..',
       project: project,
     ).run();
-    result.filesWithStatus = {project.key: r};
+    result.filesWithStatus = {
+      ...result.filesWithStatus,
+      project.key: r,
+    };
 
     decreaseCurrentIndent();
     pr('Freshed the files for project `$project`.');
@@ -112,7 +115,10 @@ class FreshAll extends Runner<FreshAllResultRunner> {
       pathPrefix: '..',
       project: project,
     ).run();
-    result.packagesWithStatus = {project.key: r};
+    result.packagesWithStatus = {
+      ...result.packagesWithStatus,
+      project.key: r,
+    };
 
     decreaseCurrentIndent();
     pr('Upgraded dependencies for project `$project`.');
