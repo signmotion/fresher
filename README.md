@@ -122,11 +122,11 @@ So in our **base**, we see the following folders:
 
 Which includes:
 
-|           |                                                                                                    |
-| --------- | -------------------------------------------------------------------------------------------------- |
-| `+`       | ![Files for add from root base](images/screenshots/files_for_add_from_root_base.png)               |
-| `dart`    | ![Files for add from Dart SDK base](images/screenshots/files_for_add_from_dart_sdk_base.png)       |
-| `flutter` | ![Files for add from Flutter SDK base](images/screenshots/files_for_add_from_flutter_sdk_base.png) |
+|                                    |                                                                                                    |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `+` _files & folders to be copied_ | ![Files for add from root base](images/screenshots/files_for_add_from_root_base.png)               |
+| `dart` _projects on Dart_          | ![Files for add from Dart SDK base](images/screenshots/files_for_add_from_dart_sdk_base.png)       |
+| `flutter` _projects on Flutter_    | ![Files for add from Flutter SDK base](images/screenshots/files_for_add_from_flutter_sdk_base.png) |
 
 This is a project structure, SDKs, and our (ok, mine) maintaned projects.
 
@@ -134,9 +134,9 @@ All files in the folder `+` will be copied to each maintaned project.
 
 Take a look inside `id_gen` folder:
 
-|          |                                                                                                            |
-| -------- | ---------------------------------------------------------------------------------------------------------- |
-| `id_gen` | ![Files for add from id_gen Dart SDK base](images/screenshots/files_for_add_from_id_gen_dart_sdk_base.png) |
+|                        |                                                                                                            |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `id_gen` _the project_ | ![Files for add from id_gen Dart SDK base](images/screenshots/files_for_add_from_id_gen_dart_sdk_base.png) |
 
 As you see, we keep the same file structure as for any Dart project with additional folder `+README.md` (yes, it's a folder) and `+.yaml` file.
 
@@ -189,7 +189,7 @@ We can even redefine `owner_website` as:
   ...
 ```
 
-and the final value will be `syrokomskyi.com`.
+and the final value will be `https://syrokomskyi.com`.
 
 Just replace it with your own _publisher-website-description_ and get your basic structure for your packages!
 
@@ -204,6 +204,8 @@ For example, you can define the contents of `./+/README.md` for all your project
 Notice: The filename is the name of the variable.
 
 Running **Fresher** will produce [this result](https://github.com/signmotion/id_gen/blob/master/README.md).
+
+The **base** (template, configuration) of your projects is defined as separate project.
 
 I've done this for my packages, I'm using this for the new projects, and I'm [sharing this solution](https://github.com/signmotion/dart_flutter_fresher) with you. Welcome back from boring hell!
 
