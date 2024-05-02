@@ -1,10 +1,10 @@
-# Fresher: Keep Your Projects Up to Date
+# Fresher: Keeps Projects Up to Date
 
 ![SDK version](https://badgen.net/pub/sdk-version/fresher?style=for-the-badge)
 ![Supported platforms](https://badgen.net/pub/flutter-platform/fresher?style=for-the-badge)
 ![Supported SDKs](https://badgen.net/pub/dart-platform/fresher?style=for-the-badge)
 
-![Cover - Fresher: Keep Your Projects Up to Date](https://raw.githubusercontent.com/signmotion/fresher/master/images/cover.webp)
+![Cover - Fresher: Keeps Projects Up to Date](https://raw.githubusercontent.com/signmotion/fresher/master/images/cover.webp)
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Pub Package](https://img.shields.io/pub/v/fresher.svg?logo=dart&logoColor=00b9fc&color=blue&style=for-the-badge)](https://pub.dartlang.org/packages/fresher)
@@ -23,7 +23,7 @@ Feel free to use it in your awesome project.
 
 [![CodeFactor](https://codefactor.io/repository/github/signmotion/fresher/badge?style=for-the-badge)](https://codefactor.io/repository/github/signmotion/fresher)
 
-Share some ❤️ and star repo to support the [Fresher: Keep Your Projects Up to Date](https://github.com/signmotion/fresher).
+Share some ❤️ and star repo to support the [Fresher: Keeps Projects Up to Date](https://github.com/signmotion/fresher).
 
 _If you write an article about **Fresher** or any of [these](https://pub.dev/packages?q=publisher%3Asyrokomskyi.com&sort=updated) packages, let me know and I'll post the URL of the article in the **README**_ 🤝
 
