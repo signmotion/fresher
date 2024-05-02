@@ -16,14 +16,16 @@
 [![Issues](https://img.shields.io/github/issues/signmotion/fresher?logo=github&logoColor=white&style=for-the-badge)](https://github.com/signmotion/fresher/issues)
 [![Pub Score](https://img.shields.io/pub/points/fresher?logo=dart&logoColor=00b9fc&style=for-the-badge)](https://pub.dev/packages/fresher/score)
 
-An _invisible_ tool to help keep your **multiple** projects in **multiple** repositories up to date:
+An _invisible\*_ tool to help keep your **multiple** projects in **multiple** repositories up to date:
 automated upgrade dependencies, update links and sections in `README`, `CONTRIBUTING`, `STYLEGUIDE`, wiki, etc.
 The easy-to-use and [well-tested](https://github.com/signmotion/fresher/tree/master/test) Dart CLI.
+
+\* Invisible means that maintenance packages are not aware of this tool.
 Feel free to use it in your awesome project.
 
 [![CodeFactor](https://codefactor.io/repository/github/signmotion/fresher/badge?style=for-the-badge)](https://codefactor.io/repository/github/signmotion/fresher)
 
-Share some ❤️ and star repo to support the project.
+Share some ❤️ and star repo to support the [Fresher: Keep Your Projects Up to Date](https://github.com/signmotion/fresher).
 
 _If you write an article about **Fresher** or any of [these](https://pub.dev/packages?q=publisher%3Asyrokomskyi.com&sort=updated) packages, let me know and I'll post the URL of the article in the **README**_ 🤝
 
@@ -41,7 +43,7 @@ When I came across resources like [The ultimate Flutter resources](https://githu
 
 More packages were added, and more time was spent on updating them. Should I go on?
 
-Honestly, I didn't want to create this package because I recognize the complexities and I [heard](https://reddit.com/r/dartlang/comments/1bzltni/a_build_system_for_dozens_of_flutter_dart_projects): "Melos / Cider / Publish Tools / Sideckick (choose one of them) will solve your problems with Dart / Flutter package maintenance". I spent ~2 weeks researching the available tools and I've tabulated my research below.
+Honestly, I didn't want to create this package because I realize the complexity and I [heard](https://reddit.com/r/dartlang/comments/1bzltni/a_build_system_for_dozens_of_flutter_dart_projects): "Melos / Cider / Publish Tools / Sideckick will solve your problems with Dart / Flutter package maintenance". I spent ~2 weeks researching the available tools and I've tabulated my research below.
 
 ## 📊 Research
 
@@ -71,21 +73,20 @@ The purpose of the project Fresher is to _"keep packages up to date"_, so I wrot
 | Upgrade dependencies        |       |   ✅    |  ✅   |              |          |
 
 I guess now you will be able to choose the right tool for your needs much faster.
-But remember **Fresher**!)
 
 ## 🌟 Features
 
 The **Fresher** has significant differences from researched products:
 
 1. **Invisible to maintained projects.**
-   You can update your awesome projects with **Fresher** and then switch to another tool(s) or even drop the tools altogether and not even notice it: **Fresher** doesn't make a single change to your projects.
+   You can update your awesome projects with **Fresher** and then switch to another tool(s) or even drop the tools altogether and not even notice it: **Fresher** doesn't make a single change to the configuration of your projects.
 
 2. **Freedom to choose the structure and variables for your projects**.
-   Below I will show you what I have chosen, but my solution is not the only one: yours may be better suited to your needs.
+   Below I'll show you what I chose, but my solution is not the only possible one.
 
 And it can do:
 
-1. Updates any folders and files from **3 tiers**: root, sdk and project.
+1. Updates any folders and files from **3 tiers** - root, sdk and project - inheriting changes.
 
 2. Upgrades `pubspec.yaml` files with **resolvable** versions.
 
@@ -95,29 +96,29 @@ And it can do:
 
 That's all I needed. I have upgraded all [my packages](https://pub.dev/publishers/syrokomskyi.com/packages) and am enjoying working with this functionality.
 
-This **package** got 2 more unplanned uses:
+The **Fresher** got 2 more unplanned uses:
 
 1. It can be used for keep **any** your libraries up to date: GitHub, npm, PyPi, Maven, NuGet, RubyGems, etc.
 
 2. You can use **Fresher** to build **any** template with **any** complex folder-file-content structure.
 
-And it has limitations:
+And it has limitation:
 
 - **All** maintained projects must be placed in the same folder as `fresher`.
 
 ## 🚀 Usage
 
-To get started with **Fresher** you need to understand the **Feautures** section. Please note it above.
+Please, read the **Feautures** above before reading **Usage**.
 
 Let's take a look at this folder structure:
 
 ![Root folders of any Dart project](images/screenshots/root_dart_any_base.png)
 
-I am using VS Code, so please forgive me these screenshots if you are using a different IDE.
+I am using VS Code, so forgive me these screenshots if you are using a different IDE.
 
 Above we have seen the root structure of any Dart project, haven't we?
 
-So in our base, we see the following folders:
+So in our **base**, we see the following folders:
 
 ![Root folders for base](images/screenshots/root_base.png)
 
@@ -129,7 +130,8 @@ Which includes:
 | `dart`    | ![Files for add from Dart SDK base](images/screenshots/files_for_add_from_dart_sdk_base.png)       |
 | `flutter` | ![Files for add from Flutter SDK base](images/screenshots/files_for_add_from_flutter_sdk_base.png) |
 
-Yes, this is a project structure, SDKs, and our maintaned projects.
+This is a project structure, SDKs, and our (ok, mine) maintaned projects.
+
 All files in the folder `+` will be copied to each maintaned project.
 
 Take a look inside `id_gen` folder:
@@ -140,7 +142,7 @@ Take a look inside `id_gen` folder:
 
 As you see, we keep the same file structure as for any Dart project with additional folder `+README.md` (yes, it's a folder) and `+.yaml` file.
 
-Take a look at the file `id_gen/+/+.yaml` (a project tier):
+Take a look at the file `id_gen/+/+.yaml` (a **project** tier):
 
 ```yaml
 variables:
@@ -149,14 +151,14 @@ variables:
   project_title_for_readme: ID Generators
 ```
 
-... the file `dart/+/+.yaml` (an SDK tier):
+... the file `dart/+/+.yaml` (an **SDK** tier):
 
 ```yaml
 variables:
   workflow_file_name: dart-ci.yml
 ```
 
-... the file `./+/+.yaml` (a root tier):
+... the file `./+/+.yaml` (a **root** tier):
 
 ```yaml
 file_conflict_resolutions:
@@ -176,10 +178,10 @@ variables:
 Pay attention to `variables`: their values we can use in any other values. How? Just look at file `id_gen/+README.md/description.md`:
 
 ```md
-The standardized, easy-to-use, and [well-tested](https://github.com/signmotion/fresher/tree/master/test) set for generating IDs.
+The standardized, easy-to-use, and [well-tested](https://github.com/{owner_id}/{project_id}/tree/master/test) set for generating IDs.
 ```
 
-The `signmotion/fresher` part will be replaced by `signmotion/id_gen`, which was defined above in several `+.yaml` files.
+The `{owner_id}/{project_id}` part will be replaced by `signmotion/fresher`, which was defined above in several `+.yaml` files.
 
 We can even redefine `owner_website` as:
 
@@ -189,15 +191,13 @@ We can even redefine `owner_website` as:
   ...
 ```
 
-and the final value will be `https://syrokomskyi.com`.
+and the final value will be `syrokomskyi.com`.
 
 Just replace with your own _publisher-website-description_ and get your own basic structure for your own packages!
 
-You can add **any** names you want and use them in **any** files.
-
-**Any** depth of nesting will be addressed to the final content.
-
-The values of all variables and files with the same name will be replaced by those defined at a deeper tier.
+- You can add **any** names you want and use them in **any** files.
+- **Any** depth of nesting will be addressed to the final content.
+- The values of all variables and files with the same name will be replaced by those defined at a deeper tier.
 
 For example, your can define the contents of `./+/README.md` for all your own projects as follows:
 
@@ -205,9 +205,9 @@ For example, your can define the contents of `./+/README.md` for all your own pr
 
 Notice: The filename is the name of the variable.
 
-The [result](https://github.com/signmotion/id_gen/blob/master/README.md) after run **Fresher**.
+Running **Fresher** will produce [this result](https://github.com/signmotion/id_gen/blob/master/README.md).
 
-I've done this for my own projects, I'm using this for the new packages, and I'm [sharing this solution](https://github.com/signmotion/dart_flutter_fresher) with you. Welcome back from boring hell!
+I've done this for my own packages, I'm using this for the new projects, and I'm [sharing this solution](https://github.com/signmotion/dart_flutter_fresher) with you. Welcome back from boring hell!
 
 ### File Conflict Resolutions
 
@@ -249,7 +249,8 @@ The folder prefixed with `+` contains variables named the same as the files whos
 
 The file named `+.yaml` contains some (or many) variables with value.
 
-The value is a templated with [mustache syntactic](https://mustache.github.io) text. We can insert **any** variables defined in `+.yaml` files and `+` folders.
+The value is a templated with [mustache syntactic](https://mustache.github.io) text.
+We can utilize **any** variables defined in `+.yaml` files and `+` folders.
 
 In light of this, we can construct a hierarchy of **any** complexity.
 
@@ -292,7 +293,7 @@ dart bin/fresher.dart [flags] [options] ../path/to/project/bases
 --no-upgrade      Skip an upgrade dependencies.
 ```
 
-Clone [this package](https://github.com/signmotion/dart_flutter_fresher), construct own base, and run:
+Clone [this package](https://github.com/signmotion/dart_flutter_fresher), construct own **base**, and run:
 
 ```sh
 cls | dart ../fresher/bin/fresher.dart .
@@ -367,3 +368,5 @@ Once you start using the **Fresher**, it will become easy to choose the function
 It's just a habit of mine: writing down ideas that come to mind while working on a project. I confess that I rarely return to these notes. But now, hopefully, even if you don't have an idea yet, the above notes will help you choose the suitable "feature" and become a contributor to the open-source community.
 
 Created [with ❤️](https://syrokomskyi.com)
+
+[![fresher](https://img.shields.io/badge/maintained%20with-fresher-darkgreen.svg?style=for-the-badge)](https://github.com/signmotion/fresher)
