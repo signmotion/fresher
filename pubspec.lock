@@ -229,10 +229,10 @@ packages:
     dependency: "direct main"
     description:
       name: json_dart
-      sha256: "10173130a63519744d275f4ac5062f429c081ace6c4d125e5a6f426305843163"
+      sha256: "97ded4ea89d02fafbc4fb47826c37ac32ffcef95d57fea357a06c8542eae16fd"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.3"
+    version: "0.1.4"
   lints:
     dependency: "direct dev"
     description:
@@ -565,10 +565,10 @@ packages:
     dependency: "direct main"
     description:
       name: wfile
-      sha256: "522fbb53565232cbead6640bb8154fac7e322b24529ed4d827bea816a2c0142a"
+      sha256: "1c3bce1a3825db4c202317117e4e417ccf6763c717f6e09a63f31cda36ce7c86"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1"
+    version: "0.5.3"
   xml:
     dependency: transitive
     description:
