@@ -52,23 +52,23 @@ The purpose of the project Fresher is to _"keep packages up to date"_, so I wrot
 - [PublishTools](https://pub.dev/packages/publish_tools)
 - [Sidekick](https://github.com/phntmxyz/sidekick)
 
-|                             | Cider | Fresher | Melos | PublishTools | Sidekick |
-| --------------------------- | :---: | :-----: | :---: | :----------: | :------: |
-| Analyze Dart code           |       |         |  ✅   |      ✅      |    ✅    |
-| Commit to GitHub            |       |         |  ✅   |      ✅      |          |
-| Create `meta.dart`          |       |         |       |      ✅      |          |
-| Custom scripts              |       |         |  ✅   |      ✅      |    ✅    |
-| Format Dart code            |       |         |       |      ✅      |    ✅    |
-| Generate documentation      |       |         |       |      ✅      |          |
-| Git log output              |       |   ✅    |       |              |          |
-| Keep `CHANGELOG` up to date |  ✅   |         |  ✅   |      ✅      |    ✅    |
-| Keep `README` up to date    |       |   ✅    |       |      ✅      |          |
-| Keep other files up to date |       |   ✅    |       |              |          |
-| 📗 Monorepos                |  ✅   |   ✅    |  ✅   |      ✅      |    ✅    |
-| 📚 Multirepos               |  ✅   |   ✅    |       |      ✅      |    ✅    |
-| Publish to pub.dev          |       |         |  ✅   |      ✅      |          |
-| Setting version             |  ✅   |         |  ✅   |              |    ✅    |
-| Upgrade dependencies        |       |   ✅    |  ✅   |              |          |
+|                             | Cider | **Fresher** | Melos | PublishTools | Sidekick |
+| --------------------------- | :---: | :---------: | :---: | :----------: | :------: |
+| Analyze Dart code           |       |             |  ✅   |      ✅      |    ✅    |
+| Commit to GitHub            |       |             |  ✅   |      ✅      |          |
+| Create `meta.dart`          |       |             |       |      ✅      |          |
+| Custom scripts              |       |             |  ✅   |      ✅      |    ✅    |
+| Format Dart code            |       |             |       |      ✅      |    ✅    |
+| Generate documentation      |       |             |       |      ✅      |          |
+| Git log output              |       |     ✅      |       |              |          |
+| Keep `CHANGELOG` up to date |  ✅   |             |  ✅   |      ✅      |    ✅    |
+| Keep `README` up to date    |       |     ✅      |       |      ✅      |          |
+| Keep other files up to date |       |     ✅      |       |              |          |
+| 📗 Monorepos                |  ✅   |     ✅      |  ✅   |      ✅      |    ✅    |
+| 📚 Multirepos               |  ✅   |     ✅      |       |      ✅      |    ✅    |
+| Publish to pub.dev          |       |             |  ✅   |      ✅      |          |
+| Setting version             |  ✅   |             |  ✅   |              |    ✅    |
+| Upgrade dependencies        |       |     ✅      |  ✅   |              |          |
 
 I guess now you will be able to choose the right tool for your needs much faster.
 
@@ -122,7 +122,7 @@ So in our **base**, we see the following folders:
 
 Which includes:
 
-|                                        |                                                                                                    |
+| Folders                                |                                                                                                    |
 | -------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | `+`<br/>_files & folders to be copied_ | ![Files for add from root base](images/screenshots/files_for_add_from_root_base.png)               |
 | `dart`<br/>_projects on Dart_          | ![Files for add from Dart SDK base](images/screenshots/files_for_add_from_dart_sdk_base.png)       |
@@ -134,7 +134,7 @@ All files in the folder `+` will be copied to each maintaned project.
 
 Take a look inside `id_gen` folder:
 
-|                            |                                                                                                            |
+| Folder                     |                                                                                                            |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | `id_gen`<br/>_the project_ | ![Files for add from id_gen Dart SDK base](images/screenshots/files_for_add_from_id_gen_dart_sdk_base.png) |
 
@@ -224,7 +224,7 @@ file_conflict_resolutions:
 
 the `CHANGELOG.md` file is not replaced by the new version if it is already present in the project. Thus, using **Fresher** for your wonderful projects is safe.
 
-|                  |                                                          |
+| Resolutions      |                                                          |
 | ---------------- | -------------------------------------------------------- |
 | `doNotOverwrite` | A file will be skipped when present and added otherwise. |
 | `overwrite`      | A file will be overwrite.                                |
@@ -235,9 +235,9 @@ The default is `overwrite`.
 
 We have 3 tiers:
 
-1. Root.
-2. SDK.
-3. Project.
+1. **Root**.
+2. **SDK**.
+3. **Project**.
 
 In each tier, we declare our files, variables, and their values.
 
