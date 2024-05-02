@@ -122,11 +122,11 @@ So in our **base**, we see the following folders:
 
 Which includes:
 
-|                                    |                                                                                                    |
-| ---------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `+` _files & folders to be copied_ | ![Files for add from root base](images/screenshots/files_for_add_from_root_base.png)               |
-| `dart` _projects on Dart_          | ![Files for add from Dart SDK base](images/screenshots/files_for_add_from_dart_sdk_base.png)       |
-| `flutter` _projects on Flutter_    | ![Files for add from Flutter SDK base](images/screenshots/files_for_add_from_flutter_sdk_base.png) |
+|                                        |                                                                                                    |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `+`<br/>_files & folders to be copied_ | ![Files for add from root base](images/screenshots/files_for_add_from_root_base.png)               |
+| `dart`<br/>_projects on Dart_          | ![Files for add from Dart SDK base](images/screenshots/files_for_add_from_dart_sdk_base.png)       |
+| `flutter`<br/>_projects on Flutter_    | ![Files for add from Flutter SDK base](images/screenshots/files_for_add_from_flutter_sdk_base.png) |
 
 This is a project structure, SDKs, and our (ok, mine) maintaned projects.
 
@@ -134,9 +134,9 @@ All files in the folder `+` will be copied to each maintaned project.
 
 Take a look inside `id_gen` folder:
 
-|                        |                                                                                                            |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `id_gen` _the project_ | ![Files for add from id_gen Dart SDK base](images/screenshots/files_for_add_from_id_gen_dart_sdk_base.png) |
+|                            |                                                                                                            |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `id_gen`<br/>_the project_ | ![Files for add from id_gen Dart SDK base](images/screenshots/files_for_add_from_id_gen_dart_sdk_base.png) |
 
 As you see, we keep the same file structure as for any Dart project with additional folder `+README.md` (yes, it's a folder) and `+.yaml` file.
 
@@ -243,7 +243,7 @@ In each tier, we declare our files, variables, and their values.
 
 Deeper tier definitions replace variables and files with the same name.
 
-The folder named `+` contains the files and folders to be added.
+The folder named `+` contains files and folders that will be added to maintained projects.
 
 The folder prefixed with `+` contains variables named the same as the files whose contents are their values.
 
@@ -252,7 +252,7 @@ The file named `+.yaml` contains some (or many) variables with values.
 The value is templated with [mustache syntactic](https://mustache.github.io) text.
 We can utilize **any** variables defined in `+.yaml` files and `+` folders.
 
-In light of this, we can construct a hierarchy of **any** complexity.
+In light of this, we (you) can construct a hierarchy of **any** complexity.
 
 ## 🤝 Who is Using Fresher
 
