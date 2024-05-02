@@ -35,13 +35,13 @@ I just wanted to show in the `README`s of my packages how to contribute to open-
 
 After seeing the shields in other packages (thanks for that, guys and gals) and wanting to add them to my packages too... And this time I did it by hand.
 
-One sunny aftenoon I read on Reddit that people are looking for projects to help the open-source community, and I read in the comments about [CodeTriangle](https://codetriage.com) - Free community tools for contributing... And that time I did it by hand for some of my packages.
+One sunny afternoon I read on Reddit that people are looking for projects to help the open-source community, and I read in the comments about [CodeTriangle](https://codetriage.com) - Free community tools for contributing... And that time I did it by hand for some of my packages.
 
 When I came across resources like [The ultimate Flutter resources](https://github.com/yassine-bennkhay/Ultimate-Flutter-Resources) and [Learn Dart in Y minutes](https://learnxinyminutes.com/docs/dart), I wanted to add them too because both Dart and Flutter are really 🌟 awesome.
 
 More packages were added, and more time was spent on updating them. Should I go on?
 
-Honestly, I didn't want to create this package because I realize the complexity and I [heard](https://reddit.com/r/dartlang/comments/1bzltni/a_build_system_for_dozens_of_flutter_dart_projects): "Melos / Cider / Publish Tools / Sideckick will solve your problems with Dart / Flutter package maintenance". I spent ~2 weeks researching the available tools and I've tabulated my research below.
+Honestly, I didn't want to create this package because I realized the complexity and I [heard](https://reddit.com/r/dartlang/comments/1bzltni/a_build_system_for_dozens_of_flutter_dart_projects): "Melos / Cider / Publish Tools / Sidekick will solve your problems with Dart / Flutter package maintenance". I spent ~2 weeks researching the available tools and I've tabulated my research below.
 
 ## 📊 Research
 
@@ -82,7 +82,7 @@ The **Fresher** has significant differences from researched products:
 2. **Freedom to choose the structure and variables for your projects**.
    Below I'll show you what I chose, but my solution is not the only possible one.
 
-And it can do:
+It can do the following:
 
 1. Updates any folders and files from **3 tiers** - root, sdk and project - inheriting changes.
 
@@ -191,13 +191,13 @@ We can even redefine `owner_website` as:
 
 and the final value will be `syrokomskyi.com`.
 
-Just replace with your own _publisher-website-description_ and get your own basic structure for your own packages!
+Just replace it with your own _publisher-website-description_ and get your basic structure for your packages!
 
 - You can add **any** names you want and use them in **any** files.
 - **Any** depth of nesting will be addressed to the final content.
 - The values of all variables and files with the same name will be replaced by those defined at a deeper tier.
 
-For example, your can define the contents of `./+/README.md` for all your own projects as follows:
+For example, you can define the contents of `./+/README.md` for all your projects as follows:
 
 ![README file from root base](images/screenshots/readme_md_from_root_base.png)
 
@@ -205,7 +205,7 @@ Notice: The filename is the name of the variable.
 
 Running **Fresher** will produce [this result](https://github.com/signmotion/id_gen/blob/master/README.md).
 
-I've done this for my own packages, I'm using this for the new projects, and I'm [sharing this solution](https://github.com/signmotion/dart_flutter_fresher) with you. Welcome back from boring hell!
+I've done this for my packages, I'm using this for the new projects, and I'm [sharing this solution](https://github.com/signmotion/dart_flutter_fresher) with you. Welcome back from boring hell!
 
 ### File Conflict Resolutions
 
@@ -227,7 +227,7 @@ the `CHANGELOG.md` file is not replaced by the new version if it is already pres
 | `doNotOverwrite` | A file will be skipped when present and added otherwise. |
 | `overwrite`      | A file will be overwrite.                                |
 
-Default is `overwrite`.
+The default is `overwrite`.
 
 ### Summary
 
@@ -237,17 +237,17 @@ We have 3 tiers:
 2. SDK.
 3. Project.
 
-In each tier we declare own files, variables and its values.
+In each tier, we declare our files, variables, and their values.
 
-Variables and files with the same name are replaced by deeper tier definitions.
+Deeper tier definitions replace variables and files with the same name.
 
 The folder named `+` contains the files and folders to be added.
 
 The folder prefixed with `+` contains variables named the same as the files whose contents are their values.
 
-The file named `+.yaml` contains some (or many) variables with value.
+The file named `+.yaml` contains some (or many) variables with values.
 
-The value is a templated with [mustache syntactic](https://mustache.github.io) text.
+The value is templated with [mustache syntactic](https://mustache.github.io) text.
 We can utilize **any** variables defined in `+.yaml` files and `+` folders.
 
 In light of this, we can construct a hierarchy of **any** complexity.
@@ -287,8 +287,8 @@ dart bin/fresher.dart [flags] [options] ../path/to/project/bases
 --projects        Project IDs to update. If empty, all known projects will be updated.
 --leave-spaces    All spaces at the ends will be preserved.
 --no-changes      Leave destination files without changes: just a log output.
---no-git-logs     Skip a fetch git logs.
---no-upgrade      Skip an upgrade dependencies.
+--no-git-logs     Skip the fetching git logs.
+--no-upgrade      Skip updating dependencies.
 ```
 
 Clone [this package](https://github.com/signmotion/dart_flutter_fresher), construct own **base**, and run:
