@@ -254,6 +254,24 @@ We can utilize **any** variables defined in `+.yaml` files and `+` folders.
 
 In light of this, we (you) can construct a hierarchy of **any** complexity.
 
+We create an external folder (call it the "base project") and put this folder in the **same** folder where all our packages are located. Then we run in CLI from the "base project"
+
+```sh
+cls | dart ../fresher/bin/fresher.dart .
+```
+
+to upgrade all projects or
+
+```sh
+cls | dart ../fresher/bin/fresher.dart --projects id_gen,title_widget .
+```
+
+to upgrade only the `id_gen` and `title_widget` projects. Of course, replace with your good project names.
+
+I'm sharing [my "base project"](https://github.com/signmotion/dart_flutter_fresher). Just clone it and create your own **base** for your packages.
+
+Notice a limitation: all maintained projects must be placed in the same folder as `fresher`.
+
 ## 🤝 Who is Using Fresher
 
 When you start using Fresher in **your** projects, let me know and I'd be happy to help you with it.
@@ -294,14 +312,6 @@ dart bin/fresher.dart [flags] [options] ../path/to/project/bases
 --no-git-logs     Skip the fetching git logs.
 --no-upgrade      Skip updating dependencies.
 ```
-
-Clone [this package](https://github.com/signmotion/dart_flutter_fresher), construct own **base**, and run:
-
-```sh
-cls | dart ../fresher/bin/fresher.dart .
-```
-
-Notice a limitation: all maintained projects must be placed in the same folder as `fresher`.
 
 ## 📜 Log Output
 
