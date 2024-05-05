@@ -106,7 +106,7 @@ And it has limitation:
 
 ## 🚀 Usage
 
-Please, read the **Feautures** above before reading **Usage**.
+Please, read the **Features** above before reading **Usage**.
 
 Let's take a look at this folder structure:
 
