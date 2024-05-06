@@ -3,6 +3,10 @@
 All notable changes to the project `Fresher` will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.1.4
+
+- Enhanced `README`.
+
 ## 0.1.3
 
 - Clarification for the `README` **Usage** section.
