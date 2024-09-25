@@ -282,18 +282,18 @@ Badge for `README` if you want to support **Fresher**:
 
 ### Style 1
 
-[![fresher](https://img.shields.io/badge/maintained%20using-fresher-darkgreen.svg?style=for-the-badge)](https://github.com/signmotion/fresher)
+[![fresher](https://img.shields.io/badge/maintained%20using-fresher-darkgreen.svg?style=for-the-badge)](https://github.com/signmotion/fresher "Keeps Projects Up to Date")
 
 ```md
-[![fresher](https://img.shields.io/badge/maintained%20using-fresher-darkgreen.svg?style=for-the-badge)](https://github.com/signmotion/fresher)
+[![fresher](https://img.shields.io/badge/maintained%20using-fresher-darkgreen.svg?style=for-the-badge)](https://github.com/signmotion/fresher "Keeps Projects Up to Date")
 ```
 
 ### Style 2
 
-[![fresher](https://img.shields.io/badge/maintained%20using-fresher-darkgreen.svg)](https://github.com/signmotion/fresher)
+[![fresher](https://img.shields.io/badge/maintained%20using-fresher-darkgreen.svg)](https://github.com/signmotion/fresher "Keeps Projects Up to Date")
 
 ```md
-[![fresher](https://img.shields.io/badge/maintained%20using-fresher-darkgreen.svg)](https://github.com/signmotion/fresher)
+[![fresher](https://img.shields.io/badge/maintained%20using-fresher-darkgreen.svg)](https://github.com/signmotion/fresher "Keeps Projects Up to Date")
 ```
 
 ## ⚡ Commands
