@@ -42,8 +42,8 @@ Future<void> main() async {
 
       final (newContent, upgraded, skipped) = await pubspec.upgraded;
       expect(newContent, isNot(equals(content)));
-      expect(upgraded.length, 2, reason: upgraded.sjson);
-      expect(skipped.length, 2, reason: skipped.sjson);
+      expect(upgraded.length, 3, reason: upgraded.sjson);
+      expect(skipped.length, 1, reason: skipped.sjson);
     });
   });
 }
